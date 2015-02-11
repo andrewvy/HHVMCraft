@@ -1,8 +1,7 @@
 <?php
 
 namespace HHVMCraft\Core\Networking;
-
-require 'Client.php';
+use HHVMCraft\Core\Networking\Client;
 
 class MultiplayerServer {
 	public $connectCb;
@@ -17,7 +16,7 @@ class MultiplayerServer {
 		$this->eventBase = event_base_new();
 		$this->acceptCb = function($req, $events, $server) {
 			$socket = stream_socket_accept($req);
-			$client = new \HHVMCraft\Core\Networking\Client($socket, $server);
+			$client = new Client($socket, $server);
 			$this->Clients.push($client);
 			$cb = $this->connectCb;
 			if ($cb) {
@@ -46,6 +45,6 @@ class MultiplayerServer {
 		event_add($event);
 		event_base_loop($this->eventBase);		
 
-		echo "Listening on address: " + $this->address + ":" + $port;
+		Print " >> Listening on address: " + $this->address + ":" + $port;
 	}
 }

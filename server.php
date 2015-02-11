@@ -1,13 +1,13 @@
 <?php
 
-require 'HHVMCraft.Core/Networking/MultiplayerServer.php';
+use HHVMCraft\Core\Networking\MultiplayerServer;
 
-print " >> Starting Server..";
+print " >> Starting Server";
 
-$server = new \HHVMCraft\Core\Networking\MultiplayerServer($addr);
+$server = new MultiplayerServer($addr);
 
 $server->start(25565);
 
 $server->onConnect = function ($client) {
-	echo "GOT CLIENT";
+	print " >> GOT CLIENT";
 };
