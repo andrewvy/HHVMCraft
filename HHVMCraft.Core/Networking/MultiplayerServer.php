@@ -3,48 +3,42 @@
 namespace HHVMCraft\Core\Networking;
 use HHVMCraft\Core\Networking\Client;
 
-class MultiplayerServer {
+require "vendor/autoload.php";
+use Evenement\EventEmitter;
+use React\Socket\Server;
+
+class MultiplayerServer extends EventEmitter {
 	public $connectCb;
-	public $sock;
 	public $address;
 	public $eventBase;
 	public $acceptCb;
-	public $Clients;
+	public $Clients = [];
 
-	function __construct($address) {
+	public $loop;
+	public $socket;
+
+	public function __construct($address) {
 		$this->address = $address;
-		$this->eventBase = event_base_new();
-		$this->acceptCb = function($req, $events, $server) {
-			$socket = stream_socket_accept($req);
-			$client = new Client($socket, $server);
-			$this->Clients.push($client);
-			$cb = $this->connectCb;
-			if ($cb) {
-				$cb($client);
-			};
-		};
+		$this->loop = \React\EventLoop\Factory::create();
+		$this->socket = new Server($this->loop);
 	}
 
-	public function onConnect($func) {
-		$this->connectCb = $func;
+	public function acceptClient($client) {
+		array_push($this->Clients, $client);
 	}
 
 	public function start($port) {
-		$this->sock = stream_socket_server($this->address);
-		$event = event_new();
+		$this->socket->on('connection', function($client) {
+			echo " >> New Connection";
+			
+			$this->acceptClient($client);
+			socket_write($client->stream,"Hello world!");
+			$client->close();
+		});
 		
-		event_set(
-			$event,
-			$this->sock,
-			EV_READ|EV_PERSIST,
-			$this->acceptCb,
-			$this
-		);
-
-		event_base_set($event, $this->eventBase);
-		event_add($event);
-		event_base_loop($this->eventBase);		
-
-		Print " >> Listening on address: " + $this->address + ":" + $port;
+		$this->socket->listen($port);
+		$this->loop->run();
+		
+		echo " >> Listening on address: " + $this->address + ":" + $port;
 	}
 }

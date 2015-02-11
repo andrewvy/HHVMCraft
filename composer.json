@@ -1,0 +1,14 @@
+{
+    "name": "root/hhvmcraft",
+    "description": "A Minecraft Beta 1.7.3 Server Implementation",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Vy",
+            "email": "andrew@andrewvy.com"
+        }
+    ],
+    "require": {
+        "react/react": "0.4.*"
+    }
+}
