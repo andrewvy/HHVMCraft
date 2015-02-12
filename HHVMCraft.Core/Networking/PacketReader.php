@@ -8,11 +8,11 @@ use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
 
 
-class PackerReader {
+class PacketReader {
 	
-	$protocol_version;
-	$ServerboundPackets = [];
-	$ClientboundPackets = [];
+	public $protocol_version;
+	public $ServerboundPackets = [];
+	public $ClientboundPackets = [];
 
 	public function __construct($protocol_version=14) {
 		$this->protocol_version = $protocol_version;
@@ -20,83 +20,83 @@ class PackerReader {
 
 	public function registerPackets() {
 		// Register new packet type. type: packet, serverbound: bool, clientbound: bool.
-		$this->registerPacketType(KeepAlivePacket, true, false);
-		$this->registerPacketType(LoginRequestPacket, false, true);
-		$this->registerPacketType(LoginResponsePacket, true, false);
-		$this->registerPacketType(HandshakePacket, true, false);
-		$this->registerPacketType(HandshakeResponsePacket, false, true);
-		$this->registerPacketType(ChatMessagePacket);
-		$this->registerPacketType(TimeUpdatePacket, false, true);
-		$this->registerPacketType(EntityEquipmentPacket, false, true);
-		$this->registerPacketType(SpawnPositionPacket, true, false);
-		$this->registerPacketType(UseEntityPacket, true, false);
-		$this->registerPacketType(UpdateHealthPacket, false, true);
-		$this->registerPacketType(RespawnPacket);
-		$this->registerPacketType(PlayerGroundedPacket, true, false);
-		$this->registerPacketType(PlayerPositionPacket, true, false);
-		$this->registerPacketType(PlayerLookPacket, true, false);
-		$this->registerPacketType(PlayerPositionAndLookPacket, true, false);
-		$this->registerPacketType(SetPlayerPositionPacket, false, true);
-		$this->registerPacketType(PlayerDiggingPacket, true, false);
-		$this->registerPacketType(PlayerBlockPlacementPacket, true, false);
-		$this->registerPacketType(ChangeHeldItemPacket, true, false);
-		$this->registerPacketType(UseBedPacket, false, true);
-		$this->registerPacketType(AnimationPacket);
-		$this->registerPacketType(PlayerActionPacket, true, false);
-		$this->registerPacketType(SpawnPlayerPacket, false, true);
-		$this->registerPacketType(SpawnItemPacket, false, true);
-		$this->registerPacketType(CollectItemPacket, false, true);
-		$this->registerPacketType(SpawnGenericEntityPacket, false, true);
-		$this->registerPacketType(SpawnMobPacket, false, true);
-		$this->registerPacketType(SpawnPaintingPacket, false, true);
-
-		$this->registerPacketType(EntityVelocityPacket, false, true);
-		$this->registerPacketType(DestroyEntityPacket, false, true);
-		$this->registerPacketType(UselessEntityPacket, false, true);
-		$this->registerPacketType(EntityRelativeMovePacket, false, true);
-		$this->registerPacketType(EntityLookPacket, false, true);
-		$this->registerPacketType(EntityLookAndRelativeMovePacket, false, true);
-		$this->registerPacketType(EntityTeleportPacket, false, true);
-
-		$this->registerPacketType(EntityStatusPacket, false, true);
-		$this->registerPacketType(AttachEntityPacket, false, true);
-		$this->registerPacketType(EntityMetadataPacket, false, true);
-
-		$this->registerPacketType(ChunkPreamblePacket, false, true);
-		$this->registerPacketType(ChunkDataPacket, false, true);
-		$this->registerPacketType(BulkBlockChangePacket, false, true);
-		$this->registerPacketType(BlockChangePacket, false, true);
-		$this->registerPacketType(BlockActionPacket, false, true);
-
-		$this->registerPacketType(ExplosionPacket, false, true);
-		$this->registerPacketType(SoundEffectPacket, false, true);
-
-		$this->registerPacketType(EnvironmentStatePacket, false, true);
-		$this->registerPacketType(LightningPacket, false, true);
-			
-		$this->registerPacketType(OpenWindowPacket, false, true);
-		$this->registerPacketType(CloseWindowPacket);
-		$this->registerPacketType(ClickWindowPacket, true, false);
-		$this->registerPacketType(SetSlotPacket, false, true);
-		$this->registerPacketType(WindowItemsPacket, false, true);
-		$this->registerPacketType(UpdateProgressPacket, false, true);
-		$this->registerPacketType(TransactionStatusPacket, false, true);
-
-		$this->registerPacketType(UpdateSignPacket);
-		$this->registerPacketType(MapDataPacket, false, true);
-
-		$this->registerPacketType(UpdateStatisticPacket, false, true);
-	
-		$this->registerPacketType(DisconnectPacket);
+		$this->registerPacketType(Packets\KeepAlivePacket, true, false);
+		$this->registerPacketType(Packets\LoginRequestPacket, false, true);
+		$this->registerPacketType(Packets\LoginResponsePacket, true, false);
+		$this->registerPacketType(Packets\HandshakePacket, true, false);
+		$this->registerPacketType(Packets\HandshakeResponsePacket, false, true);
+#		$this->registerPacketType(Packets\ChatMessagePacket);
+#		$this->registerPacketType(Packets\TimeUpdatePacket, false, true);
+#		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
+#		$this->registerPacketType(Packets\SpawnPositionPacket, true, false);
+#		$this->registerPacketType(Packets\UseEntityPacket, true, false);
+#		$this->registerPacketType(Packets\UpdateHealthPacket, false, true);
+#		$this->registerPacketType(Packets\RespawnPacket);
+#		$this->registerPacketType(Packets\PlayerGroundedPacket, true, false);
+#		$this->registerPacketType(Packets\PlayerPositionPacket, true, false);
+#		$this->registerPacketType(Packets\PlayerLookPacket, true, false);
+#		$this->registerPacketType(Packets\PlayerPositionAndLookPacket, true, false);
+#		$this->registerPacketType(Packets\SetPlayerPositionPacket, false, true);
+#		$this->registerPacketType(Packets\PlayerDiggingPacket, true, false);
+#		$this->registerPacketType(Packets\PlayerBlockPlacementPacket, true, false);
+#		$this->registerPacketType(Packets\ChangeHeldItemPacket, true, false);
+#		$this->registerPacketType(Packets\UseBedPacket, false, true);
+#		$this->registerPacketType(Packets\AnimationPacket);
+#		$this->registerPacketType(Packets\PlayerActionPacket, true, false);
+#		$this->registerPacketType(Packets\SpawnPlayerPacket, false, true);
+#		$this->registerPacketType(Packets\SpawnItemPacket, false, true);
+#		$this->registerPacketType(Packets\CollectItemPacket, false, true);
+#		$this->registerPacketType(Packets\SpawnGenericEntityPacket, false, true);
+#		$this->registerPacketType(Packets\SpawnMobPacket, false, true);
+#		$this->registerPacketType(Packets\SpawnPaintingPacket, false, true);
+#
+#		$this->registerPacketType(Packets\EntityVelocityPacket, false, true);
+#		$this->registerPacketType(Packets\DestroyEntityPacket, false, true);
+#		$this->registerPacketType(Packets\UselessEntityPacket, false, true);
+#		$this->registerPacketType(Packets\EntityRelativeMovePacket, false, true);
+#		$this->registerPacketType(Packets\EntityLookPacket, false, true);
+#		$this->registerPacketType(Packets\EntityLookAndRelativeMovePacket, false, true);
+#		$this->registerPacketType(Packets\EntityTeleportPacket, false, true);
+#
+#		$this->registerPacketType(Packets\EntityStatusPacket, false, true);
+#		$this->registerPacketType(Packets\AttachEntityPacket, false, true);
+#		$this->registerPacketType(Packets\EntityMetadataPacket, false, true);
+#
+#		$this->registerPacketType(Packets\ChunkPreamblePacket, false, true);
+#		$this->registerPacketType(Packets\ChunkDataPacket, false, true);
+#		$this->registerPacketType(Packets\BulkBlockChangePacket, false, true);
+#		$this->registerPacketType(Packets\BlockChangePacket, false, true);
+#		$this->registerPacketType(Packets\BlockActionPacket, false, true);
+#
+#		$this->registerPacketType(Packets\ExplosionPacket, false, true);
+#		$this->registerPacketType(Packets\SoundEffectPacket, false, true);
+#
+#		$this->registerPacketType(Packets\EnvironmentStatePacket, false, true);
+#		$this->registerPacketType(Packets\LightningPacket, false, true);
+#			
+#		$this->registerPacketType(Packets\OpenWindowPacket, false, true);
+#		$this->registerPacketType(Packets\CloseWindowPacket);
+#		$this->registerPacketType(Packets\ClickWindowPacket, true, false);
+#		$this->registerPacketType(Packets\SetSlotPacket, false, true);
+#		$this->registerPacketType(Packets\WindowItemsPacket, false, true);
+#		$this->registerPacketType(Packets\UpdateProgressPacket, false, true);
+#		$this->registerPacketType(Packets\TransactionStatusPacket, false, true);
+#
+#		$this->registerPacketType(Packets\UpdateSignPacket);
+#		$this->registerPacketType(Packets\MapDataPacket, false, true);
+#
+#		$this->registerPacketType(Packets\UpdateStatisticPacket, false, true);
+#	
+#		$this->registerPacketType(Packets\DisconnectPacket);
 	}
 	
 	public function registerPacketType($type, $serverbound=true, $clientbound=true) {
 		if ($serverbound) {
-			$this->ServerboundPackets[$type::id]);
+			$this->ServerboundPackets[$type::id];
 		}
 		if ($clientbound) {
-			$this->ClientboundPackets[$type::id]);
+			$this->ClientboundPackets[$type::id];
 		}
 	}
-
+	
 }
