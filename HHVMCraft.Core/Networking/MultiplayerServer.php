@@ -3,20 +3,15 @@
 namespace HHVMCraft\Core\Networking;
 
 require "vendor/autoload.php";
-require "HHVMCraft.Core/Helpers/HexDump.php";
 
 use HHVMCraft\Core\Networking\Client;
 use Evenement\EventEmitter;
 use React\Socket\Server;
-use HHVMCraft\Core\Helpers\Hex;
-
 
 class MultiplayerServer extends EventEmitter {
-	public $connectCb;
 	public $address;
-	public $eventBase;
-	public $acceptCb;
 	public $Clients = [];
+	public $PacketHandlers = [];
 
 	public $loop;
 	public $socket;
@@ -27,19 +22,15 @@ class MultiplayerServer extends EventEmitter {
 		$this->socket = new Server($this->loop);
 	}
 
-	public function acceptClient($client) {
-		array_push($this->Clients, $client);
+	public function acceptClient($connection) {
+		array_push($this->Clients, new Client($connection->stream));
 	}
 
 	public function start($port) {
-		$this->socket->on('connection', function($client) {
+		$this->socket->on('connection', function($connection) {
 			echo " >> New Connection \n";
 			
-			$this->acceptClient($client);	
-			$client->on('data', function($data) use ($client) {
-				Hex::dump($data);
-				socket_write($client->stream, 0x02FF0106);
-			});
+			$this->acceptClient($connection);	
 		});
 		
 		$this->socket->listen($port);
@@ -48,5 +39,7 @@ class MultiplayerServer extends EventEmitter {
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
 	}
 
-
+	public function registerPacketHandlers($id, $handler) {
+		$this->PacketHandlers[$id] = $handler
+	}
 }
