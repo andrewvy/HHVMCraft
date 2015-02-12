@@ -1,14 +1,15 @@
 <?php
 
 namespace HHVMCraft\Core\Networking;
-use HHVMCraft\Core\Networking\Connection;
 
 class Client {
 	public $server;
 	public $stream;
 	public $buffer;
+
 	public $writeBuffer;
-	public $write_pending;
+	public $readArray = [];
+	public $offset;
 
 	public $lastSuccessfulPacket;
 
@@ -29,4 +30,5 @@ class Client {
 		$this->write_pending = false;
 		socket_write($this->stream, $this->writeBuffer)
 	}
+
 }

@@ -3,10 +3,10 @@
 namespace HHVMCraft\Core\Networking;
 
 require "HHVMCraft.Core/Helpers/HexDump.php";
+require "HHVMCraft.Core/Networking/Packets/KeepAlivePacket.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
-
 
 class PacketReader {
 	
@@ -21,10 +21,10 @@ class PacketReader {
 	public function registerPackets() {
 		// Register new packet type. type: packet, serverbound: bool, clientbound: bool.
 		$this->registerPacketType(Packets\KeepAlivePacket, true, false);
-		$this->registerPacketType(Packets\LoginRequestPacket, false, true);
-		$this->registerPacketType(Packets\LoginResponsePacket, true, false);
-		$this->registerPacketType(Packets\HandshakePacket, true, false);
-		$this->registerPacketType(Packets\HandshakeResponsePacket, false, true);
+		$this->registerPacketType(\Packets\LoginRequestPacket, false, true);
+		$this->registerPacketType(\Packets\LoginResponsePacket, true, false);
+		$this->registerPacketType(\Packets\HandshakePacket, true, false);
+		$this->registerPacketType(\Packets\HandshakeResponsePacket, false, true);
 #		$this->registerPacketType(Packets\ChatMessagePacket);
 #		$this->registerPacketType(Packets\TimeUpdatePacket, false, true);
 #		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
@@ -98,5 +98,16 @@ class PacketReader {
 			$this->ClientboundPackets[$type::id];
 		}
 	}
-	
+
+	public function readPacket($data, $client, $serverbound=true) {
+		$id = $this->readUInt8($data, $client);
+	}
+
+	public function readBytes($data, $client) {
+		
+	}
+
+	public function readUInt8($data, $client) {
+						
+	}	
 }
