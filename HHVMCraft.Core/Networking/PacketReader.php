@@ -99,15 +99,15 @@ class PacketReader {
 		}
 	}
 
-	public function readPacket($data, $client, $serverbound=true) {
-		$id = $this->readUInt8($data, $client);
+	public function readPacket($data, &$client, $serverbound=true) {
+		$id = $this->readUInt8(&$data, &$client);
 	}
 
-	public function readBytes($data, $client) {
+	public function readBytes($data, &$client) {
 		
 	}
 
-	public function readUInt8($data, $client) {
-						
+	public function readUInt8($data, &$client) {
+		
 	}	
 }

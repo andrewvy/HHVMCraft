@@ -5,6 +5,7 @@ namespace HHVMCraft\Core\Networking;
 require "vendor/autoload.php";
 require "HHVMCraft.Core/Networking/PacketReader.php";
 require "HHVMCraft.Core/Networking/PacketHandler.php";
+require "HHVMCraft.Core/Networking/Client.php";
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
@@ -33,15 +34,15 @@ class MultiplayerServer extends EventEmitter {
 		// PacketHandler::registerHandlers($this);
 	}
 
-	public function acceptClient($connection) {
-		array_push($this->Clients, new Client($connection->stream));
+	public function acceptClient(&$connection) {
+		array_push($this->Clients, new Client(&$connection));
 	}
 
 	public function start($port) {
 		$this->socket->on('connection', function($connection) {
 			echo " >> New Connection \n";
 			
-			$this->acceptClient($connection);	
+			$this->acceptClient(&$connection);	
 		});
 		
 		$this->socket->listen($port);
