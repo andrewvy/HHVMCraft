@@ -2,6 +2,10 @@
 
 namespace HHVMCraft\Core\Networking;
 
+require "HHVMCraft.Core/Helpers/HexDump.php";
+
+use HHVMCraft\Core\Helpers\Hex;
+
 class StreamWrapper {
 	public $stream;
 	public $streamBuffer = [];
@@ -36,7 +40,7 @@ class StreamWrapper {
 	// UINT16: 0x0000
 
 	public function readUInt16() {
-		return pack("h*",$this->readUInt8().$this->readUInt8());
+		return pack("H*",$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeUInt16($data) {
@@ -46,7 +50,7 @@ class StreamWrapper {
 	// INT: 0x0000 0x0000
 	
 	public function readInt() {
-		return pack("h*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
+		return pack("H*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeInt($data) {
@@ -56,7 +60,7 @@ class StreamWrapper {
 	// LONG: 0x0000 0x0000 0x0000 0x0000
 	
 	public function readLong() {
-		return pack("h*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
+		return pack("H*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeLong($data) {
@@ -67,9 +71,11 @@ class StreamWrapper {
 	// UCS-2 encoding, big endian, U+0000 U+0000 ....
 
 	public function readString16() {
-		$l = hexdec($this->readUInt16());
-		for	($i=0; $i<$l; $i++) {
-			$str = $str + $this->readUInt16();
+		$l = $this->readUInt16();
+		$str = "";
+
+		for	($i=0; $i<6; $i++) {
+			$str = $str.$this->readUInt16();
 		}
 		
 		if (strlen($str) > 0) {
