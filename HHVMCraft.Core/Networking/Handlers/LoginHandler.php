@@ -2,13 +2,19 @@
 
 namespace HHVMCraft\Core\Networking\Handlers;
 
+require "HHVMCraft.Core/Networking/Packets/HandshakeResponsePacket.php";
+require "HHVMcraft.Core/Networking/Packets/LoginResponsePacket.php";
+
+use HHVMCraft\Core\Networking\Packets;
+
 class LoginHandler {
 
-	public function HandleHandshakePacket($packet, $client, $server) {
-	
+	public static function HandleHandshakePacket($packet, $client, $server) {
+		$client->username = $packet->username;
+		$client->enqueuePacket(new Packets\HandshakeResponsePacket("-"));
 	}
 
-	public function HandleLoginRequestPacket($packet, $client, $server) {
-	
+	public static function HandleLoginRequestPacket($packet, $client, $server) {
+		// new Packets\LoginResponsePacket("----");	
 	}
 }

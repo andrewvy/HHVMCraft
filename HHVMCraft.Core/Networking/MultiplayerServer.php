@@ -6,10 +6,12 @@ require "vendor/autoload.php";
 require "HHVMCraft.Core/Networking/PacketReader.php";
 require "HHVMCraft.Core/Networking/PacketHandler.php";
 require "HHVMCraft.Core/Networking/Client.php";
+require "HHVMCraft.Core/Networking/Handlers/LoginHandler.php";
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
 use HHVMCraft\Core\Networking\PacketHandler;
+use HHVMCraft\Core\Networking\Handlers;
 
 use Evenement\EventEmitter;
 use React\Socket\Server;
@@ -59,7 +61,7 @@ class MultiplayerServer extends EventEmitter {
 		$packet = $this->PacketReader->readPacket($client);
 		if ($packet) {
 			if ($this->PacketHandlers[$packet::id]) {
-				call_user_func($this->PacketHandlers[$packet::id], $packet);
+				call_user_func(__NAMESPACE__.$this->PacketHandlers[$packet::id], $packet);
 			} else {
 				echo " >> No handler for packet ID: ".$packet::id."\n";
 			}
