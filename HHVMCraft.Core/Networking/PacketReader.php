@@ -24,11 +24,11 @@ class PacketReader {
 
 	public function registerPackets() {
 		// Register new packet type. type: packet, serverbound: bool, clientbound: bool.
-		$this->registerPacketType(new Packets\KeepAlivePacket, true, false);
-		$this->registerPacketType(new Packets\LoginRequestPacket, false, true);
-		$this->registerPacketType(new Packets\LoginResponsePacket, true, false);
-		$this->registerPacketType(new Packets\HandshakePacket, true, false);
-		$this->registerPacketType(new Packets\HandshakeResponsePacket, false, true);
+		$this->registerPacketType('Packets\KeepAlivePacket', true, false);
+		$this->registerPacketType('Packets\LoginRequestPacket', false, true);
+		$this->registerPacketType('Packets\LoginResponsePacket', true, false);
+		$this->registerPacketType('Packets\HandshakePacket', true, false);
+		$this->registerPacketType('Packets\HandshakeResponsePacket', false, true);
 /*		$this->registerPacketType(Packets\ChatMessagePacket);
 		$this->registerPacketType(Packets\TimeUpdatePacket, false, true);
 		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
@@ -97,10 +97,10 @@ class PacketReader {
 	
 	public function registerPacketType($type, $serverbound=true, $clientbound=true) {
 		if ($serverbound) {
-			$this->ServerboundPackets[$type::id] = $type;
+			$this->ServerboundPackets[constant('HHVMCraft\Core\Networking\\'.$type.'::id')] = $type;
 		}
 		if ($clientbound) {
-			$this->ClientboundPackets[$type::id] = $type;
+			$this->ClientboundPackets[constant('HHVMCraft\Core\Networking\\'.$type.'::id')] = $type;
 		}
 	}
 
@@ -116,7 +116,12 @@ class PacketReader {
 		}
 
 		if ($type == null) {
-			throw new Exception("Unable to read packet ID: 0x".pack('C*', $id));
+			Hex::dump($id);
+			throw new Exception("Unable to read packet ID");
 		}
+
+		$packet = new $type;
+		$packet->readPacket($stream);
+		return $packet;
 	}
 }
