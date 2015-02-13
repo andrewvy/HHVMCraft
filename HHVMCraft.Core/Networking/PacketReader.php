@@ -123,4 +123,10 @@ class PacketReader {
 		$packet->readPacket($client->streamWrapper);
 		return $packet;
 	}
+
+	public function writePacket($packet, $client) {
+		if ($packet->writePacket($client->streamWrapper) == false) {
+			$client->enqueuePacket($packet);
+		}	
+	}
 }

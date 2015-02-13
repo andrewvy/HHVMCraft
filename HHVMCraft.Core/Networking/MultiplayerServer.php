@@ -24,6 +24,8 @@ class MultiplayerServer extends EventEmitter {
 	public $socket;
 	public $PacketReader;
 
+	public $tickRate = 0.05;
+
 	public function __construct($address) {
 		$this->address = $address;
 		$this->loop = \React\EventLoop\Factory::create();
@@ -47,6 +49,9 @@ class MultiplayerServer extends EventEmitter {
 		});
 		
 		$this->socket->listen($port);
+		$this->loop->addPeriodicTimer($this->tickRate, function() {
+			$this->gameLoop();
+		});
 		$this->loop->run();
 		
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
@@ -61,4 +66,12 @@ class MultiplayerServer extends EventEmitter {
 		}
 	}
 
+	public function gameLoop() {
+		foreach ($this->Clients as &$Client) {
+			while ($Client->PacketQueueCount > 0) {
+				$Packet = $Client->dequeuePacket();
+				$this->PacketReader->writePacket($Packet, $Client);
+			}
+		}
+	}
 }

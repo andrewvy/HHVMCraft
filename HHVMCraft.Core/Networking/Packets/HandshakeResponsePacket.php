@@ -11,10 +11,10 @@ class HandshakeResponsePacket {
 	}
 
 	public function readPacket($StreamWrapper) {
-		$this->connectionHash = $StreamWrapper->readString16();
 	}
 
-	public function writePacket($stream) {
-	
+	public function writePacket($StreamWrapper) {
+		$str = $StreamWrapper->writeUInt8(self::id).$StreamWrapper->writeString16($this->connectionHash);
+		return $StreamWrapper->writePacket($str);
 	}
 }

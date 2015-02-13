@@ -15,6 +15,9 @@ class Client {
 
 	public $lastSuccessfulPacket;
 	public $PacketQueue = [];
+	public $PacketQueueCount = 0;
+
+	public $Username;
 
 	public function __construct($connection, $server) {
 		$this->connection = $connection;
@@ -32,6 +35,16 @@ class Client {
 	}
 
 	public function enqueuePacket($packet) {
-		$PacketQueue.push($packet);
+		$this->PacketQueueCount++;
+		array_push($this->PacketQueue, $packet);
 	}
+
+	public function dequeuePacket() {
+		if ($this->PacketQueueCount == 0) {
+			return false;
+		} else {
+			$this->PacketQueueCount--;
+			return array_shift($this->PacketQueue);
+		}
+	}	
 }

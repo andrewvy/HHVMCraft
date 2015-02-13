@@ -86,14 +86,15 @@ class StreamWrapper {
 	}
 
 	public function writeString16($str) {
-		$str = iconv("UTF-8", "UTF-16", $str);
-		$a = str_split($str, 1);
-		$str = unpack('N', $a);
-		
-		return pack("ch*", strlen($str), $str);
+		return pack("ch*", bin2hex(strlen($str)), bin2hex($str));
 	}
 
-	public function writePacket($packet) {
-		$this->stream->socket_write($packet->data);
+	public function writePacket($data) {
+		$res = socket_write($this->stream, $data);
+		if ($res != false) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

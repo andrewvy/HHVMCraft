@@ -10,8 +10,8 @@ use HHVMCraft\Core\Networking\Packets;
 class LoginHandler {
 
 	public static function HandleHandshakePacket($packet, $client, $server) {
-		$client->username = $packet->username;
-		echo $client->username;
+		$client->Username = $packet->username;
+		$client->enqueuePacket(new Packets\HandshakeResponsePacket("-"));
 	}
 
 	public static function HandleLoginRequestPacket($packet, $client, $server) {
