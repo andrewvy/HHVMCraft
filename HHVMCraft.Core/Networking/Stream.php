@@ -71,7 +71,7 @@ class StreamWrapper {
 	// UCS-2 encoding, big endian, U+0000 U+0000 ....
 
 	public function readString16() {
-		$l = $this->readUInt16();
+		$l = (int) $this->readUInt16();
 		$str = "";
 
 		for	($i=0; $i<6; $i++) {

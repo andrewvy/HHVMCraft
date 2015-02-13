@@ -6,7 +6,6 @@ require "vendor/autoload.php";
 require "HHVMCraft.Core/Networking/PacketReader.php";
 require "HHVMCraft.Core/Networking/PacketHandler.php";
 require "HHVMCraft.Core/Networking/Client.php";
-require "HHVMCraft.Core/Networking/Handlers/LoginHandler.php";
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
@@ -19,7 +18,7 @@ use React\Socket\Server;
 class MultiplayerServer extends EventEmitter {
 	public $address;
 	public $Clients = [];
-	public $PacketHandlers = [];
+	public $PacketHandler;
 
 	public $loop;
 	public $socket;
@@ -33,7 +32,7 @@ class MultiplayerServer extends EventEmitter {
 		$this->PacketReader = new PacketReader();
 		$this->PacketReader->registerPackets();
 
-		\HHVMCraft\Core\Networking\PacketHandler::registerHandlers($this);
+		$this->PacketHandler = new PacketHandler($this);
 	}
 
 	public function acceptClient($connection) {
@@ -53,18 +52,10 @@ class MultiplayerServer extends EventEmitter {
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
 	}
 
-	public function registerPacketHandler($packet, $handler) {
-		$this->PacketHandlers[$packet::id] = $handler;
-	}
-
 	public function handlePacket($client) {
 		$packet = $this->PacketReader->readPacket($client);
 		if ($packet) {
-			if ($this->PacketHandlers[$packet::id]) {
-				call_user_func(__NAMESPACE__.$this->PacketHandlers[$packet::id], $packet);
-			} else {
-				echo " >> No handler for packet ID: ".$packet::id."\n";
-			}
+			$this->PacketHandler->handlePacket($packet, $client, $this);
 		} else {
 			echo " >> Bad Packet \n";	
 		}
