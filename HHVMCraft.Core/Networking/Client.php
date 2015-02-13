@@ -6,18 +6,18 @@ require "HHVMCraft.Core/Networking/Stream.php";
 require "HHVMCraft.Core/Helpers/HexDump.php";
 
 use HHVMCraft\Core\Helpers\Hex;
-use HHVMCraft\Core\Networking\Stream;
+use HHVMCraft\Core\Networking\StreamWrapper;
 
 class Client {
 	public $server;
 	public $connection;
-	public $stream;
+	public $StreamWrapper;
 
 	public $lastSuccessfulPacket;
 
 	public function __construct(&$connection, $server) {
 		$this->connection = &$connection;
-		$this->stream = new Stream(&$connection->stream);
+		$this->StreamWrapper = new StreamWrapper(&$connection->stream);
 		$this->server = $server;
 
 		$this->setupPacketListener();
@@ -25,7 +25,7 @@ class Client {
 
 	public function setupPacketListener() {
 		$this->connection->on('data', function($data) {
-			Hex::dump($data);
+			$this->stream->data($data);
 			$this->server->handlePacket($data);
 		});
 	}
