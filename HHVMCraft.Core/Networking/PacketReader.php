@@ -104,24 +104,23 @@ class PacketReader {
 		}
 	}
 
-	public function readPacket($stream, $serverbound=true) {
-		$id = $stream.readUInt8();		
-		$type;
-
-		if (serverbound) {
+	public function readPacket($client, $serverbound=true) {
+		$id = $client->streamWrapper->readUInt8();		
+		if ($serverbound) {
 			$type = $this->ServerboundPackets[$id];
 			echo " >> Read Serverbound Packet \n";
 		} else {
 			$type = $this->ClientboundPackets[$id];
 		}
-
+		
 		if ($type == null) {
 			Hex::dump($id);
-			throw new Exception("Unable to read packet ID");
+			throw new \Exception("Unable to read packet ID");
 		}
-
-		$packet = new $type;
-		$packet->readPacket($stream);
+		
+		$construct = "HHVMCraft\Core\Networking\\".$type;
+		$packet = new ($construct);
+		$packet->readPacket($client->streamWrapper);
 		return $packet;
 	}
 }

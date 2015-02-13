@@ -4,71 +4,90 @@ namespace HHVMCraft\Core\Networking;
 
 class StreamWrapper {
 	public $stream;
-	public $buffer;
-	public $offset;
+	public $streamBuffer = [];
 
 	public function __construct($stream) {
+		$this->stream = $stream;
 	}
 
 	public function data($data) {
+		$this->streamBuffer = $this->streamBuffer + str_split(bin2hex($data), 2);
 	}
 
 	public function handleClose() {
-		$this->physicalStream->handleClose();
+		$this->stream->handleClose();
 	}
 
 	// UINT8: 0x00
 
 	public function readUInt8() {	
-		$this->offset = offset + 2;
+		$b = array_shift($this->streamBuffer);
+		if ($b) {
+			return $b;
+		} else {
+			throw new \Exception("Malformed packet, buffer is empty");
+		}
 	}
 
-	public function writeUInt8() {
-	
+	public function writeUInt8($data) {
+		return pack("c*", $data);
 	}
 
 	// UINT16: 0x0000
 
 	public function readUInt16() {
-		
+		return pack("h*",$this->readUInt8().$this->readUInt8());
 	}
 
-	public function writeUInt16() {
-	
+	public function writeUInt16($data) {
+		return pack("s*", $data);
 	}
 
 	// INT: 0x0000 0x0000
 	
 	public function readInt() {
-	
+		return pack("h*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
 
-	public function writeInt() {
-	
+	public function writeInt($data) {
+		return pack("l*", $data);
 	}
 
 	// LONG: 0x0000 0x0000 0x0000 0x0000
 	
 	public function readLong() {
-	
+		return pack("h*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
 
-	public function writeLong()  {
-	
+	public function writeLong($data) {
+		return pack("q*",$data);
 	}
 
 	// STRING16: 0x0000 0x0000...
 	// UCS-2 encoding, big endian, U+0000 U+0000 ....
 
-	public function readString16($length) {
+	public function readString16() {
+		$l = hexdec($this->readUInt16());
+		for	($i=0; $i<$l; $i++) {
+			$str = $str + $this->readUInt16();
+		}
 		
+		if (strlen($str) > 0) {
+			return $str;
+		} else {
+			throw new \Exception("Malformed string, was empty");
+		}
 	}
 
-	public function writeString16($length) {
-
+	public function writeString16($str) {
+		$str = iconv("UTF-8", "UTF-16", $str);
+		$a = str_split($str, 1);
+		$str = unpack('N', $a);
+		
+		return pack("ch*", strlen($str), $str);
 	}
 
 	public function writePacket($packet) {
-		$this->physicalStream->socket_write($packet->data);
+		$this->stream->socket_write($packet->data);
 	}
 }

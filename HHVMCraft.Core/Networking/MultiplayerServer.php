@@ -31,18 +31,18 @@ class MultiplayerServer extends EventEmitter {
 		$this->PacketReader = new PacketReader();
 		$this->PacketReader->registerPackets();
 
-		// PacketHandler::registerHandlers($this);
+		\HHVMCraft\Core\Networking\PacketHandler::registerHandlers($this);
 	}
 
-	public function acceptClient(&$connection) {
-		array_push($this->Clients, new Client(&$connection, $this));
+	public function acceptClient($connection) {
+		array_push($this->Clients, new Client($connection, $this));
 	}
 
 	public function start($port) {
 		$this->socket->on('connection', function($connection) {
 			echo " >> New Connection \n";
 			
-			$this->acceptClient(&$connection);	
+			$this->acceptClient($connection);	
 		});
 		
 		$this->socket->listen($port);
@@ -51,15 +51,15 @@ class MultiplayerServer extends EventEmitter {
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
 	}
 
-	public function registerPacketHandlers($id, $handler) {
-		$this->PacketHandlers[$id] = $handler;
+	public function registerPacketHandler($packet, $handler) {
+		$this->PacketHandlers[$packet::id] = $handler;
 	}
 
-	public function handlePacket($client, $data) {
-		$packet = $this->PacketReader.readPacket($data);
+	public function handlePacket($client) {
+		$packet = $this->PacketReader->readPacket($client);
 		if ($packet) {
 			if ($this->PacketHandlers[$packet::id]) {
-				$this->PacketHandlers[$packet::id]->handlePacket($packet);
+				call_user_func($this->PacketHandlers[$packet::id], $packet);
 			} else {
 				echo " >> No handler for packet ID: ".$packet::id."\n";
 			}
@@ -67,4 +67,5 @@ class MultiplayerServer extends EventEmitter {
 			echo " >> Bad Packet \n";	
 		}
 	}
+
 }

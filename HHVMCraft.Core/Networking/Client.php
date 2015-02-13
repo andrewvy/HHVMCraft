@@ -11,13 +11,14 @@ use HHVMCraft\Core\Networking\StreamWrapper;
 class Client {
 	public $server;
 	public $connection;
-	public $StreamWrapper;
+	public $streamWrapper;
 
 	public $lastSuccessfulPacket;
+	public $PacketQueue = [];
 
-	public function __construct(&$connection, $server) {
-		$this->connection = &$connection;
-		$this->StreamWrapper = new StreamWrapper(&$connection->stream);
+	public function __construct($connection, $server) {
+		$this->connection = $connection;
+		$this->streamWrapper = new StreamWrapper($connection->stream);
 		$this->server = $server;
 
 		$this->setupPacketListener();
@@ -25,8 +26,12 @@ class Client {
 
 	public function setupPacketListener() {
 		$this->connection->on('data', function($data) {
-			$this->stream->data($data);
-			$this->server->handlePacket($data);
+			$this->streamWrapper->data($data);
+			$this->server->handlePacket($this);
 		});
+	}
+
+	public function enqueuePacket($packet) {
+		$PacketQueue.push($packet);
 	}
 }
