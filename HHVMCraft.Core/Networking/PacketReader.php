@@ -4,6 +4,11 @@ namespace HHVMCraft\Core\Networking;
 
 require "HHVMCraft.Core/Helpers/HexDump.php";
 require "Packets/KeepAlivePacket.php";
+require "Packets/LoginRequestPacket.php";
+require "Packets/LoginResponsePacket.php";
+require "Packets/HandshakePacket.php";
+require "Packets/HandshakeResponsePacket.php";
+
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
 
@@ -19,12 +24,12 @@ class PacketReader {
 
 	public function registerPackets() {
 		// Register new packet type. type: packet, serverbound: bool, clientbound: bool.
-		$this->registerPacketType('Packets\KeepAlivePacket', true, false);
-/*		$this->registerPacketType(\Packets\LoginRequestPacket, false, true);
-		$this->registerPacketType(\Packets\LoginResponsePacket, true, false);
-		$this->registerPacketType(\Packets\HandshakePacket, true, false);
-		$this->registerPacketType(\Packets\HandshakeResponsePacket, false, true);
-		$this->registerPacketType(Packets\ChatMessagePacket);
+		$this->registerPacketType(new Packets\KeepAlivePacket, true, false);
+		$this->registerPacketType(new Packets\LoginRequestPacket, false, true);
+		$this->registerPacketType(new Packets\LoginResponsePacket, true, false);
+		$this->registerPacketType(new Packets\HandshakePacket, true, false);
+		$this->registerPacketType(new Packets\HandshakeResponsePacket, false, true);
+/*		$this->registerPacketType(Packets\ChatMessagePacket);
 		$this->registerPacketType(Packets\TimeUpdatePacket, false, true);
 		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
 		$this->registerPacketType(Packets\SpawnPositionPacket, true, false);
@@ -92,22 +97,26 @@ class PacketReader {
 	
 	public function registerPacketType($type, $serverbound=true, $clientbound=true) {
 		if ($serverbound) {
-			$this->ServerboundPackets[constant('HHVMCraft\Core\Networking\\'.$type.'::id')] = $type;
+			$this->ServerboundPackets[$type::id] = $type;
 		}
 		if ($clientbound) {
-			$this->ClientboundPackets[constant('HHVMCraft\Core\Networking\\'.$type."::id")] = $type;
+			$this->ClientboundPackets[$type::id] = $type;
 		}
 	}
 
-	public function readPacket($data, &$client, $serverbound=true) {
-		$id = $this->readUInt8(&$data, &$client);
-	}
+	public function readPacket($stream, $serverbound=true) {
+		$id = $stream.readUInt8();		
+		$type;
 
-	public function readBytes($data, &$client) {
-		
-	}
+		if (serverbound) {
+			$type = $this->ServerboundPackets[$id];
+			echo " >> Read Serverbound Packet \n";
+		} else {
+			$type = $this->ClientboundPackets[$id];
+		}
 
-	public function readUInt8($data, &$client) {
-		
-	}	
+		if ($type == null) {
+			throw new Exception("Unable to read packet ID: 0x".pack('C*', $id));
+		}
+	}
 }

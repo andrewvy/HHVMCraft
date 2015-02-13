@@ -35,7 +35,7 @@ class MultiplayerServer extends EventEmitter {
 	}
 
 	public function acceptClient(&$connection) {
-		array_push($this->Clients, new Client(&$connection));
+		array_push($this->Clients, new Client(&$connection, $this));
 	}
 
 	public function start($port) {
@@ -56,9 +56,15 @@ class MultiplayerServer extends EventEmitter {
 	}
 
 	public function handlePacket($client, $data) {
-		$packet = $this->PacketReader.read($data);
-		if ($this->PacketHandlers[$packet::id]) {
-			$this->PacketHandler[$packet]();
+		$packet = $this->PacketReader.readPacket($data);
+		if ($packet) {
+			if ($this->PacketHandlers[$packet::id]) {
+				$this->PacketHandlers[$packet::id]->handlePacket($packet);
+			} else {
+				echo " >> No handler for packet ID: ".$packet::id."\n";
+			}
+		} else {
+			echo " >> Bad Packet \n";	
 		}
 	}
 }
