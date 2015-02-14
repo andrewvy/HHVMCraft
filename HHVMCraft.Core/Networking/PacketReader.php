@@ -25,8 +25,8 @@ class PacketReader {
 	public function registerPackets() {
 		// Register new packet type. type: packet, serverbound: bool, clientbound: bool.
 		$this->registerPacketType('Packets\KeepAlivePacket', true, false);
-		$this->registerPacketType('Packets\LoginRequestPacket', false, true);
-		$this->registerPacketType('Packets\LoginResponsePacket', true, false);
+		$this->registerPacketType('Packets\LoginRequestPacket', true, false);
+		$this->registerPacketType('Packets\LoginResponsePacket', false, true);
 		$this->registerPacketType('Packets\HandshakePacket', true, false);
 		$this->registerPacketType('Packets\HandshakeResponsePacket', false, true);
 /*		$this->registerPacketType(Packets\ChatMessagePacket);
@@ -108,13 +108,12 @@ class PacketReader {
 		$id = $client->streamWrapper->readUInt8();		
 		if ($serverbound) {
 			$type = $this->ServerboundPackets[$id];
-			echo " >> Read Serverbound Packet \n";
+			echo " >> Read Serverbound Packet \n";		
 		} else {
 			$type = $this->ClientboundPackets[$id];
 		}
 		
 		if ($type == null) {
-			Hex::dump($id);
 			throw new \Exception("Unable to read packet ID");
 		}
 		

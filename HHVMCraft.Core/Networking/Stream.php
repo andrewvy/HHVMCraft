@@ -40,11 +40,11 @@ class StreamWrapper {
 	// UINT16: 0x0000
 
 	public function readUInt16() {
-		return pack("H*",$this->readUInt8().$this->readUInt8());
+		return pack("n*",$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeUInt16($data) {
-		return pack("s*", $data);
+		return pack("S*", $data);
 	}
 
 	// INT: 0x0000 0x0000
@@ -71,7 +71,7 @@ class StreamWrapper {
 	// UCS-2 encoding, big endian, U+0000 U+0000 ....
 
 	public function readString16() {
-		$l = (int) bin2hex($this->readUInt16());
+		$l = hexdec(bin2hex($this->readUInt16()));
 		$str = "";
 
 		for	($i=0; $i<$l; $i++) {
@@ -86,7 +86,7 @@ class StreamWrapper {
 	}
 
 	public function writeString16($str) {
-		return pack("ch*", bin2hex(strlen($str)), bin2hex($str));
+		return pack("H*", bin2hex($str));
 	}
 
 	public function writePacket($data) {

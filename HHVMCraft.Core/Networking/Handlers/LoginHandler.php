@@ -15,6 +15,10 @@ class LoginHandler {
 	}
 
 	public static function HandleLoginRequestPacket($packet, $client, $server) {
-		// new Packets\LoginResponsePacket("----");	
+		if ($packet->protocolVersion == 14) {
+			echo "Matched protocol version. \n";
+		} else {
+			throw new \Exception("Wrong version!");
+		}
 	}
 }

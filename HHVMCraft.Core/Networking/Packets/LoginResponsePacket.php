@@ -3,5 +3,5 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class LoginResponsePacket {
-	const id = 0x01;
+	const id = "01";
 }
