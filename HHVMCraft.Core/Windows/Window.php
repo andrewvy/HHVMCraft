@@ -3,15 +3,18 @@
 namespace HHVMCraft\Core\Windows;
 
 require "HHVMCraft.API/ItemStack.php";
+require "vendor/autoload.php";
 
 use HHVMCraft\API\ItemStack;
+use Evenement\EventEmitter;
+
 
 class Window {
 	public $Windows;
 	public $Event;
 	public $WindowAreas = [];
 
-	public function initialize() {
+	public function __construct() {
 		$this->Event = new EventEmitter();
 	}
 
@@ -81,6 +84,6 @@ class Window {
 
 	public function getSlots() {
 		$l = $this->windowAreaLength();
-		$slots = new ItemStack[$l];
+		// TODO
 	}
 }
