@@ -19,4 +19,8 @@ class World {
 	public function getTime() {
 		return ( ( (int) $this->WorldTime->diff(new Datetime())->format("%s") * 20) % 24000 );	
 	}
+
+	public function getChunk($Coordinates2D) {
+		
+	}
 }
