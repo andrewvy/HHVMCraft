@@ -23,4 +23,3 @@ if ($chunk->getBlockID($blockCoordinates) == 0x00) {
 
 $chunk->setBlockID($blockCoordinates, 15);
 
-echo $chunk->getBlockID($blockCoordinates)."\n";
