@@ -80,4 +80,8 @@ class WindowArea {
 		$this->Event->emit("WindowChange", (func_get_args()));
 	}
 
+	public function isValid($slot, $index) {
+		return true;
+	}
+
 }

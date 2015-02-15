@@ -2,14 +2,20 @@
 
 namespace HHVMCraft\Core\Windows;
 
-class CraftingWindowArea {
+require "HHVMCraft.API/ItemStack.php";
+require "WindowArea.php";
+
+use HHVMCraft\Core\WindowArea;
+use HHVMCraft\API\ItemStack;
+
+class CraftingWindowArea extends WindowArea {
 	const craftingOutput = 0;
 	public $CraftingRepository;
 
 	public function __construct($CraftingRepository, $startIndex, $width=2, $height=2) {
 		parent::__construct($startIndex, $width * $height + 1, $width, $height);
 
-		$this->CraftingRepository = $CraftingRepository;
+//		$this->CraftingRepository = $CraftingRepository;
 		$this->Event->on("WindowChange",
 	}
 

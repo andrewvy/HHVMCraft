@@ -76,7 +76,7 @@ class Window {
 
 	public function windowAreaLength() {
 		$l = 0;
-		foreach($WindowAreas as $Area) {
+		foreach($this->WindowAreas as $Area) {
 			$l = $l + $Area->length;
 		}
 		return $l;
@@ -84,6 +84,10 @@ class Window {
 
 	public function getSlots() {
 		$l = $this->windowAreaLength();
-		// TODO
+		$slots = new ItemSlot[$l];
+
+		// TODO: Need to create new itemslots with all of the itemslots of the windowareas.
+		foreach($this->WindowAreas as $Area) {	
+		}
 	}
 }
