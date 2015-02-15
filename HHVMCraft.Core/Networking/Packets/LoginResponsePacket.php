@@ -15,7 +15,11 @@ class LoginResponsePacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$p = $StreamWrapper.writeInt($this->EntityID).$StreamWrapper.writeString("").$StreamWrapper.writeLong($this->Seed).$StreamWrapper.writeUInt8($this->Dimension);
-		return $StreamWrapper.writePacket($p);
+		$p = $StreamWrapper->writeInt($this->EntityID).
+			$StreamWrapper->writeString16("").
+			$StreamWrapper->writeLong($this->Seed).
+			$StreamWrapper->writeUInt8($this->Dimension);
+
+		return $StreamWrapper->writePacket($p);
 	}
 }

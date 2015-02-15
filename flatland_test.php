@@ -24,3 +24,4 @@ for ($y=0;$y<20;$y++) {
 	$c = new Coordinates3D(0,$y,0);
 	echo " >> Block ID at layer: ".$y." - ".$chunk->getBlockID($c)."\n";
 }
+

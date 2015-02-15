@@ -23,7 +23,6 @@ class StreamWrapper {
 	}
 
 	// UINT8: 0x00
-
 	public function readUInt8() {	
 		$b = array_shift($this->streamBuffer);
 		if ($b) {
@@ -37,10 +36,23 @@ class StreamWrapper {
 		return pack("c*", $data);
 	}
 
+	public function readBool() {
+		$bool = $this->readUInt8();
+		return (bool) $bool;
+	}
+
+	public function writeBool($data) {
+		if ($data == true) {
+			$this->writeUInt8(0x01);
+		} else {
+			$this->writeUInt8(0x00);
+		}
+	}
+
 	// UINT16: 0x0000
 
 	public function readUInt16() {
-		return pack("n*",$this->readUInt8().$this->readUInt8());
+		return pack("H*",$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeUInt16($data) {
@@ -77,7 +89,7 @@ class StreamWrapper {
 		for	($i=0; $i<$l; $i++) {
 			$str = $str.$this->readUInt16();
 		}
-		
+
 		if (strlen($str) > 0) {
 			return $str;
 		} else {
@@ -87,6 +99,14 @@ class StreamWrapper {
 
 	public function writeString16($str) {
 		return pack("H*", bin2hex($str));
+	}
+
+	public function readUInt8Array() {
+	
+	}
+
+	public function writeUInt8Array($array) {
+		return pack("H*", $array);
 	}
 
 	public function writePacket($data) {
