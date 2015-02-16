@@ -26,6 +26,7 @@ class MultiplayerServer extends EventEmitter {
 	public $PacketHandler;
 	public $PacketReader;
 	public $EntityManager;
+	public $World;
 
 	public $loop;
 	public $socket;
@@ -42,6 +43,7 @@ class MultiplayerServer extends EventEmitter {
 
 		$this->PacketHandler = new PacketHandler($this);
 		$this->EntityManager = new EntityManager($this);
+		$this->World = new World("Flatland", $BlockProvider);
 	}
 
 	public function acceptClient($connection) {

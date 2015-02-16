@@ -99,6 +99,29 @@ class EntityManager {
 		}
 	}
 
+	public function propegateEntityPositionUpdates($sender) {
+	
+	}
+
+	public function propegateEntityMetadataUpdates($sender) {
+	
+	}
+
+	public function sendEntityToClient($client, $entity) {
+		array_push($client->knownEntities, $entity);
+
+		$client->enqueuePacket($entity->spawnPacket);
+
+		if (get_class($entity) is "PhysicsEntity") {
+			$client->enqueuePacket(new EntityVelocityPacket(
+				$entity->entityId,
+				($entity->Velocity->x * 320),
+				($entity->Velocity->z * 320)));
+
+			
+		}
+	}
+
 	public function addPlayerEntity($PlayerEntity) {
 	
 	}

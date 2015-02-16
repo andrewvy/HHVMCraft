@@ -88,6 +88,12 @@ class Window {
 
 		// TODO: Need to create new itemslots with all of the itemslots of the windowareas.
 		foreach($this->WindowAreas as $Area) {	
+			for($i=0;$i<$Area->length;$i++) {
+				$index = $Area->startIndex + $i;
+				$slots[$index] = $Area->Items[$i];
+			}
 		}
+
+		return $slots;
 	}
 }

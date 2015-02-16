@@ -23,11 +23,14 @@ class LoginHandler {
 			// Respond with details about the world.
 			$client->enqueuePacket(new Packets\LoginResponsePacket(0, 0, 0));	
 	
-			// Handle client inventory.. (WindowItemPacket)
 				
 			// Creating player entity..
 			$client->createPlayerEntity();
 			$server->EntityManager->addPlayerEntity($client->PlayerEntity);
+
+			// Handle client inventory.. (WindowItemPacket)
+			$client->enqueuePacket(new Packets\WindowItemsPacket(0, $client->Inventory->getSlots()));
+			$client->Entity->Position = $client->World->ChunkProvider->spawnpoint;
 
 			// Handle client entity spawnpoint.. (SpawnPositionPacket)
 			// Handle player position (SetPlayerPositionPacket)

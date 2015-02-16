@@ -10,10 +10,12 @@ require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket";
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\StreamWrapper;
 use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
+use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
 use HHVMCraft\Core\Entities\PlayerEntity;
 
 class Client {
 	public $server;
+	public $World;
 	public $connection;
 	public $streamWrapper;
 
@@ -23,6 +25,7 @@ class Client {
 
 	public $username;
 	public $PlayerEntity;
+	public $knownEntities = [];
 
 	public $loadedChunks = [];
 	public $inventory;
@@ -31,6 +34,7 @@ class Client {
 		$this->connection = $connection;
 		$this->streamWrapper = new StreamWrapper($connection->stream);
 		$this->server = $server;
+		$this->World = $server->World;
 
 		$this->setupPacketListener();
 	}
