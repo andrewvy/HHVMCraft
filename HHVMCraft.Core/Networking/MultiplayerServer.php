@@ -6,11 +6,15 @@ require "vendor/autoload.php";
 require "HHVMCraft.Core/Networking/PacketReader.php";
 require "HHVMCraft.Core/Networking/PacketHandler.php";
 require "HHVMCraft.Core/Networking/Client.php";
+require "HHVMCraft.Core/Entities/EntityManager.php";
+require "HHVMCraft.Core/World/World.php";
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
 use HHVMCraft\Core\Networking\PacketHandler;
 use HHVMCraft\Core\Networking\Handlers;
+use HHVMCraft\Core\Entities\EntityManager;
+use HHVMCraft\Core\World\World;
 
 use Evenement\EventEmitter;
 use React\Socket\Server;
@@ -18,11 +22,13 @@ use React\Socket\Server;
 class MultiplayerServer extends EventEmitter {
 	public $address;
 	public $Clients = [];
+
 	public $PacketHandler;
+	public $PacketReader;
+	public $EntityManager;
 
 	public $loop;
 	public $socket;
-	public $PacketReader;
 
 	public $tickRate = 0.05;
 
@@ -35,6 +41,7 @@ class MultiplayerServer extends EventEmitter {
 		$this->PacketReader->registerPackets();
 
 		$this->PacketHandler = new PacketHandler($this);
+		$this->EntityManager = new EntityManager($this);
 	}
 
 	public function acceptClient($connection) {
@@ -49,9 +56,11 @@ class MultiplayerServer extends EventEmitter {
 		});
 		
 		$this->socket->listen($port);
+
 		$this->loop->addPeriodicTimer($this->tickRate, function() {
 			$this->gameLoop();
 		});
+
 		$this->loop->run();
 		
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";

@@ -27,6 +27,7 @@ class LoginHandler {
 				
 			// Creating player entity..
 			$client->createPlayerEntity();
+			$server->EntityManager->addPlayerEntity($client->PlayerEntity);
 
 			// Handle client entity spawnpoint.. (SpawnPositionPacket)
 			// Handle player position (SetPlayerPositionPacket)

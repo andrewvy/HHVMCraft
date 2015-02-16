@@ -4,16 +4,18 @@
 namespace HHVMCraft\Core\World;
 
 class World {
+	public $worldname;
 	public $WorldTime;
 
 	public $Regions = [];
 	public $BlockProvider;
 	public $ChunkProvider;
 
-	public function __construct($name, $BlockProvider, $ChunkProvider) {
+	public function __construct($worldname, $BlockProvider) {
+		$this->worldname = $worldname;
 		$this->WorldTime = new DateTime();
 		$this->BlockProvider = $BlockProvider;
-		$this->ChunkProvider = $ChunkProvider;
+		$this->ChunkProvider = new FlatlandGenerator();
 	}
 
 	public function getTime() {
