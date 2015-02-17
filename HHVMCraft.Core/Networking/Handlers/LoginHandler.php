@@ -4,6 +4,11 @@ namespace HHVMCraft\Core\Networking\Handlers;
 
 require "HHVMCraft.Core/Networking/Packets/HandshakeResponsePacket.php";
 require "HHVMCraft.Core/Networking/Packets/LoginResponsePacket.php";
+require "HHVMCraft.Core/Networking/Packets/WindowItemsPacket.php";
+require "HHVMCraft.Core/Networking/Packets/SpawnPositionPacket.php";
+require "HHVMCraft.Core/Networking/Packets/SetPlayerPositionPacket.php";
+require "HHVMCraft.Core/Networking/Packets/TimeUpdatePacket.php";
+
 require "HHVMCraft.Core/Helpers/HexDump.php";
 
 use HHVMCraft\Core\Helpers\Hex;
@@ -25,8 +30,7 @@ class LoginHandler {
 	
 				
 			// Creating player entity..
-			$client->createPlayerEntity();
-			$server->EntityManager->addPlayerEntity($client->PlayerEntity);
+			$client->PlayerEntity = $server->EntityManager->createPlayerEntity($client);
 
 			// Handle client inventory.. (WindowItemPacket)
 			$client->enqueuePacket(new Packets\WindowItemsPacket(0, $client->Inventory->getSlots()));

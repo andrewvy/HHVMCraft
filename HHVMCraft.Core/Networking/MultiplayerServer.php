@@ -67,6 +67,10 @@ class MultiplayerServer extends EventEmitter {
 			$this->gameLoop();
 		});
 
+		$this->loop->addPeriodicTimer($this->tickRate, function() {
+			$this->EntityManager->update();
+		});
+
 		$this->loop->run();
 		
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";

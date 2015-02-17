@@ -18,6 +18,7 @@ class Client {
 	public $World;
 	public $connection;
 	public $streamWrapper;
+	public $Disconnected = false;
 
 	public $lastSuccessfulPacket;
 	public $PacketQueue = [];
@@ -60,10 +61,6 @@ class Client {
 			return array_shift($this->PacketQueue);
 		}
 	}	
-
-	public function createPlayerEntity() {
-		$this->PlayerEntity = new PlayerEntity($this->username);
-	}
 
 	public function loadChunk($Coordinates2D) {
 		$chunk = $this->World->getChunk($Coordinates2D);

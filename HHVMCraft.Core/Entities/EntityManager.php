@@ -3,9 +3,18 @@
 namespace HHVMCraft\Core\Entities;
 
 require "HHVMCraft.Core/World/Chunk.php";
+require "HHVMCraft.Core/Networking/Packets/DestroyEntityPacket.php";
+require "HHVMCraft.Core/Networking/Packets/EntityVelocityPacket.php";
+require "HHVMCraft.Core/Networking/Packets/EntityTeleportPacket.php";
+require "HHVMCraft.Core/Networking/Packets/EntityMetadataPacket.php";
 require "vendor/autoload.php";
 
+
 use HHVMCraft\Core\World\Chunk;
+use HHVMCraft\Core\Networking\Packets\DestroyEntityPacket;
+use HHVMCraft\Core\Networking\Packets\EntityVelocityPacket;
+use HHVMCraft\Core\Networking\Packets\EntityTeleportPacket;
+use HHVMCraft\Core\Networking\Packets\EntityMetadataPacket;
 use Evenement\EventEmitter;
 
 class EntityManager {
@@ -103,11 +112,41 @@ class EntityManager {
 	}
 
 	public function propegateEntityPositionUpdates($sender) {
-	
+		for ($i=0;$i<count($this->Server->Clients);$i++) {
+			$client = $this->Server->Clients[$i];
+
+			if ($client->PlayerEntity == $sender) {
+				continue;
+			}
+
+			if (in_array($client->knownEntities)) {
+				$client->enqueuePacket(new EntityTeleportPacket(
+					$sender->entityId,
+					$sender->Position->x,
+					$sender->Position->y,
+					$sender->Position->z,
+					((($sender->Yaw % 360) / 360) * 256),
+					((($sender->Pitch % 360) / 360) * 256)));
+			}
+		}
 	}
 
 	public function propegateEntityMetadataUpdates($sender) {
-	
+		if ($sender->sendMetaDataToClients == false) {
+			return;
+		}
+		
+		for ($i=0;$i<count($this->Server->Clients);$i++) {
+			$client = $this->Server->Clients[$i];
+
+			if ($client->PlayerEntity == $sender) {
+				continue;
+			}
+
+			if (in_array($client->knownEntities)) {
+				$client->enqueuePacket(new EntityMetadataPacket($entity->entityId, $entity->metadata()));
+			}
+		}
 	}
 
 	public function sendEntityToClient($client, $entity) {
@@ -115,7 +154,7 @@ class EntityManager {
 
 		$client->enqueuePacket($entity->spawnPacket);
 
-		if (get_class($entity) ==  "PhysicsEntity") {
+		if (get_class($entity) == "PhysicsEntity") {
 			$client->enqueuePacket(new EntityVelocityPacket(
 				$entity->entityId,
 				($entity->Velocity->x * 320),
@@ -132,11 +171,53 @@ class EntityManager {
 
 	public function flushDespawns() {
 		while (count($this->pendingDespawns) != 0) {
+			$entity = array_shift($this->pendingDespawns);
 			
+			if (get_class($entity) == "PhysicsEntity") {
+//				$this->PhysicsEngine->removeEntity($entity);
+			}
+
+			if (hw_api::lock($this->Server->Clients)) {
+				for ($i=0;$i<count($this->Server->Clients);$i++) {
+					$client = $this->Server->Clients[$i];
+
+					if (in_array($client->knownEntities, $entity) && $client->Disconnected == false) {
+						$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
+
+						unset($client->knownEntities[$entity]);
+						array_values($client->knownEntities);
+
+					}
+				}
+
+				hw_api::unlock($this->Server->Clients);
+			}
+
+			if (hw_api::lock($this->entities) {
+				unset($this->entities[$entity]);
+				hw_api::unlock($this->entities);
+			}
 		}
 	}
 
-	public function addPlayerEntity($PlayerEntity) {
-	
+	public function update() {
+//		$this->PhysicsEngine->update();
+
+		if (hw_api::lock($this->entities)) {
+			foreach ($this->entities as $e) { 
+				if ($e->Despawned == false) {
+					$e->update($this);
+				}	
+			}
+
+			hw_api::unlock($this->entities);
+		}
+
+		$this->flushDespawns();
+	}
+
+	public function addPlayerEntity($client) {
+		$PlayerEntity = new PlayerEntity($client, $this->Event);
+		array_push($this->entities, $PlayerEntity);	
 	}
 }

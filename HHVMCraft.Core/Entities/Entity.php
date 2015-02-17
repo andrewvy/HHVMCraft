@@ -4,8 +4,10 @@ namespace HHVMCraft\Core\Entities;
 
 require "vendor/autoload.php";
 require "HHVMCraft.API/Vec3.php";
+require "HHVMCraft.API/Coordinates3D.php";
 
 use HHVMCraft\API\Vec3;
+use HHVMCraft\API\Coordinates3D;
 use Evenement\EventEmitter;
 
 class Entity {
@@ -25,6 +27,8 @@ class Entity {
 	public function __construct($Event) {
 		$this->spawnTime = new \DateTime();
 		$this->Velocity = new Vec3(0,0,0);
+		$this->Position = new Coordinates3D(0,0,0);
+		$this->OldPosition = new Coordinates3D(0,0,0);
 		$this->Event = $Event;
 	}
 

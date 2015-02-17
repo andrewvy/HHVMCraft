@@ -2,6 +2,6 @@
 
 namespace HHVMCraft\Networking\Packets;
 
-class WindowItemsPacket {
+class SpawnPositionPacket {
 
 }
