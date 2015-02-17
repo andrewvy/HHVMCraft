@@ -34,6 +34,6 @@ So if you have any comments, please feel free to create an issue.
 
 ## Libraries used
 
-[Evenement](https://github.com/igorw/evenement) - Event Dispatching Library
-[ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.
-[PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer
+[Evenement](https://github.com/igorw/evenement) - Event Dispatching Library  
+[ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.  
+[PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer  
