@@ -45,10 +45,10 @@ class EntityManager {
 			case "Position":
 			case "Yaw":
 			case "Pitch":
-				$this->propegateEntityPositionUpdates($sender);
+				$this->propagateEntityPositionUpdates($sender);
 				break;
 			case "Metadata":
-				$this->propegateEntityMetadataUpdates($sender);
+				$this->propagateEntityMetadataUpdates($sender);
 				break;
 		}
 	}
@@ -111,7 +111,7 @@ class EntityManager {
 		}
 	}
 
-	public function propegateEntityPositionUpdates($sender) {
+	public function propagateEntityPositionUpdates($sender) {
 		for ($i=0;$i<count($this->Server->Clients);$i++) {
 			$client = $this->Server->Clients[$i];
 
@@ -131,7 +131,7 @@ class EntityManager {
 		}
 	}
 
-	public function propegateEntityMetadataUpdates($sender) {
+	public function propagateEntityMetadataUpdates($sender) {
 		if ($sender->sendMetaDataToClients == false) {
 			return;
 		}
