@@ -32,6 +32,10 @@ So if you have any comments, please feel free to create an issue.
 - NBT deserializing/serializing needs to be added.
 - Packet Handlers need to be added.
 
+WE'RE CLOSE! I just need to build the in-memory chunk deserializer/serializer, 
+clean up the EntityManager, grunt work with packet data sending and
+I will finally have a cool visual demo!
+
 ## Libraries used
 
 [Evenement](https://github.com/igorw/evenement) - Event Dispatching Library  
