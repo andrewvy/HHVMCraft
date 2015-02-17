@@ -101,8 +101,12 @@ class StreamWrapper {
 		return pack("H*", bin2hex($str));
 	}
 
-	public function readUInt8Array() {
-	
+	public function readUInt8Array($length) {
+		$array = [];
+		for ($i=0;$i<$length;$i++) {
+			array_push($array, $this->readUInt8());
+		}
+		return $array;
 	}
 
 	public function writeUInt8Array($array) {

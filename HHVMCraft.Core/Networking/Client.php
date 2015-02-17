@@ -5,7 +5,7 @@ namespace HHVMCraft\Core\Networking;
 require "HHVMCraft.Core/Networking/Stream.php";
 require "HHVMCraft.Core/Helpers/HexDump.php";
 require "HHVMCraft.Core/Entities/PlayerEntity.php";
-require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket";
+require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\StreamWrapper;
@@ -75,7 +75,7 @@ class Client {
 	}
 
 	public function unloadChunk($Coordinates2D) {
-		$this->enqueuePacket(new ChunkPreamablePacket($Coordinates2D->x, $Coordiantes2D->z, false);
+		$this->enqueuePacket(new ChunkPreamablePacket($Coordinates2D->x, $Coordiantes2D->z, false));
 		$serialized = $chunk->x.":".$chunk->z;
 		unset($this->loadedChunks[$serialized]);
 		$this->loadedChunks = array_values($array);

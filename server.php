@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ERROR);
+
 require "HHVMCraft.Core/Networking/MultiplayerServer.php";
 use HHVMCraft\Core\Networking\MultiplayerServer;
 

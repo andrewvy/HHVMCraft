@@ -1,7 +1,9 @@
 <?php
 
-
 namespace HHVMCraft\Core\World;
+
+require "HHVMCraft.Core/TerrainGen/FlatlandGenerator.php";
+use HHVMCraft\Core\TerrainGen\FlatlandGenerator;
 
 class World {
 	public $worldname;
@@ -13,13 +15,13 @@ class World {
 
 	public function __construct($worldname, $BlockProvider) {
 		$this->worldname = $worldname;
-		$this->WorldTime = new DateTime();
+		$this->WorldTime = new \DateTime();
 		$this->BlockProvider = $BlockProvider;
 		$this->ChunkProvider = new FlatlandGenerator();
 	}
 
 	public function getTime() {
-		return ( ( (int) $this->WorldTime->diff(new Datetime())->format("%s") * 20) % 24000 );	
+		return ( ( (int) $this->WorldTime->diff(new \Datetime())->format("%s") * 20) % 24000 );	
 	}
 
 	public function getChunk($Coordinates2D) {

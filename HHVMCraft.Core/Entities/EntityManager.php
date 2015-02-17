@@ -2,21 +2,24 @@
 
 namespace HHVMCraft\Core\Entities;
 
-require "HHVMCraft/Core/World/Chunk.php";
+require "HHVMCraft.Core/World/Chunk.php";
+require "vendor/autoload.php";
+
 use HHVMCraft\Core\World\Chunk;
+use Evenement\EventEmitter;
 
 class EntityManager {
 	public $Server;
 	public $World;
 	public $PhysicsEngine;
 	
-	public $pending_despawns = [];
+	public $pendingDespawns = [];
 	public $entities = [];
 	public $nextEntityId = 1;
 
 	public function __construct($Server, $World) {
 		$this->Server = $Server;
-		$this->PhysicsEngine = new PhysicsEngine($World, $Server->BlockRepository);
+//		$this->PhysicsEngine = new PhysicsEngine($World, $Server->BlockRepository);
 		$this->Event = new EventEmitter();
 
 		$this->Event->on("PropertyChanged", function($sender, $propertyName) {
@@ -112,12 +115,23 @@ class EntityManager {
 
 		$client->enqueuePacket($entity->spawnPacket);
 
-		if (get_class($entity) is "PhysicsEntity") {
+		if (get_class($entity) ==  "PhysicsEntity") {
 			$client->enqueuePacket(new EntityVelocityPacket(
 				$entity->entityId,
 				($entity->Velocity->x * 320),
 				($entity->Velocity->z * 320)));
 
+			
+		}
+	}
+
+	public function despawnEntity($Entity) {
+		array_push($this->pendingDespawns, $Entity);
+		$Entity->despawned = true;
+	}
+
+	public function flushDespawns() {
+		while (count($this->pendingDespawns) != 0) {
 			
 		}
 	}
