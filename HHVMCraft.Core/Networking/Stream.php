@@ -110,6 +110,14 @@ class StreamWrapper {
 		return $array;
 	}
 
+	public function readDouble() {
+		return pack("d*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
+	}
+
+	public function writeDouble($data) {
+		return pack("d*", $data);
+	}
+
 	public function writeUInt8Array($array) {
 		return pack("H*", $array);
 	}

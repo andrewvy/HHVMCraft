@@ -9,9 +9,6 @@ require "HHVMCraft.Core/Networking/Packets/SpawnPositionPacket.php";
 require "HHVMCraft.Core/Networking/Packets/SetPlayerPositionPacket.php";
 require "HHVMCraft.Core/Networking/Packets/TimeUpdatePacket.php";
 
-require "HHVMCraft.Core/Helpers/HexDump.php";
-
-use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
 use HHVMCraft\Core\Networking\Packets\LoginResponsePacket;
 use HHVMCraft\Core\Networking\Packets\WindowItemsPacket;
