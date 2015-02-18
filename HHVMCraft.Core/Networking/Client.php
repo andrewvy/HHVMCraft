@@ -6,12 +6,14 @@ require "HHVMCraft.Core/Networking/Stream.php";
 require "HHVMCraft.Core/Helpers/HexDump.php";
 require "HHVMCraft.Core/Entities/PlayerEntity.php";
 require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket.php";
+require "HHVMCraft.Core/Windows/InventoryWindow.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\StreamWrapper;
 use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
 use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
 use HHVMCraft\Core\Entities\PlayerEntity;
+use HHVMCraft\Core\Windows\InventoryWindow;
 
 class Client {
 	public $server;
@@ -29,14 +31,14 @@ class Client {
 	public $knownEntities = [];
 
 	public $loadedChunks = [];
-	public $inventory;
+	public $Inventory;
 
 	public function __construct($connection, $server) {
 		$this->connection = $connection;
 		$this->streamWrapper = new StreamWrapper($connection->stream);
 		$this->server = $server;
 		$this->World = $server->World;
-
+		$this->Inventory = new InventoryWindow($server->CraftingRepository);
 		$this->setupPacketListener();
 	}
 

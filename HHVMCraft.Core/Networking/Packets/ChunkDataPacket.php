@@ -25,7 +25,8 @@ class ChunkDataPacket {
 	}
 
 	public writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeInt($this->x).
+	$str = $StreamWrapper->writeUInt8(self::id).
+			$StreamWrapper->writeInt($this->x).
 			$StreamWrapper->writeUInt16($this->y).
 			$StreamWrapper->writeInt($this->z).
 			$StreamWrapper->writeUInt8($this->Width).

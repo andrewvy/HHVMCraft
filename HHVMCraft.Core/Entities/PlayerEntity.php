@@ -3,6 +3,9 @@
 namespace HHVMCraft\Core\Entities;
 
 require "HHVMCraft.Core/Networking/Packets/SpawnPlayerPacket.php";
+require "LivingEntity.php";
+
+use HHVMCraft\Core\Entities\LivingEntity;
 use HHVMCraft\Core\Networking\Packets\SpawnPlayerPacket;
 
 class PlayerEntity extends LivingEntity {

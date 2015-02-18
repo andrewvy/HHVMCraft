@@ -5,7 +5,7 @@ namespace HHVMCraft\Core\Windows;
 require "HHVMCraft.API/ItemStack.php";
 require "WindowArea.php";
 
-use HHVMCraft\Core\WindowArea;
+use HHVMCraft\Core\Windows\WindowArea;
 use HHVMCraft\API\ItemStack;
 
 class CraftingWindowArea extends WindowArea {
@@ -16,7 +16,9 @@ class CraftingWindowArea extends WindowArea {
 		parent::__construct($startIndex, $width * $height + 1, $width, $height);
 
 //		$this->CraftingRepository = $CraftingRepository;
-		$this->Event->on("WindowChange",
+		$this->Event->on("WindowChange", function($index, $value) {
+			$this->handleWindowChange($index, $value);
+		});
 	}
 
 	public function handleWindowChange($index, $value) {
@@ -44,7 +46,7 @@ class CraftingWindowArea extends WindowArea {
 		for ($x=0;$x<$this->width;$x++) {
 			$found = false;
 			for ($y=0;$y<$this->height;$y++) {
-				if ($CraftingRepository->testRecipe($this->Bench(), $Recipe, $x, $y) {
+				if ($CraftingRepository->testRecipe($this->Bench(), $Recipe, $x, $y)) {
 					$found = true;
 					break;
 				}

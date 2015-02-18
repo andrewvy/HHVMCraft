@@ -1,7 +1,20 @@
 <?php
 
-namespace HHVMCraft\Networking\Packets;
+namespace HHVMCraft\Core\Networking\Packets;
 
-class DestoryEntityPacket {
+class DestroyEntityPacket {
+	const id = "ID";
+	public $entityId;
+
+	public function __construct($entityId) {
+		$this->entityId = $entityId;
+	}
+
+	public function writePacket($StreamWrapper) {
+		$str = $StreamWrapper->writeUInt8(self::id).
+			$StreamWrapper->writeInt($this->entityId);
+
+		return $StreamWrapper->writePacket($str);
+	}
 
 }

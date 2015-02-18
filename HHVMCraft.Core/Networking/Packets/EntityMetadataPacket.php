@@ -1,7 +1,6 @@
 <?php
 
-namespace HHVMCraft\Networking\Packets;
+namespace HHVMCraft\Core\Networking\Packets;
 
 class EntityMetadataPacket {
-
 }

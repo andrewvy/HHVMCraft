@@ -8,7 +8,7 @@ class ItemStack {
 	public $metadata;
 	public $nbt;
 
-	public function __construct($id, $icount=1, $metadata=0;, $nbt=null;) {
+	public function __construct($id, $icount=1, $metadata=0, $nbt=null) {
 		if ($icount == 0) {
 			$this->id = -1;
 			$this->metadata = 0;
@@ -35,9 +35,9 @@ class ItemStack {
 		if ($slot->isEmpty()) {
 			return $slot;
 		}
-		$slot->icount = hexdec(bin2hex($StreamWrapper->readUInt8();
-		$slot->metadata = hexdec(bin2hex($StreamWrapper->readUInt16();
-		$l = hexdec(bin2hex($StreamWrapper->readUInt16();
+		$slot->icount = hexdec(bin2hex($StreamWrapper->readUInt8()));
+		$slot->metadata = hexdec(bin2hex($StreamWrapper->readUInt16()));
+		$l = hexdec(bin2hex($StreamWrapper->readUInt16()));
 		$buf = $StreamWrapper->readUInt8Array($l);
 		return $slot;
 	}

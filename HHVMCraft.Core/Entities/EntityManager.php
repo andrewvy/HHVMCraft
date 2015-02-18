@@ -177,40 +177,29 @@ class EntityManager {
 //				$this->PhysicsEngine->removeEntity($entity);
 			}
 
-			if (hw_api::lock($this->Server->Clients)) {
-				for ($i=0;$i<count($this->Server->Clients);$i++) {
-					$client = $this->Server->Clients[$i];
+			for ($i=0;$i<count($this->Server->Clients);$i++) {
+				$client = $this->Server->Clients[$i];
 
-					if (in_array($client->knownEntities, $entity) && $client->Disconnected == false) {
-						$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
+				if (in_array($client->knownEntities, $entity) && $client->Disconnected == false) {
+					$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
 
-						unset($client->knownEntities[$entity]);
-						array_values($client->knownEntities);
+					unset($client->knownEntities[$entity]);
+					array_values($client->knownEntities);
 
-					}
 				}
-
-				hw_api::unlock($this->Server->Clients);
 			}
 
-			if (hw_api::lock($this->entities) {
-				unset($this->entities[$entity]);
-				hw_api::unlock($this->entities);
-			}
+			unset($this->entities[$entity]);
 		}
 	}
 
 	public function update() {
 //		$this->PhysicsEngine->update();
 
-		if (hw_api::lock($this->entities)) {
-			foreach ($this->entities as $e) { 
-				if ($e->Despawned == false) {
-					$e->update($this);
-				}	
-			}
-
-			hw_api::unlock($this->entities);
+		foreach ($this->entities as $e) { 
+			if ($e->Despawned == false) {
+				$e->update($this);
+			}	
 		}
 
 		$this->flushDespawns();

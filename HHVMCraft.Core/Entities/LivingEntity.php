@@ -2,6 +2,9 @@
 
 namespace HHVMCraft\Core\Entities;
 
+require "Entity.php";
+use HHVMCraft\Core\Entities\Entity;
+
 class LivingEntity extends Entity {
 	const sendMetaDataToClients = true;
 	public $air;

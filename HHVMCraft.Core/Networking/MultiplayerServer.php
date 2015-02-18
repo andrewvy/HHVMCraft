@@ -9,6 +9,7 @@ require "HHVMCraft.Core/Networking/Client.php";
 require "HHVMCraft.Core/Entities/EntityManager.php";
 require "HHVMCraft.Core/World/World.php";
 require "HHVMCraft.API/BlockRepository.php";
+require "HHVMCraft.API/CraftingRepository.php";
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
@@ -17,6 +18,7 @@ use HHVMCraft\Core\Networking\Handlers;
 use HHVMCraft\Core\Entities\EntityManager;
 use HHVMCraft\Core\World\World;
 use HHVMCraft\API\BlockRepository;
+use HHVMCraft\API\CraftingRepository;
 
 use Evenement\EventEmitter;
 use React\Socket\Server;
@@ -44,6 +46,7 @@ class MultiplayerServer extends EventEmitter {
 		$this->PacketReader->registerPackets();
 
 		$this->BlockRepository = new BlockRepository();
+		$this->CraftingRepository = new CraftingRepository();
 
 		$this->PacketHandler = new PacketHandler($this);
 		$this->World = new World("Flatland", $this->BlockRepository);

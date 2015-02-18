@@ -84,7 +84,11 @@ class Window {
 
 	public function getSlots() {
 		$l = $this->windowAreaLength();
-		$slots = new ItemStack[$l];
+		$slots = array_fill(0, $l, 0);
+
+		for ($i=0;$i<$l;$i++) {
+			$slots[$i] = ItemStack::emptyStack();
+		}
 
 		// TODO: Need to create new itemslots with all of the itemslots of the windowareas.
 		foreach($this->WindowAreas as $Area) {	

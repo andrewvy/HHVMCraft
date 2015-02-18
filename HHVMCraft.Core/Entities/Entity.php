@@ -3,7 +3,7 @@
 namespace HHVMCraft\Core\Entities;
 
 require "vendor/autoload.php";
-require "HHVMCraft.API/Vec3.php";
+require "HHVMCraft.API/Vector3.php";
 require "HHVMCraft.API/Coordinates3D.php";
 
 use HHVMCraft\API\Vec3;

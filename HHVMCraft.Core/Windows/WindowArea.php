@@ -60,7 +60,7 @@ class WindowArea {
 						$this->metadata,
 						$this->nbt);
 
-					$this->Items[$i] = new ItemStack($item->id, $maxStack
+					$this->Items[$i] = new ItemStack($item->id, $maxStack);
 				}
 
 				$this->Items[$i] = new ItemStack($item->id, ($this->Items[$i]->icount + $item->icount), $item->metadata);

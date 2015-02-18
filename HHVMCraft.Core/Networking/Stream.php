@@ -33,7 +33,7 @@ class StreamWrapper {
 	}
 
 	public function writeUInt8($data) {
-		return pack("c*", $data);
+		return pack("H*", $data);
 	}
 
 	public function readBool() {
@@ -56,7 +56,7 @@ class StreamWrapper {
 	}
 
 	public function writeUInt16($data) {
-		return pack("S*", $data);
+		return pack("n*", $data);
 	}
 
 	// INT: 0x0000 0x0000
@@ -98,7 +98,8 @@ class StreamWrapper {
 	}
 
 	public function writeString16($str) {
-		return pack("H*", bin2hex($str));
+		$str = iconv("UTF-8", "UTF-16BE", $str);
+		return $str;
 	}
 
 	public function readUInt8Array($length) {
@@ -114,6 +115,7 @@ class StreamWrapper {
 	}
 
 	public function writePacket($data) {
+		Hex::dump($data);
 		$res = socket_write($this->stream, $data);
 		if ($res != false) {
 			return true;
