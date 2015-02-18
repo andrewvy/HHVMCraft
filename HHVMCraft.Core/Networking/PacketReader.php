@@ -114,7 +114,8 @@ class PacketReader {
 		}
 		
 		if ($type == null) {
-			throw new \Exception("Unable to read packet ID");
+			echo " >> Unrecognized Packet ID: ".$id."\n";
+			return;
 		}
 		
 		$construct = "HHVMCraft\Core\Networking\\".$type;

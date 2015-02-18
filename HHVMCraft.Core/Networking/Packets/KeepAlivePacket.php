@@ -11,4 +11,8 @@ class KeepAlivePacket {
 		return $StreamWrapper->writePacket($str);
 	}
 
+	public function readPacket($StreamWrapper) {
+		$StreamWrapper->readUInt16();	
+	}
+
 }

@@ -84,7 +84,7 @@ class MultiplayerServer extends EventEmitter {
 		if ($packet) {
 			$this->PacketHandler->handlePacket($packet, $client, $this);
 		} else {
-			echo " >> Bad Packet \n";	
+			echo " >> No handler found.. \n";	
 		}
 	}
 
