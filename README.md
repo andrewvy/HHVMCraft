@@ -32,9 +32,12 @@ So if you have any comments, please feel free to create an issue.
 - NBT deserializing/serializing needs to be added.
 - Packet Handlers need to be added.
 
-WE'RE CLOSE! I just need to build the in-memory chunk deserializer/serializer, 
-clean up the EntityManager, grunt work with packet data sending and
-I will finally have a cool visual demo!
+WE'RE EVEN CLOSER! I just need to build the in-memory chunk deserializer/serializer, 
+grunt work with packet data sending and I will finally have a cool visual demo!
+
+Got past the login protocol, now we need chunk sending! 
+
+![](http://i.imgur.com/xGvnUhB.png)
 
 ## Libraries used
 
