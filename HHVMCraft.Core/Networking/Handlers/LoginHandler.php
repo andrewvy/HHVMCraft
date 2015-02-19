@@ -12,6 +12,9 @@ require "HHVMCraft.Core/Networking/Packets/TimeUpdatePacket.php";
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
 use HHVMCraft\Core\Networking\Packets\LoginResponsePacket;
 use HHVMCraft\Core\Networking\Packets\WindowItemsPacket;
+use HHVMCraft\Core\Networking\Packets\SpawnPositionPacket;
+use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
+use HHVMCraft\Core\Networking\Packets\TimeUpdatePacket;
 
 class LoginHandler {
 
@@ -33,10 +36,22 @@ class LoginHandler {
 			// Handle client inventory.. (WindowItemPacket)
 			$client->enqueuePacket(new WindowItemsPacket(0, $client->Inventory->getSlots()));
 			$client->Entity->Position = $client->World->ChunkProvider->spawnpoint;
+			$client->enqueuePacket(new SpawnPositionPacket(
+				$client->Entity->Position->x,
+				$client->Entity->Position->y,
+				$client->Entity->Position->z));
 
-			// Handle client entity spawnpoint.. (SpawnPositionPacket)
-			// Handle player position (SetPlayerPositionPacket)
-			// Handle client time (TimeUpdatePacket)
+			$client->enqueuePacket(new SetPlayerPositionPacket(
+				$client->Entity->Position->x,
+				$client->Entity->Position->y,
+				$client->Entity->Position->y + $client->Entity->Height,
+				$client->Entity->Position->z,
+				0,
+				0,
+				true));
+
+			$client->enqueuePacket(new TimeUpdatePacket(
+				$server->World->getTime()));
 
 			// Add player entity to entitymanager, subscribe client to entities.
 		} else {

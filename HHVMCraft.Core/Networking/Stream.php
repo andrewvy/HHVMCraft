@@ -93,7 +93,7 @@ class StreamWrapper {
 		if (strlen($str) > 0) {
 			return $str;
 		} else {
-			throw new \Exception("Malformed string, was empty");
+			// No string found?
 		}
 	}
 
