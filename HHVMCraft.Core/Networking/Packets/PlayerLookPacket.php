@@ -10,8 +10,8 @@ class PlayerLookPacket {
 	public $onGround;
 
 	public function readPacket($StreamWrapper) {
-		$this->yaw = $StreamWrapper->readUInt8();
-		$this->pitch = $StreamWrapper->readUInt8();
+		$this->yaw = $StreamWrapper->readInt();
+		$this->pitch = $StreamWrapper->readInt();
 		$this->onGround = $StreamWrapper->readBool();
 	}
 }

@@ -18,8 +18,8 @@ class PlayerPositionAndLookPacket {
 		$this->y = $StreamWrapper->readDouble();
 		$this->stance = $StreamWrapper->readDouble();
 		$this->z = $StreamWrapper->readDouble();
-		$this->yaw = $StreamWrapper->readUInt8();
-		$this->pitch = $StreamWrapper->readUInt8();
+		$this->yaw = $StreamWrapper->readInt();
+		$this->pitch = $StreamWrapper->readInt();
 		$this->onGround = $StreamWrapper->readBool();
 	}
 }

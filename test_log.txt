@@ -1,0 +1,176 @@
+ >> Starting Server 
+ >> New Connection 
+ >> Read Serverbound Packet 
+     0 : 02 00 01 00 2d [....-]
+ >> Read Serverbound Packet 
+     0 : 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
+     0 : 68 00 00 2d ff ff ff ff ff ff ff ff ff ff ff ff [h..-............]
+    10 : ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff [................]
+    20 : ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff [................]
+    30 : ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff [................]
+    40 : ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff [................]
+    50 : ff ff ff ff ff ff ff ff ff ff ff ff ff ff [..............]
+     0 : 06 00 00 00 00 0a 00 00 00 00 00 00 00 [.............]
+     0 : 0b 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
+    10 : 00 00 00 00 00 00 00 24 40 00 00 00 00 00 00 24 [.......$@......$]
+    20 : 40 00 00 00 00 00 00 00 00 [@........]
+     0 : 04 f4 01 00 00 00 00 00 00 [.........]
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 0b
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: f9
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: eb
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 85
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 20
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 40
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 34
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: c3
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 33
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 19
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 9b
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 40
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 90
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 66
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 68
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Read Serverbound Packet 
+ >> Unrecognized Packet ID: 80
+ >> No handler found.. 
+ >> Read Serverbound Packet 
+
+Fatal error: Uncaught exception 'Exception' with message 'Wrong version!' in /home/vy/Sites/hhvmcraft/HHVMCraft.Core/Networking/Handlers/LoginHandler.php:58
+Stack trace:
+#0 (): HHVMCraft\Core\Networking\Handlers\LoginHandler::HandleLoginRequestPacket()
+#1 /home/vy/Sites/hhvmcraft/HHVMCraft.Core/Networking/PacketHandler.php(46): call_user_func()
+#2 /home/vy/Sites/hhvmcraft/HHVMCraft.Core/Networking/MultiplayerServer.php(85): HHVMCraft\Core\Networking\PacketHandler->handlePacket()
+#3 /home/vy/Sites/hhvmcraft/HHVMCraft.Core/Networking/Client.php(48): HHVMCraft\Core\Networking\MultiplayerServer->handlePacket()
+#4 (): {closure}()
+#5 /home/vy/Sites/hhvmcraft/vendor/evenement/evenement/src/Evenement/EventEmitterTrait.php(64): call_user_func_array()
+#6 /home/vy/Sites/hhvmcraft/vendor/react/socket/src/Connection.php(15): Evenement\EventEmitter->emit()
+#7 (): React\Socket\Connection->handleData()
+#8 /home/vy/Sites/hhvmcraft/vendor/react/event-loop/StreamSelectLoop.php(227): call_user_func()
+#9 /home/vy/Sites/hhvmcraft/vendor/react/event-loop/StreamSelectLoop.php(201): React\EventLoop\StreamSelectLoop->waitForStreamActivity()
+#10 /home/vy/Sites/hhvmcraft/HHVMCraft.Core/Networking/MultiplayerServer.php(77): React\EventLoop\StreamSelectLoop->run()
+#11 /home/vy/Sites/hhvmcraft/server.php(12): HHVMCraft\Core\Networking\MultiplayerServer->start()
+#12 {main}

@@ -45,7 +45,6 @@ class Client {
 	public function setupPacketListener() {
 		$this->connection->on('data', function($data) {
 			$this->streamWrapper->data($data);
-			Hex::dump($data);
 			$this->server->handlePacket($this);
 		});
 	}
