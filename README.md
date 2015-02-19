@@ -37,7 +37,7 @@ grunt work with packet data sending and I will finally have a cool visual demo!
 
 Got past the login protocol, now we need chunk sending! 
 
-![](http://i.imgur.com/xGvnUhB.png)
+![](http://i.imgur.com/lAtvZZO.png)
 
 ## Libraries used
 
