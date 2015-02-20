@@ -111,7 +111,8 @@ class StreamWrapper {
 	}
 
 	public function readDouble() {
-		return pack("d*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
+		Hex::dump($this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());		
+//		return pack("H*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
 
 	public function writeDouble($data) {
@@ -123,7 +124,6 @@ class StreamWrapper {
 	}
 
 	public function writePacket($data) {
-		Hex::dump($data);
 		$res = socket_write($this->stream, $data);
 		if ($res != false) {
 			return true;

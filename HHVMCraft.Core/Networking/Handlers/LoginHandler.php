@@ -53,6 +53,7 @@ class LoginHandler {
 			$client->enqueuePacket(new TimeUpdatePacket(
 				$server->World->getTime()));
 
+			$client->updateChunks();
 			// Add player entity to entitymanager, subscribe client to entities.
 		} else {
 			throw new \Exception("Wrong version!");

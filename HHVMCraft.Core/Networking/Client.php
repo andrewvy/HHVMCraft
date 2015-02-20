@@ -31,6 +31,7 @@ class Client {
 	public $knownEntities = [];
 
 	public $loadedChunks = [];
+	public $chunkRadius = 5;
 	public $Inventory;
 
 	public function __construct($connection, $server) {
@@ -63,6 +64,27 @@ class Client {
 		}
 	}	
 
+	public function updateChunks() {
+		$chunk = $this->World->getFakeChunk();
+	}
+
+	public function createChunkPacket($chunk) {
+		$x = $chunk->x;
+		$z = $chunk->z;
+
+		$blockdata = "";
+
+		$compress = gzcompress($blockdata);
+
+		return new ChunkDataPacket(
+			$x*$chunk::Width,
+			0,
+			$z*$chunk::Depth,
+			$chunk::Width,
+			$chunk::Height,
+			$chunk::Depth,
+			$compressed);
+	}
 	public function loadChunk($Coordinates2D) {
 		$chunk = $this->World->getChunk($Coordinates2D);
 		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));

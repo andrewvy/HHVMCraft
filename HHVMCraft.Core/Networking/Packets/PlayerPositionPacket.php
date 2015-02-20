@@ -12,10 +12,10 @@ class PlayerPositionPacket {
 	public $onGround;
 
 	public function readPacket($StreamWrapper) {
-		$this->x = $StreamWrapper->readDouble();
-		$this->y = $StreamWrapper->readDouble();
-		$this->stance = $StreamWrapper->readDouble();
-		$this->z = $StreamWrapper->readDouble();
+		$this->x = floatval($StreamWrapper->readDouble());
+		$this->y = floatval($StreamWrapper->readDouble());
+		$this->stance = floatval($StreamWrapper->readDouble());
+		$this->z = floatval($StreamWrapper->readDouble());
 		$this->onGround = $StreamWrapper->readBool();
 	}
 
