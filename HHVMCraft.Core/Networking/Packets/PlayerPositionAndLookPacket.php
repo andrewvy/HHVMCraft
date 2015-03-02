@@ -17,14 +17,13 @@ class PlayerPositionAndLookPacket {
 	public $onGround;
 
 	public function readPacket($StreamWrapper) {
-		$this->x = floatval($StreamWrapper->readDouble());
-		$this->y = floatval($StreamWrapper->readDouble());
-		$this->stance = floatval($StreamWrapper->readDouble());
-		$this->z = floatval($StreamWrapper->readDouble());
-		$this->yaw = floatval($StreamWrapper->readInt());
-		$this->pitch = floatval($StreamWrapper->readInt());
+		$StreamWrapper->readDouble();
+		$this->y = $StreamWrapper->readDouble();
+		$this->stance = $StreamWrapper->readDouble();
+		$this->z = $StreamWrapper->readDouble();
+		$this->yaw = $StreamWrapper->readInt();
+		$this->pitch = $StreamWrapper->readInt();
 		$this->onGround = $StreamWrapper->readBool();
-		Hex::dump($this->yaw);
 		//		echo " Position: <".$this->x.",".$this->y.",".$this->z."> Yaw: ".$this->yaw." , Pitch: ".$this->pitch."\n";
 	}
 }

@@ -6,6 +6,7 @@ require "HHVMCraft.Core/Networking/Stream.php";
 require "HHVMCraft.Core/Helpers/HexDump.php";
 require "HHVMCraft.Core/Entities/PlayerEntity.php";
 require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket.php";
+require "HHVMCraft.Core/Networking/Packets/ChunkDataPacket.php";
 require "HHVMCraft.Core/Windows/InventoryWindow.php";
 
 use HHVMCraft\Core\Helpers\Hex;
@@ -66,13 +67,26 @@ class Client {
 
 	public function updateChunks() {
 		$chunk = $this->World->getFakeChunk();
+		$preamble = new ChunkPreamblePacket($chunk->x, $chunk->z);
+		$data = $this->createChunkPacket($chunk);
+		$this->enqueuePacket($preamble);
+		$this->enqueuePacket($data);
 	}
 
 	public function createChunkPacket($chunk) {
 		$x = $chunk->x;
 		$z = $chunk->z;
 
-		$blockdata = "";
+		$blockdata = pack("H*", $chunk->Blocks).
+		pack("H*", $chunk->Metadata).
+		pack("H*", $chunk->BlockLight).
+		pack("H*", $chunk->SkyLight);
+
+		//  Must flatten data and be zlib deflated
+		//  1) Block Types
+		//  2) Block Metadata
+		//  3) Block Light
+		//  4) Sky Light
 
 		$compress = gzcompress($blockdata);
 
@@ -83,7 +97,7 @@ class Client {
 			$chunk::Width,
 			$chunk::Height,
 			$chunk::Depth,
-			$compressed);
+			$compress);
 	}
 	public function loadChunk($Coordinates2D) {
 		$chunk = $this->World->getChunk($Coordinates2D);
