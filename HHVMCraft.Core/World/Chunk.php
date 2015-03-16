@@ -30,10 +30,10 @@ class Chunk {
 		$this->x = $Coordinates2D->x;
 		$this->z = $Coordinates2D->z;
 
-		$this->Blocks = array_fill(0, self::Size, 0);
-		$this->Metadata = array_fill(0, self::Size, 0);
-		$this->BlockLight = array_fill(0, self::Size, 0);
-		$this->HeightMap = array_fill(0, self::Size, 0);
+		$this->Blocks = array_fill(0, self::Size, 0x00);
+		$this->Metadata = array_fill(0, self::Size, 0x00);
+		$this->BlockLight = array_fill(0, self::Size, 0x00);
+		$this->HeightMap = array_fill(0, self::Size, 0x00);
 		$this->SkyLight = array_fill(0, self::Size, 0xFF);
 	}
 
@@ -115,5 +115,18 @@ class Chunk {
 	}
 
 	public function nbtDeserialize($val) {
+	}
+
+	public function deserialize() {
+		$deserialized = "";
+		$blockLength = Self::Size * 4;
+		$blockData = [];
+		array_push($blockData, $this->Blocks, $this->Metadata, $this->BlockLight, $this->SkyLight);
+
+		for	($i=0; $i<$blockLength; $i++) {
+			$deserialized .= pack("H*", $blockData[$i]);
+		}
+
+		return $deserialized;
 	}
 }
