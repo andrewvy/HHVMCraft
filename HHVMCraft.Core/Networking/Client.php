@@ -77,10 +77,7 @@ class Client {
 		$x = $chunk->x;
 		$z = $chunk->z;
 
-		$blockdata = pack("H*", $chunk->Blocks).
-		pack("H*", $chunk->Metadata).
-		pack("H*", $chunk->BlockLight).
-		pack("H*", $chunk->SkyLight);
+		$blockdata = $chunk->deserialize();
 
 		//  Must flatten data and be zlib deflated
 		//  1) Block Types
@@ -99,6 +96,7 @@ class Client {
 			$chunk::Depth,
 			$compress);
 	}
+
 	public function loadChunk($Coordinates2D) {
 		$chunk = $this->World->getChunk($Coordinates2D);
 		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));
