@@ -33,7 +33,11 @@ class World {
 
 	// For quick purposes, let's just generate a 0,0 chunk.
 	public function getFakeChunk() {
-		$coords = new Coordinates2D(0,0);
-		return $this->ChunkProvider->generateChunk($coords);
+		$Coordinates2D = new Coordinates2D(0,0);
+		return $this->ChunkProvider->generateChunk($Coordinates2D);
+	}
+
+	public function generateChunk($Coordinates2D) {
+		return $this->ChunkProvider->generateChunk($Coordinates2D);
 	}
 }
