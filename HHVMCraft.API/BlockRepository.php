@@ -10,7 +10,7 @@ class BlockRepository {
 	}
 
 	public function getBlockProvider($id) {
-		return $this->BlockProvidrs[$id];
+		return $this->BlockProviders[$id];
 	}
 
 	public function registerBlockProviders() {

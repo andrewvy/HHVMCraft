@@ -17,7 +17,7 @@ use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Windows\InventoryWindow;
 
 class Client {
-	public $server;
+	public $Server;
 	public $World;
 	public $connection;
 	public $streamWrapper;
@@ -38,7 +38,7 @@ class Client {
 	public function __construct($connection, $server) {
 		$this->connection = $connection;
 		$this->streamWrapper = new StreamWrapper($connection->stream);
-		$this->server = $server;
+		$this->Server = $server;
 		$this->World = $server->World;
 		$this->Inventory = new InventoryWindow($server->CraftingRepository);
 		$this->setupPacketListener();
@@ -47,7 +47,7 @@ class Client {
 	public function setupPacketListener() {
 		$this->connection->on('data', function($data) {
 			$this->streamWrapper->data($data);
-			$this->server->handlePacket($this);
+			$this->Server->handlePacket($this);
 		});
 	}
 

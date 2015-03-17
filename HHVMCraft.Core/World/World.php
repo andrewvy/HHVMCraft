@@ -40,4 +40,9 @@ class World {
 	public function generateChunk($Coordinates2D) {
 		return $this->ChunkProvider->generateChunk($Coordinates2D);
 	}
+
+	public function setBlockId($Coordinates3D, $id) {
+
+	}
+
 }
