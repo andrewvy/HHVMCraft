@@ -11,7 +11,7 @@ class ChunkPreamblePacket {
 	public function __construct($x, $z, $load=true) {
 		$this->x = $x;
 		$this->z = $z;
-		$this->load = $load;	
+		$this->load = $load;
 	}
 
 	public function writePacket($StreamWrapper) {

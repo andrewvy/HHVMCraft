@@ -29,7 +29,7 @@ class LoginHandler {
 
 			// Respond with details about the world.
 			$client->enqueuePacket(new LoginResponsePacket(0, 0, 0));
-				
+
 			// Creating player entity..
 			$client->PlayerEntity = $server->EntityManager->addPlayerEntity($client);
 

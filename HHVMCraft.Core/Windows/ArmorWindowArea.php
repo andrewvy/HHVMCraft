@@ -32,7 +32,7 @@ class ArmorWindowArea extends WindowArea {
 				if (empty($this->Items[$i])) {
 					$this->Items[$i] = $slot;
 					$from->Items[$i] = ItemStack::emptyStack();
-					return $i;	
+					return $i;
 				}
 			}
 		}

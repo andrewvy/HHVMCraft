@@ -23,7 +23,7 @@ class StreamWrapper {
 	}
 
 	// UINT8: 0x00
-	public function readUInt8() {	
+	public function readUInt8() {
 		$b = array_shift($this->streamBuffer);
 		if ($b) {
 			return $b;
@@ -60,7 +60,7 @@ class StreamWrapper {
 	}
 
 	// INT: 0x0000 0x0000
-	
+
 	public function readInt() {
 		return pack("H*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}
@@ -70,7 +70,7 @@ class StreamWrapper {
 	}
 
 	// LONG: 0x0000 0x0000 0x0000 0x0000
-	
+
 	public function readLong() {
 		return pack("H*",$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8().$this->readUInt8());
 	}

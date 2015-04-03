@@ -15,7 +15,7 @@ class HandshakePacket {
 	}
 
 	public function writePacket($stream) {
-	
+
 	}
 
 }

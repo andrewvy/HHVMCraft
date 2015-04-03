@@ -76,13 +76,13 @@ class Entity {
 			$EntityManager->despawnEntity($this);
 		}
 	}
-	
+
 	public function propertyChanged($propertyName) {
 		if ($this->enablePropertyChange == true) {
-			$this->Event->emit("PropertyChanged", array($this, $propertyName) );	
+			$this->Event->emit("PropertyChanged", array($this, $propertyName) );
 		}
 	}
-	
+
 
 
 }

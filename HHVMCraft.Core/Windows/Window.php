@@ -19,10 +19,10 @@ class Window {
 	}
 
 	public function moveToAlternateArea($index) {
-		$fromIndex = $this->getAreaIndex($index);	
+		$fromIndex = $this->getAreaIndex($index);
 		$from = $this->getArea($index);
 		$slot = $this->from[$index];
-		
+
 		if ($slot == null) {
 			return;
 		}
@@ -41,7 +41,7 @@ class Window {
 		foreach($WindowAreas as $Area) {
 			if ($Area->startIndex <= $index && $Area->startIndex + $Area->length > $index) {
 				$index = $index - $Area->startIndex;
-				return $Area;	
+				return $Area;
 			}
 		}
 	}
@@ -53,7 +53,7 @@ class Window {
 			if ($index >= $Area->startIndex	&& $index < $Area->startIndex + $Area->length) {
 				return $i;
 			}
-		}	
+		}
 	}
 
 	public function length() {
@@ -66,11 +66,11 @@ class Window {
 		foreach($WindowAreas as $Area) {
 			foreach($Area->Items as $Item) {
 				if (!empty($Item)) {
-					$hasStuff = true; 
-				}	
+					$hasStuff = true;
+				}
 			}
 		}
-		
+
 		return !$hasStuff;
 	}
 
@@ -91,7 +91,7 @@ class Window {
 		}
 
 		// TODO: Need to create new itemslots with all of the itemslots of the windowareas.
-		foreach($this->WindowAreas as $Area) {	
+		foreach($this->WindowAreas as $Area) {
 			for($i=0;$i<$Area->length;$i++) {
 				$index = $Area->startIndex + $i;
 				$slots[$index] = $Area->Items[$i];

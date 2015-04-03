@@ -101,8 +101,9 @@ class Client {
 		$chunk = $this->World->getChunk($Coordinates2D);
 		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));
 		$this->enqueuePacket($this->createChunkPacket($chunk));
-		
+
 		$serialized = $chunk->x.":".$chunk->z;
+
 		$this->loadedChunks[$serialized] = true;
 	}
 

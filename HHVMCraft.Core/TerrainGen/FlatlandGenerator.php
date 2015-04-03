@@ -14,11 +14,11 @@ class FlatlandGenerator {
 	public $layers = [];
 
 	public function __construct() {
-		$this->spawnpoint = new Coordinates3D(0,10,0); 
+		$this->spawnpoint = new Coordinates3D(0,10,0);
 	}
 
 	public function generateChunk($Coordinates2DPos) {
-		$newC = new Chunk($Coordinates2DPos);	
+		$newC = new Chunk($Coordinates2DPos);
 		$y = 0;
 		// Flatland, dirt from layer 1 - 8, grass on layer 9.
 		while ($y < 10) {
@@ -27,7 +27,7 @@ class FlatlandGenerator {
 					if ($y < 9) {
 						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x03);
 					} else {
-						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x02);	
+						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x02);
 					}
 				}
 			}

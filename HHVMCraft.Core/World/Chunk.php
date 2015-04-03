@@ -63,7 +63,7 @@ class Chunk {
 		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 		return $this->SkyLight[$index];
 	}
-	
+
 	public function getBlockLight($Coordinates3D) {
 		$this->lastAccessed = new \DateTime();
 		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
@@ -86,7 +86,7 @@ class Chunk {
 		$this->isModified = true;
 		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 		$this->Blocks[$index] = $val;
-		
+
 		$oldHeight = $this->getHeight($Coordinates3D->x, $Coordinates3D->z);
 		if ($val == 0x00) {
 			if ($oldHeight < $Coordinates3D->y) {
@@ -105,7 +105,7 @@ class Chunk {
 		}
 	}
 
-	public function toNbt() {	
+	public function toNbt() {
 	}
 
 	public function fromNbt($NbtFile) {

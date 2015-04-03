@@ -22,7 +22,7 @@ class EntityVelocityPacket {
 			$StreamWrapper->writeUInt16($this->xVel).
 			$StreamWrapper->writeUInt16($this->yVel).
 			$StreamWrapper->writeUInt16($this->zVel);
-		
+
 		return $StreamWrapper->writePacket($str);
 	}
 }

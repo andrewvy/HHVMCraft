@@ -21,7 +21,7 @@ class PlayerEntity extends LivingEntity {
 	public $isSprinting = false;
 
 	public function __construct($Client, $Event) {
-		$this->username = $Client->username;	
+		$this->username = $Client->username;
 	}
 
 	public function spawnPacket() {

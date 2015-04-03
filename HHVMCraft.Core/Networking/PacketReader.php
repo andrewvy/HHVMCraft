@@ -13,7 +13,6 @@ use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
 
 class PacketReader {
-	
 	public $protocol_version;
 	public $ServerboundPackets = [];
 	public $ClientboundPackets = [];
@@ -77,7 +76,7 @@ class PacketReader {
 
 //		$this->registerPacketType(Packets\EnvironmentStatePacket, false, true);
 //		$this->registerPacketType(Packets\LightningPacket, false, true);
-			
+
 //		$this->registerPacketType(Packets\OpenWindowPacket, false, true);
 //		$this->registerPacketType(Packets\CloseWindowPacket);
 //		$this->registerPacketType(Packets\ClickWindowPacket, true, false);
@@ -90,11 +89,11 @@ class PacketReader {
 //		$this->registerPacketType(Packets\MapDataPacket, false, true);
 
 //		$this->registerPacketType(Packets\UpdateStatisticPacket, false, true);
-	
+
 //		$this->registerPacketType(Packets\DisconnectPacket);
 
 	}
-	
+
 	public function registerPacketType($type, $serverbound=true, $clientbound=true) {
 		if ($serverbound) {
 			$this->ServerboundPackets[constant('HHVMCraft\Core\Networking\\'.$type.'::id')] = $type;
@@ -105,18 +104,18 @@ class PacketReader {
 	}
 
 	public function readPacket($client, $serverbound=true) {
-		$id = $client->streamWrapper->readUInt8();		
+		$id = $client->streamWrapper->readUInt8();
 		if ($serverbound) {
 			$type = $this->ServerboundPackets[$id];
 		} else {
 			$type = $this->ClientboundPackets[$id];
 		}
-		
+
 		if ($type == null) {
 			echo " >> Unrecognized Packet ID: ".$id."\n";
 			return;
 		}
-		
+
 		$construct = "HHVMCraft\Core\Networking\\".$type;
 		$packet = new ($construct);
 		$packet->readPacket($client->streamWrapper);
@@ -126,6 +125,6 @@ class PacketReader {
 	public function writePacket($packet, $client) {
 		if ($packet->writePacket($client->streamWrapper) == false) {
 			$client->enqueuePacket($packet);
-		}	
+		}
 	}
 }

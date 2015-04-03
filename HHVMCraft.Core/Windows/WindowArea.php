@@ -22,7 +22,7 @@ class WindowArea {
 		$this->length = $length;
 		$this->width = $width;
 		$this->height = $height;
-		
+
 		$this->setItems($length);
 	}
 
@@ -31,7 +31,7 @@ class WindowArea {
 
 		for ($i=0;$i<$length;$i++) {
 			$this->Items[$i] = ItemStack::emptyStack();
-		}	
+		}
 	}
 
 	public function moveOrMergeItem($index, $item, $from) {
@@ -44,9 +44,9 @@ class WindowArea {
 			} else if ($this->Items[$i]->id == $item->id &&
 				$this->Items[$i]->metadata == $item->metadata &&
 				$this->Items[$i]->icount < $maxStack) {
-				
+
 				$emptyIndex = -1;
-				
+
 				if ($from != null) {
 					$from->Items[$index] = ItemStack::emptyStack();
 				}

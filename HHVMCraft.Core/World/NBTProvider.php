@@ -1,7 +1,7 @@
 <?php
 /**
  * Class for reading in NBT-format files.
- * 
+ *
  * @author  Justin Martin <frozenfire@thefrozenfire.com>
  * @version 1.0
  *
@@ -14,9 +14,9 @@ namespace HHVMCraft\Core\World;
 
 class NBT {
 	public $root = array();
-	
+
 	public $verbose = false;
-	
+
 	const TAG_END = 0;
 	const TAG_BYTE = 1;
 	const TAG_SHORT = 2;
@@ -28,7 +28,7 @@ class NBT {
 	const TAG_STRING = 8;
 	const TAG_LIST = 9;
 	const TAG_COMPOUND = 10;
-	
+
 	public function loadFile($filename, $wrapper = "compress.zlib://") {
 		if(is_string($wrapper) && is_file($filename)) {
 			if($this->verbose) trigger_error("Loading file \"{$filename}\" with stream wrapper \"{$wrapper}\".", E_USER_NOTICE);
@@ -45,7 +45,7 @@ class NBT {
 		if($this->verbose) trigger_error("Encountered end tag for first tag; finished.", E_USER_NOTICE);
 		return end($this->root);
 	}
-	
+
 	public function writeFile($filename, $wrapper = "compress.zlib://") {
 		if(is_string($wrapper)) {
 			if($this->verbose) trigger_error("Writing file \"{$filename}\" with stream wrapper \"{$wrapper}\".", E_USER_NOTICE);
@@ -61,12 +61,12 @@ class NBT {
 		foreach($this->root as $rootNum => $rootTag) if(!$this->writeTag($fp, $rootTag)) trigger_error("Failed to write root tag #{$rootNum} to file/resource.", E_USER_WARNING);
 		return true;
 	}
-	
+
 	public function purge() {
 		if($this->verbose) trigger_error("Purging all loaded data", E_USER_ERROR);
 		$this->root = array();
 	}
-	
+
 	public function traverseTag($fp, &$tree) {
 		if(feof($fp)) {
 			if($this->verbose) trigger_error("Reached end of file/resource.", E_USER_NOTICE);
@@ -84,7 +84,7 @@ class NBT {
 			return true;
 		}
 	}
-	
+
 	public function writeTag($fp, $tag) {
 		if($this->verbose) {
 			$position = ftell($fp);
@@ -92,7 +92,7 @@ class NBT {
 		}
 		return $this->writeType($fp, self::TAG_BYTE, $tag["type"]) && $this->writeType($fp, self::TAG_STRING, $tag["name"]) && $this->writeType($fp, $tag["type"], $tag["value"]);
 	}
-	
+
 	public function readType($fp, $tagType) {
 		switch($tagType) {
 			case self::TAG_BYTE: // Signed byte (8 bit)
@@ -147,7 +147,7 @@ class NBT {
 				return $tree;
 		}
 	}
-	
+
 	public function writeType($fp, $tagType, $value) {
 		switch($tagType) {
 			case self::TAG_BYTE: // Signed byte (8 bit)

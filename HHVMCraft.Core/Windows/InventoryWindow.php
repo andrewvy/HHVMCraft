@@ -17,7 +17,7 @@ class InventoryWindow extends Window {
 	const craftingGridIndex = 1;
 	const armorIndex = 5;
 	const mainIndex = 9;
-	
+
 	// InventoryWindow does not have window type.
 	const type = -1;
 
@@ -42,11 +42,11 @@ class InventoryWindow extends Window {
 
 	// TODO
 	public function pickUpStack() {
-	
+
 	}
 
 	// TODO
 	public function copyToInventory() {
-	
+
 	}
 }

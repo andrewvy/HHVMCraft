@@ -24,7 +24,7 @@ class LivingEntity extends Entity {
 	public function setHealth($value) {
 		$this->health = $value;
 
-		$this->propertyChanged("Health");	
+		$this->propertyChanged("Health");
 	}
 
 	public function setHeadYaw($value) {

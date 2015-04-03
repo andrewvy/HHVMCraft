@@ -21,7 +21,7 @@ class EntityManager {
 	public $Server;
 	public $World;
 	public $PhysicsEngine;
-	
+
 	public $pendingDespawns = [];
 	public $entities = [];
 	public $nextEntityId = 1;
@@ -32,7 +32,7 @@ class EntityManager {
 		$this->Event = new EventEmitter();
 
 		$this->Event->on("PropertyChanged", function($sender, $propertyName) {
-			$this->handlePropertyChanged($sender, $propertyName);	
+			$this->handlePropertyChanged($sender, $propertyName);
 		});
 	}
 
@@ -40,7 +40,7 @@ class EntityManager {
 		if (get_class($entity) == "PlayerEntity") {
 			$this->handlePlayerPropertyChanged($propertyName, $entity);
 		}
-		
+
 		switch ($propertyName) {
 			case "Position":
 			case "Yaw":
@@ -63,7 +63,7 @@ class EntityManager {
 					$this->updateClientEntities($entity->client);
 				}
 				break;
-		}	
+		}
 	}
 
 	public function updateClientEntities($client) {
@@ -89,7 +89,7 @@ class EntityManager {
 				}
 			}
 		}
-		
+
 		// Reindex client entities array after we have removed some elements.
 		array_values($client->knownEntities);
 
@@ -135,7 +135,7 @@ class EntityManager {
 		if ($sender->sendMetaDataToClients == false) {
 			return;
 		}
-		
+
 		for ($i=0;$i<count($this->Server->Clients);$i++) {
 			$client = $this->Server->Clients[$i];
 
@@ -160,7 +160,7 @@ class EntityManager {
 				($entity->Velocity->x * 320),
 				($entity->Velocity->z * 320)));
 
-			
+
 		}
 	}
 
@@ -172,7 +172,7 @@ class EntityManager {
 	public function flushDespawns() {
 		while (count($this->pendingDespawns) != 0) {
 			$entity = array_shift($this->pendingDespawns);
-			
+
 			if (get_class($entity) == "PhysicsEntity") {
 //				$this->PhysicsEngine->removeEntity($entity);
 			}
@@ -196,10 +196,10 @@ class EntityManager {
 	public function update() {
 //		$this->PhysicsEngine->update();
 
-		foreach ($this->entities as $e) { 
+		foreach ($this->entities as $e) {
 			if ($e->Despawned == false) {
 				$e->update($this);
-			}	
+			}
 		}
 
 		$this->flushDespawns();

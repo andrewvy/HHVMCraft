@@ -6,7 +6,7 @@ use HHVMCraft\Core\Helpers\Hex;
 
 class ChunkDataPacket {
 	const id = "33";
-	
+
 	public $x;
 	public $y;
 	public $z;
@@ -22,7 +22,7 @@ class ChunkDataPacket {
 		$this->z = $y;
 		$this->Width = $Width;
 		$this->Height = $Height;
-		$this->Depth = $Depth;	
+		$this->Depth = $Depth;
 		$this->BlockData = $BlockData;
 		Hex::dump($this->BlockData);
 	}

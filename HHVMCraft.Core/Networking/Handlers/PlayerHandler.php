@@ -3,7 +3,7 @@
 namespace HHVMCraft\Core\Networking\Handlers;
 
 class PlayerHandler {
-	
+
 	public static function HandleGrounded() {
 	}
 
@@ -12,7 +12,7 @@ class PlayerHandler {
 
 	public static function HandleLook() {
 	}
-	
+
 	public static function HandlePositionAndLook() {
 	}
 }

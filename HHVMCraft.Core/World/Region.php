@@ -29,7 +29,7 @@ class Region {
 	}
 
 	public function generateChunk($Coordinates2D) {
-		// Generates chunk from chunk provider	
+		// Generates chunk from chunk provider
 		$Global2DCoordinates = new Coordinates2D(($this->x * $this::Width) + $Coordinates2D->x, ($this->z * $this::Depth) + $Coordinates2D->z);
 		$Chunk = $this->World->generateChunk($Global2DCoordinates);
 		$Chunk->isModified = true;

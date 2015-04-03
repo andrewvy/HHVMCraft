@@ -60,10 +60,9 @@ class MultiplayerServer extends EventEmitter {
 	public function start($port) {
 		$this->socket->on('connection', function($connection) {
 			echo " >> New Connection \n";
-			
-			$this->acceptClient($connection);	
+			$this->acceptClient($connection);
 		});
-		
+
 		$this->socket->listen($port);
 
 		$this->loop->addPeriodicTimer($this->tickRate, function() {
@@ -75,7 +74,7 @@ class MultiplayerServer extends EventEmitter {
 		});
 
 		$this->loop->run();
-		
+
 		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
 	}
 
@@ -84,7 +83,7 @@ class MultiplayerServer extends EventEmitter {
 		if ($packet) {
 			$this->PacketHandler->handlePacket($packet, $client, $this);
 		} else {
-			echo " >> No handler found.. \n";	
+			echo " >> No handler found.. \n";
 		}
 	}
 

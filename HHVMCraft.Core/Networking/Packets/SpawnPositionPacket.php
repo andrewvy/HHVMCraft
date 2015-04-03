@@ -19,7 +19,7 @@ class SpawnPositionPacket {
 			$StreamWrapper->writeInt($this->x).
 			$StreamWrapper->writeInt($this->y).
 			$StreamWrapper->writeInt($this->z);
-	
+
 		return $StreamWrapper->writePacket($str);
 	}
 }
