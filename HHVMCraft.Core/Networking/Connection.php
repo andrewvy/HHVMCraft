@@ -4,6 +4,10 @@ namespace React\Socket;
 
 use React\Stream\Stream;
 
+// Connection
+// Handles new packets incoming, and stores them in the client's packet buffer.
+// Also handles cleanly closing the socket.
+
 class Connection extends Stream implements ConnectionInterface
 {
     public function handleData($stream)

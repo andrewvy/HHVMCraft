@@ -6,6 +6,10 @@ require "HHVMCraft.Core/Helpers/HexDump.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 
+// StreamWrapper
+// The actual dirty bit manipulation.
+// This provides a nice wrapper to read and write packets to/from the stream.
+
 class StreamWrapper {
 	public $stream;
 	public $streamBuffer = [];

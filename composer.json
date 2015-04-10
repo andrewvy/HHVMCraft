@@ -1,5 +1,5 @@
 {
-    "name": "root/hhvmcraft",
+    "name": "hhvmcraft",
     "description": "A Minecraft Beta 1.7.3 Server Implementation",
     "license": "MIT",
     "authors": [
@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "react/react": "0.4.*"
+        "react/react": "0.4.*",
+        "phpunit/phpunit": "4.6.*"
     }
 }

@@ -2,6 +2,9 @@
 
 namespace HHVMCraft\Core\Helpers;
 
+// Hex
+// Provides a useful dump functionality to inspect packets.
+
 class Hex {
 	public function dump($data, $newline="\n") {
 		static $from = '';

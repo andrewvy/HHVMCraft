@@ -29,6 +29,9 @@ class Entity {
 		$this->Velocity = new Vec3(0,0,0);
 		$this->Position = new Coordinates3D(0,0,0);
 		$this->OldPosition = new Coordinates3D(0,0,0);
+
+		// This is the EventManager's event loop.
+		// Used for propagating entity property updates to other clients.
 		$this->Event = $Event;
 	}
 

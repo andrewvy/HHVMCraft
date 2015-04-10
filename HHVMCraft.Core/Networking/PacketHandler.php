@@ -18,6 +18,9 @@ require "Handlers/PlayerHandler.php";
 use HHVMCraft\Core\Networking\Packets;
 use HHVMCraft\Core\Networking\Handlers;
 
+// PacketHandler
+// This class is responsible for dispersing packets to the correct PacketHandler.
+
 class PacketHandler {
 	public $server;
 	public $LoginHandler;
@@ -46,6 +49,6 @@ class PacketHandler {
 			call_user_func('\HHVMCraft\Core\Networking'.$this->Handlers[$packet::id], $packet, $client, $server);
 		} else {
 			echo " >> No handler for packet ID: ".$packet::id."\n";
-		}	
+		}
 	}
 }

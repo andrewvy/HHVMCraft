@@ -23,6 +23,12 @@ use HHVMCraft\API\CraftingRepository;
 use Evenement\EventEmitter;
 use React\Socket\Server;
 
+// MultiplayerServer
+// The central networking and game loop controller.
+// Handles the gameloop and entityloop.
+// Handles the connection/disconnection of clients.
+// Handles packets to be read.
+
 class MultiplayerServer extends EventEmitter {
 	public $address;
 	public $Clients = [];

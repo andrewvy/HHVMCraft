@@ -12,6 +12,11 @@ require "Packets/HandshakeResponsePacket.php";
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
 
+// PacketReader
+// Does not actually read the packet, the actual packet reading happens in the Client's StreamWrapper.
+// This registers all known packets so a packet can be recognized and decoded.
+// Wraps the packet enqueuing for clients.
+
 class PacketReader {
 	public $protocol_version;
 	public $ServerboundPackets = [];

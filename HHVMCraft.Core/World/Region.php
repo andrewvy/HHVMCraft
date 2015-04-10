@@ -1,6 +1,7 @@
 <?php
 
-// A region is a 32x32 chunk area which can be partially loaded in memory.
+// Region
+// A 32x32 chunk area which can be partially loaded in memory.
 // In this implementation, we'll just store the whole region in memory for now.
 
 namespace HHVMCraft\Core\World;

@@ -21,10 +21,12 @@ class LoginHandler {
 	public static function HandleHandshakePacket($packet, $client, $server) {
 		$client->username = $packet->username;
 
+		// Sends the string "-" to indicate that no account authentication should take place.
 		$client->enqueuePacket(new HandshakeResponsePacket("-"));
 	}
 
 	public static function HandleLoginRequestPacket($packet, $client, $server) {
+		// Make sure the client has the right protocal version before allowing them to connect.
 		if ($packet->protocolVersion == 14) {
 
 			// Respond with details about the world.
@@ -35,12 +37,17 @@ class LoginHandler {
 
 			// Handle client inventory.. (WindowItemPacket)
 			$client->enqueuePacket(new WindowItemsPacket(0, $client->Inventory->getSlots()));
+
+			// Set the player entity position to the world's spawnpoint
 			$client->Entity->Position = $client->World->ChunkProvider->spawnpoint;
+
+			// Send packaet that sets the player's spawnpoint to that location.
 			$client->enqueuePacket(new SpawnPositionPacket(
 				$client->Entity->Position->x,
 				$client->Entity->Position->y,
 				$client->Entity->Position->z));
 
+			// Send packet that actually sets the player's current position to that position.
 			$client->enqueuePacket(new SetPlayerPositionPacket(
 				$client->Entity->Position->x,
 				$client->Entity->Position->y,
@@ -50,10 +57,13 @@ class LoginHandler {
 				0,
 				true));
 
+			// Send the world time to the client.
 			$client->enqueuePacket(new TimeUpdatePacket(
 				$server->World->getTime()));
 
+			// Begin sending chunk data.
 			$client->updateChunks();
+
 			// Add player entity to entitymanager, subscribe client to entities.
 		} else {
 			throw new \Exception("Wrong version!");

@@ -8,6 +8,10 @@ require "HHVMCraft.Core/World/Chunk.php";
 use HHVMCraft\Core\World\Chunk;
 use HHVMCraft\API\Coordinates3D;
 
+// FlatlandGenerator
+// Just generates chunks that are exactly the same.
+// Dirt from layers 1-8, and grass on layer 9.
+
 class FlatlandGenerator {
 	const LevelType = "FLAT";
 	public $spawnpoint;

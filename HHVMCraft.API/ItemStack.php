@@ -2,6 +2,10 @@
 
 namespace HHVMCraft\API;
 
+// ItemStack
+// Represents an item in the inventory.
+// It can be a singular item, or a stack of items.
+
 class ItemStack {
 	public $id;
 	public $icount;
@@ -47,7 +51,7 @@ class ItemStack {
 		if ($this->isEmpty()) {
 			return $str;
 		}
-		
+
 		$str = $str.
 			$StreamWrapper->writeUInt8($this->icount).
 			$StreamWrapper->writeUInt16($this->metadata);
@@ -59,7 +63,7 @@ class ItemStack {
 
 		// Handle NBT compressed data stream -> UInt8 array
 	}
-	
+
 	public function duplicate() {
 		return new self($this->id, $this->icount, $this->metadata, $this->nbt);
 	}
@@ -68,7 +72,7 @@ class ItemStack {
 		if ($this->isEmpty() && $ItemStack->isEmpty()) {
 			return true;
 		} else if ($this->id == $ItemStack->id && $this->metadata == $ItemStack->metadata && $this->nbt == $ItemStack->nbt) {
-			return true;	
+			return true;
 		} else {
 			return false;
 		}
