@@ -63,7 +63,7 @@ class Client {
 			$this->PacketQueueCount--;
 			return array_shift($this->PacketQueue);
 		}
-	}	
+	}
 
 	public function updateChunks() {
 		$chunk = $this->World->getFakeChunk();

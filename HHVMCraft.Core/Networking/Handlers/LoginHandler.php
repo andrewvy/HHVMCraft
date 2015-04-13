@@ -26,7 +26,9 @@ class LoginHandler {
 	}
 
 	public static function HandleLoginRequestPacket($packet, $client, $server) {
-		// Make sure the client has the right protocal version before allowing them to connect.
+
+		// Make sure the client has the right protocol version before allowing them to connect.
+
 		if ($packet->protocolVersion == 14) {
 
 			// Respond with details about the world.
@@ -65,7 +67,14 @@ class LoginHandler {
 			$client->updateChunks();
 
 			// Add player entity to entitymanager, subscribe client to entities.
+			$server->EntityManager->addPlayerEntity($client);
+
+
 		} else {
+
+			// The client's version is not the same as this server implementation.
+			// So, we should disconnect that client with a 'Wrong Version' message.
+
 			throw new \Exception("Wrong version!");
 		}
 	}
