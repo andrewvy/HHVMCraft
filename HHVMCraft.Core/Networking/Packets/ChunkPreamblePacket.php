@@ -18,7 +18,7 @@ class ChunkPreamblePacket {
 		$str = $StreamWrapper->writeUInt8(self::id).
 			$StreamWrapper->writeInt($this->x).
 			$StreamWrapper->writeInt($this->z).
-			$StreamWrapper->writeBool($this->load);	
+			$StreamWrapper->writeBool($this->load);
 
 		return $StreamWrapper->writePacket($str);
 	}

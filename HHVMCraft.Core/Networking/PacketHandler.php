@@ -48,7 +48,7 @@ class PacketHandler {
 		if ($this->Handlers[$packet::id]) {
 			call_user_func('\HHVMCraft\Core\Networking'.$this->Handlers[$packet::id], $packet, $client, $server);
 		} else {
-			echo " >> No handler for packet ID: ".$packet::id."\n";
+			$server->Logger->throwWarning("No hanlder for packet ID: ".$packet::id;
 		}
 	}
 }

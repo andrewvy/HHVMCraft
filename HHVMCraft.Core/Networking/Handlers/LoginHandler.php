@@ -49,8 +49,8 @@ class LoginHandler {
 				$client->Entity->Position->y,
 				$client->Entity->Position->z));
 
-			// Send packet that actually sets the player's current position to that position.
-			$client->enqueuePacket(new SetPlayerPositionPacket(
+			// send packet that actually sets the player's current position to that position.
+			$client->enqueuepacket(new setplayerpositionpacket(
 				$client->Entity->Position->x,
 				$client->Entity->Position->y,
 				$client->Entity->Position->y + $client->Entity->Height,
@@ -74,8 +74,7 @@ class LoginHandler {
 
 			// The client's version is not the same as this server implementation.
 			// So, we should disconnect that client with a 'Wrong Version' message.
-
-			throw new \Exception("Wrong version!");
+			$server->Logger->throwWarning("Wrong client version!");
 		}
 	}
 }

@@ -15,14 +15,14 @@ class Logger {
 	}
 
 	public function throwLog($msg) {
-		echo $this::LOG_PREFIX.$this::PREFIX.$msg;
+		echo $this::LOG_PREFIX.$this::PREFIX.$msg.PHP_EOL;
 	}
 
 	public function throwWarning($msg) {
-		echo $this::WARNING_PREFIX.$this::PREFIX.$msg;
+		echo $this::WARNING_PREFIX.$this::PREFIX.$msg.PHP_EOL;
 	}
 
 	public function throwError($msg) {
-		echo $this::ERROR_PREFIX.$this::PREFIX.$msg;
+		echo $this::ERROR_PREFIX.$this::PREFIX.$msg.PHP_EOL;
 	}
 }

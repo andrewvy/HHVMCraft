@@ -117,7 +117,7 @@ class PacketReader {
 		}
 
 		if ($type == null) {
-			echo " >> Unrecognized Packet ID: ".$id."\n";
+			$client->Server->Logger->throwError("Unrecognized Packet ID: ".$id);
 			return;
 		}
 

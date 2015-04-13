@@ -24,7 +24,6 @@ class ChunkDataPacket {
 		$this->Height = $Height;
 		$this->Depth = $Depth;
 		$this->BlockData = $BlockData;
-		Hex::dump($this->BlockData);
 	}
 
 	public function writePacket($StreamWrapper) {

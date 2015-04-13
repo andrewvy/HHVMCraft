@@ -3,6 +3,9 @@
 namespace HHVMCraft\Core\Networking;
 
 require "vendor/autoload.php";
+
+require "HHVMCraft.Core/Helpers/Logger.php";
+
 require "HHVMCraft.Core/Networking/PacketReader.php";
 require "HHVMCraft.Core/Networking/PacketHandler.php";
 require "HHVMCraft.Core/Networking/Client.php";
@@ -10,6 +13,8 @@ require "HHVMCraft.Core/Entities/EntityManager.php";
 require "HHVMCraft.Core/World/World.php";
 require "HHVMCraft.API/BlockRepository.php";
 require "HHVMCraft.API/CraftingRepository.php";
+
+use HHVMCraft\Core\Helpers\Logger;
 
 use HHVMCraft\Core\Networking\Client;
 use HHVMCraft\Core\Networking\PacketReader;
@@ -56,7 +61,10 @@ class MultiplayerServer extends EventEmitter {
 
 		$this->PacketHandler = new PacketHandler($this);
 		$this->World = new World("Flatland", $this->BlockRepository);
+
 		$this->EntityManager = new EntityManager($this, $this->World);
+
+		$this->Logger = new Logger();
 	}
 
 	public function acceptClient($connection) {
@@ -65,7 +73,7 @@ class MultiplayerServer extends EventEmitter {
 
 	public function start($port) {
 		$this->socket->on('connection', function($connection) {
-			echo " >> New Connection \n";
+			$this->Logger->throwLog("New Connection");
 			$this->acceptClient($connection);
 		});
 
@@ -81,7 +89,7 @@ class MultiplayerServer extends EventEmitter {
 
 		$this->loop->run();
 
-		echo " >> Listening on address: " + $this->address + ":" + $port + "\n";
+		$this->Logger->throwLog("Listening on address: ".$this->address.":".$port);
 	}
 
 	public function handlePacket($client) {
@@ -89,7 +97,7 @@ class MultiplayerServer extends EventEmitter {
 		if ($packet) {
 			$this->PacketHandler->handlePacket($packet, $client, $this);
 		} else {
-			echo " >> No handler found.. \n";
+			$this->Logger->throwWarning("No handler found for packet.");
 		}
 	}
 
