@@ -46,6 +46,11 @@ class PacketHandler {
 
 	public function handlePacket($packet, $client, $server) {
 		if ($this->Handlers[$packet::id]) {
+			// Through some fun hackery, the correct handler function
+			// is called by figuring out the handler by packet ID.
+			// This allows us to have a base class Handler around generic action
+			// while specificing a specific function to handle the packet.
+
 			call_user_func('\HHVMCraft\Core\Networking'.$this->Handlers[$packet::id], $packet, $client, $server);
 		} else {
 			$server->Logger->throwWarning("No hanlder for packet ID: ".$packet::id);
