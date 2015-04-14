@@ -113,4 +113,13 @@ class Client {
 		unset($this->loadedChunks[$serialized]);
 		$this->loadedChunks = array_values($array);
 	}
+
+	public function disconnect($ClientOriginated=true, $ServerOriginated=false) {
+		if ($ClientOriginated) {
+			$this->packetQueue = [];
+			$this->loadedChunks = [];
+			$this->connection->handleClose();
+		} else {
+		}
+	}
 }

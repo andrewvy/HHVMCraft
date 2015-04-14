@@ -4,7 +4,7 @@ namespace HHVMCraft\Core\Networking\Handlers;
 
 class DataHandler {
 
-	public static function HandleKeepAlivePacket() {
+	public static function HandleKeepAlive() {
 		// Do nothing for now
 	}
 
@@ -12,9 +12,11 @@ class DataHandler {
 
 	}
 
-	public static function HandleDisconnect($ClientBound=true, $ServerBound=false) {
-		// We want to know if the client has disconnected from the server
-		// or if the server has disconnected the client.
+	public static function HandleDisconnect($Packet, $Client, $Server) {
+		// If called, this means we've read a serverbound packet that a client has disconnected.
 
+		$Server->Logger->throwLog("Client has disconnected for reason: ".$Packet->reason);
+
+		$Server->handleDisconnect($Client);
 	}
 }

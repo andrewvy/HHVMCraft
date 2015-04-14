@@ -18,14 +18,14 @@ use HHVMCraft\Core\Networking\Packets\TimeUpdatePacket;
 
 class LoginHandler {
 
-	public static function HandleHandshakePacket($packet, $client, $server) {
+	public static function HandleHandshake($packet, $client, $server) {
 		$client->username = $packet->username;
 
 		// Sends the string "-" to indicate that no account authentication should take place.
 		$client->enqueuePacket(new HandshakeResponsePacket("-"));
 	}
 
-	public static function HandleLoginRequestPacket($packet, $client, $server) {
+	public static function HandleLoginRequest($packet, $client, $server) {
 
 		// Make sure the client has the right protocol version before allowing them to connect.
 

@@ -8,6 +8,7 @@ require "Packets/LoginRequestPacket.php";
 require "Packets/LoginResponsePacket.php";
 require "Packets/HandshakePacket.php";
 require "Packets/HandshakeResponsePacket.php";
+require "Packets/DisconnectPacket.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets;
@@ -95,7 +96,7 @@ class PacketReader {
 
 //		$this->registerPacketType(Packets\UpdateStatisticPacket, false, true);
 
-//		$this->registerPacketType(Packets\DisconnectPacket);
+		$this->registerPacketType('Packets\DisconnectPacket', true, true);
 
 	}
 

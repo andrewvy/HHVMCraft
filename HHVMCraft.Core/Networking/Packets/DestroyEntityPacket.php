@@ -3,7 +3,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class DestroyEntityPacket {
-	const id = "id";
+	const id = "1d";
 	public $entityId;
 
 	public function __construct($entityId) {

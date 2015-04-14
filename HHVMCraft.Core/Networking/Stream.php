@@ -22,10 +22,6 @@ class StreamWrapper {
 		$this->streamBuffer = $this->streamBuffer + str_split(bin2hex($data), 2);
 	}
 
-	public function handleClose() {
-		$this->stream->handleClose();
-	}
-
 	// UINT8: 0x00
 	public function readUInt8() {
 		$b = array_shift($this->streamBuffer);

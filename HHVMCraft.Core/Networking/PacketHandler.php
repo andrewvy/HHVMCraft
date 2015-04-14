@@ -9,7 +9,7 @@ require "Packets/PlayerGroundedPacket.php";
 require "Packets/PlayerPositionPacket.php";
 require "Packets/PlayerLookPacket.php";
 require "Packets/PlayerPositionAndLookPacket.php";
-
+require "Packets/DisconnectPacket.php";
 
 require "Handlers/LoginHandler.php";
 require "Handlers/DataHandler.php";
@@ -34,9 +34,11 @@ class PacketHandler {
 	}
 
 	public function registerHandlers() {
-		$this->Handlers[Packets\KeepAlivePacket::id] = '\Handlers\DataHandler::HandleKeepAlivePacket';
-		$this->Handlers[Packets\HandshakePacket::id] = '\Handlers\LoginHandler::HandleHandshakePacket';
-		$this->Handlers[Packets\LoginRequestPacket::id] = '\Handlers\LoginHandler::HandleLoginRequestPacket';
+		$this->Handlers[Packets\KeepAlivePacket::id] = '\Handlers\DataHandler::HandleKeepAlive';
+		$this->Handlers[Packets\DisconnectPacket::id] = '\Handlers\DataHandler::HandleDisconnect';
+
+		$this->Handlers[Packets\HandshakePacket::id] = '\Handlers\LoginHandler::HandleHandshake';
+		$this->Handlers[Packets\LoginRequestPacket::id] = '\Handlers\LoginHandler::HandleLoginRequest';
 
 		$this->Handlers[Packets\PlayerGroundedPacket::id] = '\Handlers\PlayerHandler::HandleGrounded';
 		$this->Handlers[Packets\PlayerPositionPacket::id] = '\Handlers\PlayerHandler::HandlePosition';
@@ -53,7 +55,7 @@ class PacketHandler {
 
 			call_user_func('\HHVMCraft\Core\Networking'.$this->Handlers[$packet::id], $packet, $client, $server);
 		} else {
-			$server->Logger->throwWarning("No hanlder for packet ID: ".$packet::id);
+			$server->Logger->throwWarning("No handler for packet ID: ".$packet::id);
 		}
 	}
 }
