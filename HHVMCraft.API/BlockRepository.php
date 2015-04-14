@@ -14,7 +14,7 @@ class BlockRepository {
 	}
 
 	public function registerBlockProviders() {
-	//	$this->registerBlockProvider(new GrassBlockProvider());		
+	//	$this->registerBlockProvider(new GrassBlockProvider());
 	}
 
 	public function registerBlockProvider($provider) {

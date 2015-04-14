@@ -15,13 +15,6 @@ class Coordinates2D {
 	public function __construct($x=0, $z=0) {
 		$this->x = $x;
 		$this->z = $z;
-/*	
-		$this->Zero = new self(0, 0);
-		$this->Forward = new self(0, 1);
-		$this->Backward = new self(0, -1);
-		$this->Left = new self(-1, 0);
-		$this->Right = new self(1,0);
-*/
 	}
 
 	public function toString() {
@@ -56,6 +49,26 @@ class Coordinates2D {
 			max($Coordinates2D1->x, $Coordinates2D2->x),
 			max($Coordinates2D1->z, $Coordinates2D2->z)
 		);
+	}
+
+	public static function Zero() {
+		return new self(0, 0);
+	}
+
+	public static function Forward() {
+		return new self(0, 1);
+	}
+
+	public static function Backward() {
+		return new self(0, -1);
+	}
+
+	public static function Left() {
+		return new self(-1, 0);
+	}
+
+	public static function Right() {
+		return new self(1, 0);
 	}
 
 }
