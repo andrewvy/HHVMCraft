@@ -87,9 +87,8 @@ class MultiplayerServer extends EventEmitter {
 			$this->EntityManager->update();
 		});
 
-		$this->loop->run();
-
 		$this->Logger->throwLog("Listening on address: ".$this->address.":".$port);
+		$this->loop->run();
 	}
 
 	public function handlePacket($client) {

@@ -79,7 +79,7 @@ class Coordinates3D {
 		);
 	}
 
-	public static function 2Dto3D($Coordinates2D) {
+	public static function convert2Dto3D($Coordinates2D) {
 		return new self($Coordinates2D->x, 0, $Coordinates2D->z);
 	}
 

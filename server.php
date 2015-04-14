@@ -7,6 +7,7 @@ require "HHVMCraft.Core/Networking/MultiplayerServer.php";
 use HHVMCraft\Core\Networking\MultiplayerServer;
 
 $addr = "127.0.0.01";
+
 $server = new MultiplayerServer($addr);
 
 $server->start(25565);

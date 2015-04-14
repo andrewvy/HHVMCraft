@@ -119,7 +119,7 @@ class Chunk {
 
 	public function deserialize() {
 		$deserialized = "";
-		$blockLength = Self::Size * 4;
+		$blockLength = self::Size * 4;
 		$blockData = [];
 		array_push($blockData, $this->Blocks, $this->Metadata, $this->BlockLight, $this->SkyLight);
 
