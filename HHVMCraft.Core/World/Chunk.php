@@ -120,11 +120,26 @@ class Chunk {
 	public function deserialize() {
 		$deserialized = "";
 		$blockLength = self::Size * 4;
-		$blockData = [];
-		array_push($blockData, $this->Blocks, $this->Metadata, $this->BlockLight, $this->SkyLight);
 
-		for	($i=0; $i<$blockLength; $i++) {
-			$deserialized .= pack("H*", $blockData[$i]);
+		$blockSize = count($this->Blocks);
+		$metadataSize = count($this->Metadata);
+		$blocklightSize = count($this->BlockLight);
+		$skylightSize = count($this->SkyLight);
+
+		for ($i=0; $i<$blockSize; $i++) {
+			$deserialized .= pack("h", $this->Blocks[$i]);
+		}
+
+		for ($j=0; $j<$metadataSize; $j++) {
+			$deserialized .= pack("h", $this->Metadata[$j])[1];
+		}
+
+		for ($k=0; $k<$blocklightSize; $k++) {
+			$deserialized .= pack("h", $this->BlockLights[$k])[1];
+		}
+
+		for ($l=0; $l<$skylightSize; $l++) {
+			$deserialized .= pack("h", $this->SkyLight[$l])[1];
 		}
 
 		return $deserialized;

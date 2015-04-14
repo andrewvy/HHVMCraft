@@ -71,6 +71,8 @@ class LoginHandler {
 			// Add player entity to entitymanager, subscribe client to entities.
 			$server->EntityManager->addPlayerEntity($client);
 
+			$server->Logger->throwLog("Added new client!");
+
 		} else {
 
 			// The client's version is not the same as this server implementation.

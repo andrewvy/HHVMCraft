@@ -6,6 +6,10 @@ require "HHVMCraft.Core/Helpers/HexDump.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 
+// http://stackoverflow.questions/16039751/php-pack-format-for-signed-32-int-big-endian
+
+define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
+
 // StreamWrapper
 // The actual dirty bit manipulation.
 // This provides a nice wrapper to read and write packets to/from the stream.
@@ -66,7 +70,11 @@ class StreamWrapper {
 	}
 
 	public function writeInt($data) {
-		return pack("l*", $data);
+		if (BIG_ENDIAN) {
+			return pack('l', $data);
+		}
+
+		return strrev(pack("l*", $data));
 	}
 
 	// LONG: 0x0000 0x0000 0x0000 0x0000
@@ -117,7 +125,11 @@ class StreamWrapper {
 	}
 
 	public function writeDouble($data) {
-		return pack("d*", $data);
+		if (BIG_ENDIAN) {
+			return pack("d*", $data);
+		}
+
+		return strrev(pack("d", $data));
 	}
 
 	public function writeUInt8Array($array) {
@@ -132,4 +144,5 @@ class StreamWrapper {
 			return false;
 		}
 	}
+
 }

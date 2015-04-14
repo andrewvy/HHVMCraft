@@ -9,12 +9,16 @@ require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket.php";
 require "HHVMCraft.Core/Networking/Packets/ChunkDataPacket.php";
 require "HHVMCraft.Core/Windows/InventoryWindow.php";
 
+require "HHVMCraft.API/Coordinates2D.php";
+
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\StreamWrapper;
 use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
 use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
 use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Windows\InventoryWindow;
+
+use HHVMCraft\API\Coordinates2D;
 
 class Client {
 	public $Server;
@@ -66,11 +70,16 @@ class Client {
 	}
 
 	public function updateChunks() {
-		$chunk = $this->World->getFakeChunk();
-		$preamble = new ChunkPreamblePacket($chunk->x, $chunk->z);
-		$data = $this->createChunkPacket($chunk);
-		$this->enqueuePacket($preamble);
-		$this->enqueuePacket($data);
+		for ($i=0;$i<1;$i++) {
+			for ($j=0;$j<1;$j++) {
+				$Coordinates2D = new Coordinates2D($i, $j);
+				$chunk = $this->World->generateChunk($Coordinates2D);
+				$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
+				$data = $this->createChunkPacket($chunk);
+				$this->enqueuePacket($preamble);
+				$this->enqueuePacket($data);
+			}
+		}
 	}
 
 	public function createChunkPacket($chunk) {
@@ -85,12 +94,12 @@ class Client {
 		//  3) Block Light
 		//  4) Sky Light
 
-		$compress = gzcompress($blockdata);
+		$compress = zlib_encode($blockdata, 15);
 
 		return new ChunkDataPacket(
-			$x*$chunk::Width,
+			$x,
 			0,
-			$z*$chunk::Depth,
+			$z,
 			$chunk::Width,
 			$chunk::Height,
 			$chunk::Depth,
@@ -98,7 +107,7 @@ class Client {
 	}
 
 	public function loadChunk($Coordinates2D) {
-		$chunk = $this->World->getChunk($Coordinates2D);
+		$chunk = $this->World->getFakeChunk($Coordinates2D);
 		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));
 		$this->enqueuePacket($this->createChunkPacket($chunk));
 

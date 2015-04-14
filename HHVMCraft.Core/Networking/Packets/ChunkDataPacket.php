@@ -1,5 +1,6 @@
 <?php
 
+
 namespace HHVMCraft\Core\Networking\Packets;
 require "HHVMCraft.Core/Helpers/HexDump.php";
 use HHVMCraft\Core\Helpers\Hex;
@@ -20,21 +21,24 @@ class ChunkDataPacket {
 		$this->x = $x;
 		$this->y = $y;
 		$this->z = $y;
-		$this->Width = $Width;
-		$this->Height = $Height;
-		$this->Depth = $Depth;
+		$this->Width = $Width - 1;
+		$this->Height = $Height - 1;
+		$this->Depth = $Depth - 1;
 		$this->BlockData = $BlockData;
 	}
 
 	public function writePacket($StreamWrapper) {
 		$str = $StreamWrapper->writeUInt8(self::id).
-			$StreamWrapper->writeInt($this->x).
-			$StreamWrapper->writeUInt16($this->y).
-			$StreamWrapper->writeInt($this->z).
-			$StreamWrapper->writeUInt8($this->Width).
-			$StreamWrapper->writeUInt8($this->Height).
-			$StreamWrapper->writeUInt8($this->Depth).
-			$StreamWrapper->writeInt(strlen($this->BlockData));
+			$StreamWrapper->writeInt($this->x * $this->Width).
+			$StreamWrapper->writeUInt16(0).
+			$StreamWrapper->writeInt($this->z * $this->Depth).
+			$StreamWrapper->writeUInt8("09").
+			$StreamWrapper->writeUInt8("7F").
+			$StreamWrapper->writeUInt8("09").
+			$StreamWrapper->writeInt(strlen($this->BlockData)).
+			$this->BlockData;
+
+		Hex::dump($str);
 		return $StreamWrapper->writePacket($str);
 	}
 }
