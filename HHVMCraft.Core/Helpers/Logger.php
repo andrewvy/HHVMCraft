@@ -2,6 +2,11 @@
 
 namespace HHVMCraft\Core\Helpers;
 
+require "vendor/autoload.php";
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class Logger {
 	const PREFIX = " HHVMCraft >> ";
 	const ERROR_PREFIX = "[ERROR]";
@@ -9,9 +14,12 @@ class Logger {
 	const LOG_PREFIX = "[LOG]";
 
 	public $options;
+	public $PacketLog;
 
 	public function __construct($options) {
 		$this->options = $options;
+		$this->PacketLog = new Logger('PacketLogger');
+		$this->PacketLog->pushHandler(new StreamHandler('../log/packet_log.log', Logger::INFO));
 	}
 
 	public function throwLog($msg) {
@@ -24,5 +32,9 @@ class Logger {
 
 	public function throwError($msg) {
 		echo $this::ERROR_PREFIX.$this::PREFIX.$msg.PHP_EOL;
+	}
+
+	public function logPacket($packet) {
+		$this->PacketLog->addInfo($packet::id);
 	}
 }

@@ -45,3 +45,4 @@ Got past the login protocol, now we need chunk sending!
 [ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.  
 [PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer  
 [PHPUnit](https://phpunit.de) - PHP Testing Framework
+[Monolog](https://github.com/Seldaek/monolog) - Logging Framework

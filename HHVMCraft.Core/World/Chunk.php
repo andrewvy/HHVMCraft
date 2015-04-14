@@ -27,8 +27,8 @@ class Chunk {
 	public $z;
 
 	public function __construct($Coordinates2D) {
-		$this->x = $Coordinates2D->x;
-		$this->z = $Coordinates2D->z;
+		$this->x = $Coordinates2D->x * self::Width;
+		$this->z = $Coordinates2D->z * self::Depth;
 
 		$this->Blocks = array_fill(0, self::Size, 0x00);
 		$this->Metadata = array_fill(0, self::Size, 0x00);
