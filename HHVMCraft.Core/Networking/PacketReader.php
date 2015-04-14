@@ -34,7 +34,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\LoginResponsePacket', false, true);
 		$this->registerPacketType('Packets\HandshakePacket', true, false);
 		$this->registerPacketType('Packets\HandshakeResponsePacket', false, true);
-//		$this->registerPacketType(Packets\ChatMessagePacket);
+		$this->registerPacketType('Packets\ChatMessagePacket', true, true);
 		$this->registerPacketType('Packets\TimeUpdatePacket', false, true);
 //		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
 		$this->registerPacketType('Packets\SpawnPositionPacket', true, false);

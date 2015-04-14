@@ -8,6 +8,7 @@ require "HHVMCraft.Core/Networking/Packets/WindowItemsPacket.php";
 require "HHVMCraft.Core/Networking/Packets/SpawnPositionPacket.php";
 require "HHVMCraft.Core/Networking/Packets/SetPlayerPositionPacket.php";
 require "HHVMCraft.Core/Networking/Packets/TimeUpdatePacket.php";
+require "HHVMCraft.Core/Networking/Packets/ChatMessagePacket.php";
 
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
 use HHVMCraft\Core\Networking\Packets\LoginResponsePacket;
@@ -15,6 +16,7 @@ use HHVMCraft\Core\Networking\Packets\WindowItemsPacket;
 use HHVMCraft\Core\Networking\Packets\SpawnPositionPacket;
 use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
 use HHVMCraft\Core\Networking\Packets\TimeUpdatePacket;
+use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
 
 class LoginHandler {
 
@@ -68,7 +70,6 @@ class LoginHandler {
 
 			// Add player entity to entitymanager, subscribe client to entities.
 			$server->EntityManager->addPlayerEntity($client);
-
 
 		} else {
 

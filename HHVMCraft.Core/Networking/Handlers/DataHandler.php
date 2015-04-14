@@ -8,8 +8,8 @@ class DataHandler {
 		// Do nothing for now
 	}
 
-	public static function HandleChatMessage() {
-
+	public static function HandleChatMessage($Packet, $Client, $Server) {
+		$Server->Logger->throwLog("<".$Client->username."> ".$Packet->message);
 	}
 
 	public static function HandleDisconnect($Packet, $Client, $Server) {

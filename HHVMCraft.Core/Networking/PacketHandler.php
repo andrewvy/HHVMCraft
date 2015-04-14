@@ -10,6 +10,7 @@ require "Packets/PlayerPositionPacket.php";
 require "Packets/PlayerLookPacket.php";
 require "Packets/PlayerPositionAndLookPacket.php";
 require "Packets/DisconnectPacket.php";
+require "Packets/ChatMessagePacket.php";
 
 require "Handlers/LoginHandler.php";
 require "Handlers/DataHandler.php";
@@ -36,6 +37,7 @@ class PacketHandler {
 	public function registerHandlers() {
 		$this->Handlers[Packets\KeepAlivePacket::id] = '\Handlers\DataHandler::HandleKeepAlive';
 		$this->Handlers[Packets\DisconnectPacket::id] = '\Handlers\DataHandler::HandleDisconnect';
+		$this->Handlers[Packets\ChatMessagePacket::id] = '\Handlers\DataHandler::HandleChatMessage';
 
 		$this->Handlers[Packets\HandshakePacket::id] = '\Handlers\LoginHandler::HandleHandshake';
 		$this->Handlers[Packets\LoginRequestPacket::id] = '\Handlers\LoginHandler::HandleLoginRequest';
