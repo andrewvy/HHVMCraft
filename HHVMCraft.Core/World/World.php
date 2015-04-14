@@ -10,7 +10,7 @@ use HHVMCraft\API\Coordinates2D;
 
 class World {
 	public $worldname;
-	public $WorldTime;
+	public $WorldTime = 4000;
 
 	public $Regions = [];
 	public $BlockProvider;
@@ -18,13 +18,26 @@ class World {
 
 	public function __construct($worldname, $BlockProvider) {
 		$this->worldname = $worldname;
-		$this->WorldTime = new \DateTime();
 		$this->BlockProvider = $BlockProvider;
 		$this->ChunkProvider = new FlatlandGenerator();
 	}
 
 	public function getTime() {
-		return ( ( (int) $this->WorldTime->diff(new \Datetime())->format("%s") * 20) % 24000 );
+		// World Time in Minecraft
+		// 20 server ticks per second
+		// 24000 ticks per day = 20 minutes a day
+		// 0 is sunrise, 6000 is noon, 12000 is sunset, 18000 is midnight
+		return $this->WorldTime;
+	}
+
+	public function updateTime() {
+		// Every second, increase worldtime by 20 ticks.
+		if ($this->WorldTime == 24000) {
+			$this->WorldTime = 0;
+		}
+		else {
+			$this->WorldTime += 20;
+		}
 	}
 
 	public function getChunk($Coordinates2D) {

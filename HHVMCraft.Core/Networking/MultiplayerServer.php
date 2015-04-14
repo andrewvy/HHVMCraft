@@ -87,6 +87,10 @@ class MultiplayerServer extends EventEmitter {
 			$this->EntityManager->update();
 		});
 
+		$this->loop->addPeriodicTimer(1, function() {
+			$this->World->updateTime();
+		});
+
 		$this->Logger->throwLog("Listening on address: ".$this->address.":".$port);
 		$this->loop->run();
 	}
