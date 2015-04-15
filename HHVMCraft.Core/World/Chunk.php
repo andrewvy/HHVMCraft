@@ -119,7 +119,6 @@ class Chunk {
 
 	public function deserialize() {
 		$deserialized = "";
-		$blockLength = self::Size * 4;
 
 		$blockSize = count($this->Blocks);
 		$metadataSize = count($this->Metadata);

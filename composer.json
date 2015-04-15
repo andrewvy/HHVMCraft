@@ -10,7 +10,8 @@
     ],
     "require": {
         "react/react": "0.4.*",
-        "phpunit/phpunit": "4.6.*"
+        "phpunit/phpunit": "4.6.*",
+        "monolog/monolog": "~1.13"
     },
     "autoload": {
 		"psr-4": {

@@ -4,7 +4,7 @@ namespace HHVMCraft\Core\Helpers;
 
 require "vendor/autoload.php";
 
-use Monolog\Logger;
+use Monolog\Logger as MLogger;
 use Monolog\Handler\StreamHandler;
 
 class Logger {
@@ -18,20 +18,27 @@ class Logger {
 
 	public function __construct($options) {
 		$this->options = $options;
-		$this->PacketLog = new Logger('PacketLogger');
-		$this->PacketLog->pushHandler(new StreamHandler('../log/packet_log.log', Logger::INFO));
+
+		# Packet Logger
+		$this->PacketLog = new MLogger('PacketLogger');
+		$this->PacketLog->pushHandler(new StreamHandler('../../log/packet_log.log'), MLogger::INFO);
+		$this->ServerLog = new MLogger('ServerLogger');
+
 	}
 
 	public function throwLog($msg) {
-		echo $this::LOG_PREFIX.$this::PREFIX.$msg.PHP_EOL;
+		$response = $this::PREFIX.$msg.PHP_EOL;
+		$this->ServerLog->addInfo($response);
 	}
 
 	public function throwWarning($msg) {
-		echo $this::WARNING_PREFIX.$this::PREFIX.$msg.PHP_EOL;
+		$response = $this::PREFIX.$msg.PHP_EOL;
+		$this->ServerLog->addWarning($response);
 	}
 
 	public function throwError($msg) {
-		echo $this::ERROR_PREFIX.$this::PREFIX.$msg.PHP_EOL;
+		$response = $this::PREFIX.$msg.PHP_EOL;
+		$this->ServerLog->addError($response);
 	}
 
 	public function logPacket($packet) {

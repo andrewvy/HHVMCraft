@@ -94,6 +94,8 @@ class Client {
 		//  3) Block Light
 		//  4) Sky Light
 
+		Hex::dump($blockdata);
+
 		$compress = zlib_encode($blockdata, 15);
 
 		return new ChunkDataPacket(
@@ -129,6 +131,9 @@ class Client {
 			$this->loadedChunks = [];
 			$this->connection->handleClose();
 		} else {
+			$this->packetQueue = [];
+			$this->laodedChunks = [];
+			$this->connection->handleClose();
 		}
 	}
 }
