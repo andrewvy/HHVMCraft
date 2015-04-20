@@ -21,7 +21,7 @@ class Logger {
 
 		# Packet Logger
 		$this->PacketLog = new MLogger('PacketLogger');
-		$this->PacketLog->pushHandler(new StreamHandler('../../log/packet_log.log'), MLogger::INFO);
+		$this->PacketLog->pushHandler(new StreamHandler('logs/packet_log.log'), MLogger::INFO);
 		$this->ServerLog = new MLogger('ServerLogger');
 
 	}
@@ -42,6 +42,6 @@ class Logger {
 	}
 
 	public function logPacket($packet) {
-		$this->PacketLog->addInfo($packet::id);
+		$this->PacketLog->addInfo($packet);
 	}
 }

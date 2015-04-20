@@ -94,9 +94,7 @@ class Client {
 		//  3) Block Light
 		//  4) Sky Light
 
-		Hex::dump($blockdata);
-
-		$compress = zlib_encode($blockdata, 15);
+		$compress = gzdeflate($blockdata);
 
 		return new ChunkDataPacket(
 			$x,
