@@ -3,6 +3,7 @@
 namespace HHVMCraft\Core\Entities;
 
 require "HHVMCraft.Core/World/Chunk.php";
+require "HHVMCraft.Core/Physics/PhysicsEngine.php";
 require "HHVMCraft.Core/Networking/Packets/DestroyEntityPacket.php";
 require "HHVMCraft.Core/Networking/Packets/EntityVelocityPacket.php";
 require "HHVMCraft.Core/Networking/Packets/EntityTeleportPacket.php";
@@ -11,6 +12,7 @@ require "vendor/autoload.php";
 
 
 use HHVMCraft\Core\World\Chunk;
+use HHVMCraft\Core\Physics\PhysicsEngine;
 use HHVMCraft\Core\Networking\Packets\DestroyEntityPacket;
 use HHVMCraft\Core\Networking\Packets\EntityVelocityPacket;
 use HHVMCraft\Core\Networking\Packets\EntityTeleportPacket;
@@ -28,7 +30,7 @@ class EntityManager {
 
 	public function __construct($Server, $World) {
 		$this->Server = $Server;
-//		$this->PhysicsEngine = new PhysicsEngine($World, $Server->BlockRepository);
+		$this->PhysicsEngine = new PhysicsEngine($World, $Server->BlockRepository);
 		$this->Event = new EventEmitter();
 
 		$this->Event->on("PropertyChanged", function($sender, $propertyName) {
@@ -174,7 +176,7 @@ class EntityManager {
 			$entity = array_shift($this->pendingDespawns);
 
 			if (get_class($entity) == "PhysicsEntity") {
-//				$this->PhysicsEngine->removeEntity($entity);
+				$this->PhysicsEngine->removeEntity($entity);
 			}
 
 			for ($i=0;$i<count($this->Server->Clients);$i++) {
