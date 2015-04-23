@@ -5,18 +5,24 @@ namespace HHVMCraft\Core\Networking;
 require "HHVMCraft.Core/Networking/Stream.php";
 require "HHVMCraft.Core/Helpers/HexDump.php";
 require "HHVMCraft.Core/Entities/PlayerEntity.php";
+
+require "HHVMCraft.Core/Windows/InventoryWindow.php";
+
 require "HHVMCraft.Core/Networking/Packets/ChunkPreamblePacket.php";
 require "HHVMCraft.Core/Networking/Packets/ChunkDataPacket.php";
-require "HHVMCraft.Core/Windows/InventoryWindow.php";
+require "HHVMCraft.Core/Networking/Packets/DisconnectPacket.php";
 
 require "HHVMCraft.API/Coordinates2D.php";
 
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\StreamWrapper;
-use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
-use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
+
 use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Windows\InventoryWindow;
+
+use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
+use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
+use HHVMCraft\Core\Networking\Packets\DisconnectPacket;
 
 use HHVMCraft\API\Coordinates2D;
 
@@ -123,15 +129,17 @@ class Client {
 		$this->loadedChunks = array_values($array);
 	}
 
-	public function disconnect($ClientOriginated=true, $ServerOriginated=false) {
-		if ($ClientOriginated) {
-			$this->packetQueue = [];
-			$this->loadedChunks = [];
-			$this->connection->handleClose();
-		} else {
-			$this->packetQueue = [];
-			$this->laodedChunks = [];
-			$this->connection->handleClose();
-		}
+	public function disconnect() {
+		$this->packetQueue = [];
+		$this->loadedChunks = [];
+		$this->connection->handleClose();
 	}
+
+	public function disconnectWithReason($reason) {
+		$this->packetQueue = [];
+		$this->loadedChunks = [];
+		$this->enqueuePacket(new DisconnectPacket($reason));
+		$this->connection->handleClose();
+	}
+
 }

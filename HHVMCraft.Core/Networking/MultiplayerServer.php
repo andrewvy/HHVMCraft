@@ -113,10 +113,14 @@ class MultiplayerServer extends EventEmitter {
 		}
 	}
 
-	public function handleDisconnect($Client) {
-		// TODO: Broadcast message that this player has disconnected from the server.
+	public function handleDisconnect($Client, $ServerOriginated=false, $reason) {
+		if ($ServerOriginated) {
+			$Client->disconnectWithReason($reason)
+		} else {
+			$Client->disconnect();
+		}
 
-		$Client->disconnect();
 		unset($this->Clients[$Client]);
+		// TODO: Broadcast message that this player has disconnected from the server.
 	}
 }
