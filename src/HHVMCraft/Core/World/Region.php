@@ -1,9 +1,12 @@
 <?php
-
-// Region
-// A 32x32 chunk area which can be partially loaded in memory.
-// In this implementation, we'll just store the whole region in memory for now.
-
+/**
+ * Region is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - A 32x32 chunk area which can be partially loaded in memory.
+ * - In this implementation, we'll just store the whole region in memory for now.
+ *
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\World;
 
 

@@ -1,12 +1,14 @@
 <?php
-
+/**
+ * PacketHandler is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - This class is responsible for dispersing packets to the correct PacketHandler.
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\Networking;
 
 use HHVMCraft\Core\Networking\Packets;
 use HHVMCraft\Core\Networking\Handlers;
-
-// PacketHandler
-// This class is responsible for dispersing packets to the correct PacketHandler.
 
 class PacketHandler {
 	public $server;

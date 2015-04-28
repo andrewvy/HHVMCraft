@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * MultiplayerServer is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - The central networking and game loop controller.
+ * - Handles the gameloop and entityloop.
+ * - Handles the connection/disconnection of clients.
+ * - Handles packets to be read.
+ *
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\Networking;
 
 use HHVMCraft\Core\Helpers\Logger;
@@ -15,12 +24,6 @@ use HHVMCraft\API\CraftingRepository;
 
 use Evenement\EventEmitter;
 use React\Socket\Server;
-
-// MultiplayerServer
-// The central networking and game loop controller.
-// Handles the gameloop and entityloop.
-// Handles the connection/disconnection of clients.
-// Handles packets to be read.
 
 class MultiplayerServer extends EventEmitter {
 	public $address;
@@ -103,7 +106,7 @@ class MultiplayerServer extends EventEmitter {
 
 	public function handleDisconnect($Client, $ServerOriginated=false, $reason) {
 		if ($ServerOriginated) {
-			$Client->disconnectWithReason($reason)
+			$Client->disconnectWithReason($reason);
 		} else {
 			$Client->disconnect();
 		}

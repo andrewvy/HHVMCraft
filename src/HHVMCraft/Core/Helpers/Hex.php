@@ -1,12 +1,15 @@
 <?php
-
+/**
+ * Hex is part of HHVMCraft - a Minecraft server implemented in PHP
+ * -Provides a useful dump functionality to inspect packets.
+ *
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\Helpers;
 
-// Hex
-// Provides a useful dump functionality to inspect packets.
-
 class Hex {
-	public function dump($data, $newline="\n") {
+	public static function dump($data, $newline="\n") {
 		static $from = '';
 		static $to = '';
 
@@ -30,5 +33,4 @@ class Hex {
 			$offset += $width;
 		}
 	}
-
 }

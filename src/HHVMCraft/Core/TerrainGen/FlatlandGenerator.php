@@ -1,13 +1,16 @@
 <?php
-
+/**
+ * FlatlandGenerator is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - Just generates chunks that are exactly the same.
+ * - Dirt from layers 1-8, and grass on layer 9.
+ * 
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\TerrainGen;
 
 use HHVMCraft\Core\World\Chunk;
 use HHVMCraft\API\Coordinates3D;
-
-// FlatlandGenerator
-// Just generates chunks that are exactly the same.
-// Dirt from layers 1-8, and grass on layer 9.
 
 class FlatlandGenerator {
 	const LevelType = "FLAT";

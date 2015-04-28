@@ -114,7 +114,8 @@ class PacketReader {
 			return;
 		}
 
-		$construct = "HHVMCraft\Core\Networking\\".$type;
+		//TODO: This needs to be redone at a later date
+		$construct = "HHVMCraft\\Core\\Networking\\".$type;
 		$packet = new ($construct);
 		$packet->readPacket($client->streamWrapper);
 		return $packet;

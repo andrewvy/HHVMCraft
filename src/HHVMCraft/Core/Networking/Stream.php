@@ -1,16 +1,18 @@
 <?php
-
+/**
+ * StreamWrapper is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - The actual dirty bit manipulation.
+ * - This provides a nice wrapper to read and write packets to/from the stream.
+ *
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\Networking;
 
 use HHVMCraft\Core\Helpers\Hex;
 
 // http://stackoverflow.questions/16039751/php-pack-format-for-signed-32-int-big-endian
-
 define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
-
-// StreamWrapper
-// The actual dirty bit manipulation.
-// This provides a nice wrapper to read and write packets to/from the stream.
 
 class StreamWrapper {
 	public $stream;

@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * This file is part of HHVMCraft - a Minecraft server implemented in PHP
+ *
+ * @copyright Andrew Vy 2015
+ * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+ */
 namespace HHVMCraft\Core\Networking\Handlers;
 
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
@@ -22,7 +27,6 @@ class LoginHandler {
 	public static function HandleLoginRequest($packet, $client, $server) {
 
 		// Make sure the client has the right protocol version before allowing them to connect.
-
 		if ($packet->protocolVersion == 14) {
 
 			// Respond with details about the world.
@@ -66,11 +70,10 @@ class LoginHandler {
 			$server->Logger->throwLog("Added new client!");
 
 		} else {
-
 			// The client's version is not the same as this server implementation.
 			// So, we should disconnect that client with a 'Wrong Version' message.
 			$server->Logger->throwWarning("Wrong client version!");
-			$Server->handleDisconnect($Client, true, "Wrong client version!");
+			$server->handleDisconnect($client, true, "Wrong client version!");
 
 		}
 	}
