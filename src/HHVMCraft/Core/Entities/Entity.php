@@ -7,9 +7,8 @@
  */
 namespace HHVMCraft\Core\Entities;
 
-use HHVMCraft\API\Vec3;
 use HHVMCraft\API\Coordinates3D;
-use Evenement\EventEmitter;
+use HHVMCraft\API\Vec3;
 
 class Entity {
 	public $enablePropertyChange = true;

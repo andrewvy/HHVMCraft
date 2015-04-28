@@ -4,7 +4,7 @@
  *
  * @copyright Andrew Vy 2015
  * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
- */
+ * // */
 error_reporting(E_ERROR);
 
 require "vendor/autoload.php";
