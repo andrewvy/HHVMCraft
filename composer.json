@@ -10,13 +10,14 @@
     ],
     "require": {
         "react/react": "0.4.*",
-        "phpunit/phpunit": "4.6.*",
         "monolog/monolog": "~1.13"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*"
     },
     "autoload": {
 		"psr-4": {
-			"HHVMCraft.Core\\": "HHVMCraft.Core/",
-			"HHVMCraft.API\\": "HHVMCraft.API/"
+			"HHVMCraft\\": "src/HHVMCraft/"
 		}
     }
 }

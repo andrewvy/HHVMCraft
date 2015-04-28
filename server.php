@@ -2,7 +2,7 @@
 
 error_reporting(E_ERROR);
 
-require "HHVMCraft.Core/Networking/MultiplayerServer.php";
+require "vendor/autoload.php";
 
 use HHVMCraft\Core\Networking\MultiplayerServer;
 
