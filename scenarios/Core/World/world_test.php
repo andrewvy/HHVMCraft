@@ -1,8 +1,6 @@
 <?php
 
-require "HHVMCraft.Core/World/Chunk.php";
-require "HHVMCraft.API/Coordinates3D.php";
-require "HHVMCraft.API/Coordinates2D.php";
+require "vendor/autoload.php";
 
 use HHVMCraft\Core\World\Chunk;
 use HHVMCraft\API\Coordinates3D;

@@ -21,6 +21,7 @@ class StreamWrapper {
   }
 
   public function data($data) {
+    $this->stream->stream_read(2);
     $this->streamBuffer = $this->streamBuffer + str_split(bin2hex($data), 2);
   }
 

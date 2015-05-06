@@ -1,9 +1,6 @@
 <?php
 
-require "../../../HHVMCraft.Core/World/Chunk.php";
-require "../../../HHVMCraft.API/Coordinates3D.php";
-require "../../../HHVMCraft.API/Coordinates2D.php";
-require "../../../../HHVMCraft.Core/TerrainGen/FlatlandGenerator.php";
+require "vendor/autoload.php";
 
 use HHVMCraft\Core\TerrainGen\FlatlandGenerator;
 use HHVMCraft\Core\World\Chunk;
