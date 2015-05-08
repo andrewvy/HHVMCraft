@@ -42,8 +42,6 @@ class ChunkDataPacket {
       $StreamWrapper->writeInt(strlen($this->BlockData)) .
       $this->BlockData;
 
-    Hex::dump($str);
-
     return $StreamWrapper->writePacket($str);
   }
 }

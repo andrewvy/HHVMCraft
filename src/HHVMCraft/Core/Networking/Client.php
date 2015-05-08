@@ -66,8 +66,8 @@ class Client {
         $chunk = $this->World->generateChunk($Coordinates2D);
         $preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
         $data = $this->createChunkPacket($chunk);
-        $this->enqueuePacket($preamble);
-        $this->enqueuePacket($data);
+//      $this->enqueuePacket($preamble);
+//      $this->enqueuePacket($data);
       }
     }
   }
@@ -84,7 +84,7 @@ class Client {
     //  3) Block Light
     //  4) Sky Light
 
-    $compress = gzdeflate($blockdata);
+    $compress = gzcompress($blockdata);
 
     return new ChunkDataPacket(
       $x,
