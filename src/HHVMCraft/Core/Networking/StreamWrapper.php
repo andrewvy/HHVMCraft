@@ -7,7 +7,10 @@
  * @copyright Andrew Vy 2015
  * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
  */
+
 namespace HHVMCraft\Core\Networking;
+
+use HHVMCraft\Core\Helpers\Hex;
 
 // http://stackoverflow.questions/16039751/php-pack-format-for-signed-32-int-big-endian
 define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
@@ -20,11 +23,6 @@ class StreamWrapper {
     $this->stream = $stream;
   }
 
-  public function data($data) {
-    $this->stream->stream_read(2);
-    $this->streamBuffer = $this->streamBuffer + str_split(bin2hex($data), 2);
-  }
-
   // UINT8: 0x00
 
   public function readBool() {
@@ -34,12 +32,9 @@ class StreamWrapper {
   }
 
   public function readUInt8() {
-    $b = array_shift($this->streamBuffer);
+    $b = socket_read($this->stream, 2);
     if ($b) {
       return $b;
-    }
-    else {
-      throw new \Exception("Malformed packet, buffer is empty");
     }
   }
 
@@ -62,11 +57,15 @@ class StreamWrapper {
     return pack("n*", $data);
   }
 
-  public function readInt() {
-    return pack("H*", $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
+  public function readUInt16() {
+    return socket_read($this->stream, 4);
   }
 
   // INT: 0x0000 0x0000
+
+  public function readInt() {
+    return socket_read($this->stream, 8);
+  }
 
   public function writeInt($data) {
     if (BIG_ENDIAN) {
@@ -76,19 +75,18 @@ class StreamWrapper {
     return strrev(pack("l*", $data));
   }
 
-  public function readLong() {
-    return pack("H*",
-      $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
-  }
-
   // LONG: 0x0000 0x0000 0x0000 0x0000
+
+  public function readLong() {
+    return socket_read($this->stream, 16);
+  }
 
   public function writeLong($data) {
     return pack("q*", $data);
   }
 
   public function readString16() {
-    $l = hexdec(bin2hex($this->readUInt16()));
+    $l = $this->readUInt();
     $str = "";
 
     for ($i = 0; $i < $l; $i++) {
@@ -106,10 +104,6 @@ class StreamWrapper {
   // STRING16: 0x0000 0x0000...
   // UCS-2 encoding, big endian, U+0000 U+0000 ....
 
-  public function readUInt16() {
-    return pack("H*", $this->readUInt8() . $this->readUInt8());
-  }
-
   public function writeString16($str) {
     $str = iconv("UTF-8", "UTF-16BE", $str);
 
@@ -126,8 +120,7 @@ class StreamWrapper {
   }
 
   public function readDouble() {
-    return pack("H*",
-      $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
+    return socket_read($this->stream, 32);
   }
 
   public function writeDouble($data) {

@@ -43,7 +43,6 @@ class Client {
 
   public function setupPacketListener() {
     $this->connection->on('data', function ($data) {
-      $this->streamWrapper->data($data);
       $this->Server->handlePacket($this);
     });
   }
