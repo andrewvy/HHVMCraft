@@ -8,17 +8,17 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class LoginRequestPacket {
-  const id = "01";
-  public $protocolVersion;
-  public $username;
+	const id = "01";
+	public $protocolVersion;
+	public $username;
 
-  public function readPacket($StreamWrapper) {
-    $this->protocolVersion = hexdec(bin2hex($StreamWrapper->readInt()));
-    $this->username = $StreamWrapper->readString16();
+	public function readPacket($StreamWrapper) {
+		$this->protocolVersion = hexdec(bin2hex($StreamWrapper->readInt()));
+		$this->username = $StreamWrapper->readString16();
 
-    // These bytes are not used..
+		// These bytes are not used..
 
-    $StreamWrapper->readLong();
-    $StreamWrapper->readUInt8();
-  }
+		$StreamWrapper->readLong();
+		$StreamWrapper->readUInt8();
+	}
 }
