@@ -10,143 +10,141 @@ namespace HHVMCraft\Core\World;
 use HHVMCraft\API\Coordinates2D;
 
 class Chunk {
-  const Width = 16;
-  const Height = 128;
-  const Depth = 16;
-  const Size = 32768;
+	const Width = 16;
+	const Height = 128;
+	const Depth = 16;
+	const Size = 32768;
 
-  public $isModified;
-  public $lastAccessed;
-  public $Blocks = [];
-  public $Metadata = [];
-  public $BlockLight = [];
-  public $SkyLight = [];
-  public $Biomes = [];
-  public $HeightMap = [];
+	public $isModified;
+	public $lastAccessed;
+	public $Blocks = [];
+	public $Metadata = [];
+	public $BlockLight = [];
+	public $SkyLight = [];
+	public $Biomes = [];
+	public $HeightMap = [];
 
-  public $x;
-  public $z;
+	public $x;
+	public $z;
 
-  public function __construct($Coordinates2D) {
-    $this->x = $Coordinates2D->x * self::Width;
-    $this->z = $Coordinates2D->z * self::Depth;
+	public function __construct($Coordinates2D) {
+		$this->x = $Coordinates2D->x * self::Width;
+		$this->z = $Coordinates2D->z * self::Depth;
 
-    $this->Blocks = array_fill(0, self::Size, 0x00);
-    $this->Metadata = array_fill(0, self::Size, 0x00);
-    $this->BlockLight = array_fill(0, self::Size, 0x00);
-    $this->HeightMap = array_fill(0, self::Size, 0x00);
-    $this->SkyLight = array_fill(0, self::Size, 0xFF);
-  }
+		$this->Blocks = array_fill(0, self::Size, 0x00);
+		$this->Metadata = array_fill(0, self::Size, 0x00);
+		$this->BlockLight = array_fill(0, self::Size, 0x00);
+		$this->HeightMap = array_fill(0, self::Size, 0x00);
+		$this->SkyLight = array_fill(0, self::Size, 0xFF);
+	}
 
-  public function Coordinates() {
-    return new Coordinates2D($this->x, $this->z);
-  }
+	public function Coordinates() {
+		return new Coordinates2D($this->x, $this->z);
+	}
 
-  public function setCoordinates($Coordinates2D) {
-    $this->x = $Coordinates2D->x;
-    $this->z = $Coordinates2D->z;
-  }
+	public function setCoordinates($Coordinates2D) {
+		$this->x = $Coordinates2D->x;
+		$this->z = $Coordinates2D->z;
+	}
 
-  public function getMetadata($Coordinates3D) {
-    $this->lastAccessed = new \DateTime();
-    $index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
+	public function getMetadata($Coordinates3D) {
+		$this->lastAccessed = new \DateTime();
+		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 
-    return $this->Metadata[$index];
-  }
+		return $this->Metadata[$index];
+	}
 
-  public function getSkyLight($Coordinates3D) {
-    $this->lastAccessed = new \DateTime();
-    $index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
+	public function getSkyLight($Coordinates3D) {
+		$this->lastAccessed = new \DateTime();
+		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 
-    return $this->SkyLight[$index];
-  }
+		return $this->SkyLight[$index];
+	}
 
-  public function getBlockLight($Coordinates3D) {
-    $this->lastAccessed = new \DateTime();
-    $index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
+	public function getBlockLight($Coordinates3D) {
+		$this->lastAccessed = new \DateTime();
+		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 
-    return $this->getBlockLight[$index];
-  }
+		return $this->getBlockLight[$index];
+	}
 
-  public function setBlockId($Coordinates3D, $val) {
-    $this->lastAccessed = new \DateTime();
-    $this->isModified = true;
-    $index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
-    $this->Blocks[$index] = $val;
+	public function setBlockId($Coordinates3D, $val) {
+		$this->lastAccessed = new \DateTime();
+		$this->isModified = true;
+		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
+		$this->Blocks[$index] = $val;
 
-    $oldHeight = $this->getHeight($Coordinates3D->x, $Coordinates3D->z);
-    if ($val == 0x00) {
-      if ($oldHeight < $Coordinates3D->y) {
-        while ($Coordinates3D->y > 0) {
-          $Coordinates3D->y--;
-          if ($this->getBlockId($Coordinates3D) != 0x00) {
-            $this->setHeight($Coordinates3D->x, $Coordinates3D->z, $Coordinates3D->y);
-          }
-        }
-      }
-    }
-    else {
-      if ($oldHeight < $Coordinates3D->y) {
-        $this->setHeight($Coordinates3D->x, $Coordinates3D->z, $Coordinates3D->y);
-      }
-    }
-  }
+		$oldHeight = $this->getHeight($Coordinates3D->x, $Coordinates3D->z);
+		if ($val == 0x00) {
+			if ($oldHeight < $Coordinates3D->y) {
+				while ($Coordinates3D->y > 0) {
+					$Coordinates3D->y--;
+					if ($this->getBlockId($Coordinates3D) != 0x00) {
+						$this->setHeight($Coordinates3D->x, $Coordinates3D->z, $Coordinates3D->y);
+					}
+				}
+			}
+		} else if ($oldHeight < $Coordinates3D->y) {
+			$this->setHeight($Coordinates3D->x, $Coordinates3D->z, $Coordinates3D->y);
+		}
+	}
 
-  public function getHeight($x, $z) {
-    $this->lastAccessed = new \DateTime();
 
-    return $this->HeightMap[$z * self::Depth + $x];
-  }
+	public function getHeight($x, $z) {
+		$this->lastAccessed = new \DateTime();
 
-  public function getBlockID($Coordinates3D) {
-    $this->lastAccessed = new \DateTime();
-    $index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
+		return $this->HeightMap[$z * self::Depth + $x];
+	}
 
-    return $this->Blocks[$index];
-  }
+	public function getBlockID($Coordinates3D) {
+		$this->lastAccessed = new \DateTime();
+		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
 
-  public function setHeight($x, $z, $val) {
-    $this->lastAccessed = new \DateTime();
-    $this->isModified = true;
-    $this->HeightMap[$z * self::Depth + $x] = $val;
-  }
+		return $this->Blocks[$index];
+	}
 
-  public function toNbt() {
-  }
+	public function setHeight($x, $z, $val) {
+		$this->lastAccessed = new \DateTime();
+		$this->isModified = true;
+		$this->HeightMap[$z * self::Depth + $x] = $val;
+	}
 
-  public function fromNbt($NbtFile) {
-  }
+	public function toNbt() {
+	}
 
-  public function nbtSerialize($TagName) {
-  }
+	public function fromNbt($NbtFile) {
+	}
 
-  public function nbtDeserialize($val) {
-  }
+	public function nbtSerialize($TagName) {
+	}
 
-  public function deserialize() {
-    $deserialized = "";
+	public function nbtDeserialize($val) {
+	}
 
-    $blockSize = count($this->Blocks);
-    $metadataSize = count($this->Metadata);
-    $blocklightSize = count($this->BlockLight);
-    $skylightSize = count($this->SkyLight);
+	public function deserialize() {
+		$deserialized = "";
 
-    for ($i = 0; $i < $blockSize; $i++) {
-      $deserialized .= pack("h", $this->Blocks[$i]);
-    }
+		$blockSize = count($this->Blocks);
+		$metadataSize = count($this->Metadata);
+		$blocklightSize = count($this->BlockLight);
+		$skylightSize = count($this->SkyLight);
 
-    for ($j = 0; $j < $metadataSize; $j++) {
-      $deserialized .= pack("h", $this->Metadata[$j])[1];
-    }
+		for ($i = 0; $i < $blockSize; $i++) {
+			$deserialized .= pack("h", $this->Blocks[$i]);
+		}
 
-    for ($k = 0; $k < $blocklightSize; $k++) {
-      $deserialized .= pack("h", $this->BlockLights[$k])[1];
-    }
+		for ($j = 0; $j < $metadataSize; $j++) {
+			$deserialized .= pack("h", $this->Metadata[$j])[1];
+		}
 
-    for ($l = 0; $l < $skylightSize; $l++) {
-      $deserialized .= pack("h", $this->SkyLight[$l])[1];
-    }
+		for ($k = 0; $k < $blocklightSize; $k++) {
+			$deserialized .= pack("h", $this->BlockLights[$k])[1];
+		}
 
-    return $deserialized;
-  }
+		for ($l = 0; $l < $skylightSize; $l++) {
+			$deserialized .= pack("h", $this->SkyLight[$l])[1];
+		}
+
+		return $deserialized;
+	}
 }
