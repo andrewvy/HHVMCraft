@@ -1,14 +1,14 @@
 <?php
 /**
- * MultiplayerServer is part of HHVMCraft - a Minecraft server implemented in PHP
- * - The central networking and game loop controller.
- * - Handles the gameloop and entityloop.
- * - Handles the connection/disconnection of clients.
- * - Handles packets to be read.
- *
- * @copyright Andrew Vy 2015
- * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
- */
+* MultiplayerServer is part of HHVMCraft - a Minecraft server implemented in PHP
+* - The central networking and game loop controller.
+* - Handles the gameloop and entityloop.
+* - Handles the connection/disconnection of clients.
+* - Handles packets to be read.
+*
+* @copyright Andrew Vy 2015
+* @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
+*/
 namespace HHVMCraft\Core\Networking;
 
 use Evenement\EventEmitter;
@@ -21,94 +21,92 @@ use HHVMCraft\Core\World\World;
 use React\Socket\Server;
 
 class MultiplayerServer extends EventEmitter {
-  public $address;
-  public $Clients = [];
+	public $address;
+	public $Clients = [];
 
-  public $PacketHandler;
-  public $PacketReader;
-  public $EntityManager;
-  public $World;
+	public $PacketHandler;
+	public $PacketReader;
+	public $EntityManager;
+	public $World;
 
-  public $loop;
-  public $socket;
+	public $loop;
+	public $socket;
 
-  public $tickRate = 0.05;
+	public $tickRate = 0.05;
 
-  public function __construct($address) {
-    $this->address = $address;
-    $this->loop = \React\EventLoop\Factory::create();
-    $this->socket = new Server($this->loop);
+	public function __construct($address) {
+		$this->address = $address;
+		$this->loop = \React\EventLoop\Factory::create();
+		$this->socket = new Server($this->loop);
 
-    $this->PacketReader = new PacketReader();
-    $this->PacketReader->registerPackets();
+		$this->PacketReader = new PacketReader();
+		$this->PacketReader->registerPackets();
 
-    $this->BlockRepository = new BlockRepository();
-    $this->CraftingRepository = new CraftingRepository();
+		$this->BlockRepository = new BlockRepository();
+		$this->CraftingRepository = new CraftingRepository();
 
-    $this->PacketHandler = new PacketHandler($this);
-    $this->World = new World("Flatland", $this->BlockRepository);
+		$this->PacketHandler = new PacketHandler($this);
+		$this->World = new World("Flatland", $this->BlockRepository);
 
-    $this->EntityManager = new EntityManager($this, $this->World);
+		$this->EntityManager = new EntityManager($this, $this->World);
 
-    $this->Logger = new Logger();
-  }
+		$this->Logger = new Logger();
+	}
 
-  public function start($port) {
-    $this->socket->on('connection', function ($connection) {
-      $this->Logger->throwLog("New Connection");
-      $this->acceptClient($connection);
-    });
+	public function start($port) {
+		$this->socket->on('connection', function ($connection) {
+			$this->Logger->throwLog("New Connection");
+			$this->acceptClient($connection);
+		});
 
-    $this->socket->listen($port);
+		$this->socket->listen($port);
 
-    $this->loop->addPeriodicTimer($this->tickRate, function () {
-      $this->gameLoop();
-    });
+		$this->loop->addPeriodicTimer($this->tickRate, function () {
+			$this->gameLoop();
+		});
 
-    $this->loop->addPeriodicTimer($this->tickRate, function () {
-      $this->EntityManager->update();
-    });
+		$this->loop->addPeriodicTimer($this->tickRate, function () {
+			$this->EntityManager->update();
+		});
 
-    $this->loop->addPeriodicTimer(1, function () {
-      $this->World->updateTime();
-    });
+		$this->loop->addPeriodicTimer(1, function () {
+			$this->World->updateTime();
+		});
 
-    $this->Logger->throwLog("Listening on address: " . $this->address . ":" . $port);
-    $this->loop->run();
-  }
+		$this->Logger->throwLog("Listening on address: " . $this->address . ":" . $port);
+		$this->loop->run();
+	}
 
-  public function acceptClient($connection) {
-    array_push($this->Clients, new Client($connection, $this));
-  }
+	public function acceptClient($connection) {
+		array_push($this->Clients, new Client($connection, $this));
+	}
 
-  public function gameLoop() {
-    foreach ($this->Clients as &$Client) {
-      while ($Client->PacketQueueCount > 0) {
-        $Packet = $Client->dequeuePacket();
-        $this->PacketReader->writePacket($Packet, $Client);
-      }
-    }
-  }
+	public function gameLoop() {
+		foreach ($this->Clients as &$Client) {
+			while ($Client->PacketQueueCount > 0) {
+				$Packet = $Client->dequeuePacket();
+				$this->PacketReader->writePacket($Packet, $Client);
+			}
+		}
+	}
 
-  public function handlePacket($client) {
-    $packet = $this->PacketReader->readPacket($client);
-    if ($packet) {
-      $this->PacketHandler->handlePacket($packet, $client, $this);
-    }
-    else {
-      $this->Logger->throwWarning("No handler found for packet.");
-    }
-  }
+	public function handlePacket($client) {
+		$packet = $this->PacketReader->readPacket($client);
+		if ($packet) {
+			$this->PacketHandler->handlePacket($packet, $client, $this);
+		} else {
+			$this->Logger->throwWarning("No handler found for packet.");
+		}
+	}
 
-  public function handleDisconnect($Client, $ServerOriginated = false, $reason) {
-    if ($ServerOriginated) {
-      $Client->disconnectWithReason($reason);
-    }
-    else {
-      $Client->disconnect();
-    }
+	public function handleDisconnect($Client, $ServerOriginated = false, $reason) {
+		if ($ServerOriginated) {
+			$Client->disconnectWithReason($reason);
+		} else {
+			$Client->disconnect();
+		}
 
-    unset($this->Clients[$Client]);
-    // TODO: Broadcast message that this player has disconnected from the server.
-  }
+		unset($this->Clients[$Client]);
+		// TODO: Broadcast message that this player has disconnected from the server.
+	}
 }
