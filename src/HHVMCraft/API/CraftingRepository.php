@@ -12,5 +12,4 @@ class CraftingRepository {
 	public function __construct() {
 
 	}
-
 }

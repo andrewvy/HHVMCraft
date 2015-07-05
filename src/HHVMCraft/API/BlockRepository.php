@@ -8,21 +8,21 @@
 namespace HHVMCraft\API;
 
 class BlockRepository {
-  public $BlockProviders = [];
+	public $BlockProviders = [];
 
-  public function __construct() {
-    $this->registerBlockProviders();
-  }
+	public function __construct() {
+		$this->registerBlockProviders();
+	}
 
-  public function registerBlockProviders() {
-    //	$this->registerBlockProvider(new GrassBlockProvider());
-  }
+	public function registerBlockProviders() {
+//	$this->registerBlockProvider(new GrassBlockProvider());
+	}
 
-  public function getBlockProvider($id) {
-    return $this->BlockProviders[$id];
-  }
+	public function getBlockProvider($id) {
+		return $this->BlockProviders[$id];
+	}
 
-  public function registerBlockProvider($provider) {
-    $this->BlockProviders[$provider->id] = $provider;
-  }
+	public function registerBlockProvider($provider) {
+		$this->BlockProviders[$provider->id] = $provider;
+	}
 }
