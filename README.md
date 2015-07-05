@@ -1,5 +1,8 @@
 # HHVMCraft
 
+STATUS: CEASED
+* Can't compile HHVM on my Yosemite machine anymore. ): *
+
 A Minecraft Beta 1.7.3 Server implemented in PHP, based off of 
 [Truecraft's implementation](https://github.com/SirCmpwn/TrueCraft).
 
@@ -44,5 +47,5 @@ Got past the login protocol, now we need chunk sending!
 [Evenement](https://github.com/igorw/evenement) - Event Dispatching Library  
 [ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.  
 [PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer  
-[PHPUnit](https://phpunit.de) - PHP Testing Framework
+[PHPUnit](https://phpunit.de) - PHP Testing Framework  
 [Monolog](https://github.com/Seldaek/monolog) - Logging Framework
