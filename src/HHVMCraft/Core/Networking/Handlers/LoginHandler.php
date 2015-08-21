@@ -7,6 +7,7 @@
  */
 namespace HHVMCraft\Core\Networking\Handlers;
 
+use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
 use HHVMCraft\Core\Networking\Packets\LoginResponsePacket;
 use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
@@ -49,7 +50,7 @@ class LoginHandler {
 			$client->enqueuepacket(new setplayerpositionpacket(
 			$client->Entity->Position->x,
 			$client->Entity->Position->y,
-			$client->Entity->Position->y + $client->Entity->Height,
+			$client->Entity->Position->y + PlayerEntity::Height,
 			$client->Entity->Position->z,
 			0,
 			0,

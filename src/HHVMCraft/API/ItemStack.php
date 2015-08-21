@@ -44,7 +44,7 @@ class ItemStack {
 		return $slot;
 	}
 
-	public function emptyStack() {
+	static function emptyStack() {
 		return new self(-1);
 	}
 
