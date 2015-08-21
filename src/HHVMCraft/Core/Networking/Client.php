@@ -34,7 +34,7 @@ class Client {
 
 	public function __construct($connection, $server) {
 		$this->connection = $connection;
-		$this->streamWrapper = new StreamWrapper($connection->stream);
+		$this->streamWrapper = new StreamWrapper($connection);
 		$this->Server = $server;
 		$this->World = $server->World;
 		$this->Inventory = new InventoryWindow($server->CraftingRepository);

@@ -17,6 +17,7 @@ use HHVMCraft\API\CraftingRepository;
 use HHVMCraft\Core\Entities\EntityManager;
 use HHVMCraft\Core\Helpers\Logger;
 use HHVMCraft\Core\Networking\Handlers;
+use HHVMCraft\Core\Networking\PackerReader;
 use HHVMCraft\Core\World\World;
 use React\Socket\Server;
 

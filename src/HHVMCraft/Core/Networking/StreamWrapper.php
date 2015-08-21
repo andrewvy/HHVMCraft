@@ -139,7 +139,7 @@ class StreamWrapper {
 	}
 
 	public function writePacket($data) {
-		$res = socket_write($this->stream, $data);
+		$res = $this->stream->write($data);
 		if ($res != false) {
 			return true;
 		} else {

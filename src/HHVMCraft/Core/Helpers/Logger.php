@@ -19,9 +19,7 @@ class Logger {
 	public $options;
 	public $PacketLog;
 
-	public function __construct($options) {
-		$this->options = $options;
-
+	public function __construct() {
 		# Packet Logger
 		$this->PacketLog = new MLogger('PacketLogger');
 		$this->PacketLog->pushHandler(new StreamHandler('logs/packet_log.log'), MLogger::INFO);
