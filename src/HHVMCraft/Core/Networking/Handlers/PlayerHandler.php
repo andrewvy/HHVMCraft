@@ -12,7 +12,11 @@ class PlayerHandler {
 	public static function HandleGrounded() {
 	}
 
-	public static function HandlePosition() {
+	public static function HandlePosition($packet, $client, $server) {
+		// TODO (vy): Actually do server-side checking for position
+		$client->PlayerEntity->Position->x = $packet->x;
+		$client->PlayerEntity->Position->y = $packet->y;
+		$client->PlayerEntity->Position->z = $packet->z;
 	}
 
 	public static function HandleLook() {

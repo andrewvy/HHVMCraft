@@ -123,7 +123,12 @@ class StreamWrapper {
 	}
 
 	public function readDouble() {
-		return pack("H*", $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
+		$double = [];
+		for ($i = 0; $i < 8; $i++) {
+			array_push($double, $this->readUInt8());
+		}
+
+		return pack("d*", $double);
 	}
 
 	public function writeDouble($data) {
