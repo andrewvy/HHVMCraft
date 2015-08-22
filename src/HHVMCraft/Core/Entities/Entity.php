@@ -75,7 +75,7 @@ class Entity {
 	}
 
 	public function update($EntityManager) {
-		if ($this->Position->Y < -50) {
+		if ($this->Position->y < -50) {
 			$EntityManager->despawnEntity($this);
 		}
 	}
