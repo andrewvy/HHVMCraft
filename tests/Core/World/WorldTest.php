@@ -21,4 +21,3 @@ class WorldTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($chunk->getBlockID($blockCoordinates), 0x00, "Expects block to be air in the chunk");
 	}
 }
-

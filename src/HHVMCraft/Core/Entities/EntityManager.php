@@ -43,10 +43,10 @@ class EntityManager {
 			case "Position":
 			case "Yaw":
 			case "Pitch":
-				$this->propagateEntityPositionUpdates($sender);
+				$this->propagateEntityPositionUpdates($entity);
 				break;
 			case "Metadata":
-				$this->propagateEntityMetadataUpdates($sender);
+				$this->propagateEntityMetadataUpdates($entity);
 				break;
 		}
 	}
@@ -77,7 +77,7 @@ class EntityManager {
 				if (get_class($knownEntity) == "PlayerEntity") {
 					$c = $knownEntity->Client;
 
-					if (in_array($c->knownEntities, $entity)) {
+					if (in_array($entity, $c->knownEntities)) {
 						unset($c->knownEntities[$entity]);
 						array_values($c->knownEntities);
 
@@ -93,14 +93,14 @@ class EntityManager {
 		// Now get entities that the client should know about
 		$entitiesToSpawn = $this->getEntitiesInRange($entity, $client->chunkRadius);
 		foreach ($entitiesToSpawn as $e) {
-			if ($e != $entity && !in_array($client->knownEntities, $e)) {
+			if ($e != $entity && !in_array($e, $client->knownEntities)) {
 				$this->sendEntityToClient($client, $e);
 
 				// If it's a player, make sure that client knows about this entity.
 				if (get_class($e == "PlayerEntity")) {
 					$c = $e->Client;
 
-					if (!in_array($c->knownEntities, $entity)) {
+					if (!in_array($entity, $c->knownEntities)) {
 						$this->sendEntityToClient($c, $entity);
 					}
 				}
@@ -129,7 +129,7 @@ class EntityManager {
 				continue;
 			}
 
-			if (in_array($client->knownEntities)) {
+			if (in_array($sender, $client->knownEntities)) {
 				$client->enqueuePacket(new EntityTeleportPacket(
 				$sender->entityId,
 				$sender->Position->x,
@@ -153,7 +153,7 @@ class EntityManager {
 				continue;
 			}
 
-			if (in_array($client->knownEntities)) {
+			if (in_array($sender, $client->knownEntities)) {
 				$client->enqueuePacket(new EntityMetadataPacket($entity->entityId, $entity->metadata()));
 			}
 		}
@@ -187,7 +187,7 @@ class EntityManager {
 		for ($i = 0; $i < count($this->Server->Clients); $i++) {
 			$client = $this->Server->Clients[$i];
 
-			if (in_array($client->knownEntities, $entity) && $client->Disconnected == false) {
+			if (in_array($entity, $client->knownEntities) && $client->Disconnected == false) {
 				$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
 
 				unset($client->knownEntities[$entity]);
