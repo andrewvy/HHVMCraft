@@ -203,5 +203,6 @@ class EntityManager {
 	public function addPlayerEntity($client) {
 		$PlayerEntity = new PlayerEntity($client, $this->Event);
 		array_push($this->entities, $PlayerEntity);
+		return $PlayerEntity;
 	}
 }

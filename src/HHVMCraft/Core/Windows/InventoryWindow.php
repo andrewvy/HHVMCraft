@@ -38,12 +38,12 @@ class InventoryWindow extends Window {
 		}
 	}
 
-	// TODO
+	// TODO (vy)
 	public function pickUpStack() {
 
 	}
 
-	// TODO
+	// TODO (vy)
 	public function copyToInventory() {
 
 	}

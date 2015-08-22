@@ -16,6 +16,7 @@ use HHVMCraft\Core\Windows\InventoryWindow;
 class Client {
 	public $Server;
 	public $World;
+	public $uuid;
 	public $connection;
 	public $streamWrapper;
 	public $Disconnected = false;
@@ -33,6 +34,7 @@ class Client {
 	public $Inventory;
 
 	public function __construct($connection, $server) {
+		$this->uuid = uniqid("client");
 		$this->connection = $connection;
 		$this->streamWrapper = new StreamWrapper($connection);
 		$this->Server = $server;

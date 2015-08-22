@@ -39,7 +39,7 @@ class WindowArea {
 	public function moveOrMergeItem($index, $item, $from) {
 		$emptyIndex = -1;
 
-		// TODO: Should grab the item's max stack size.
+		// TODO (vy): Should grab the item's const max stack size.
 		$maxStack = 64;
 
 		for ($i = 0; $i < $this->length; $i++) {
@@ -85,6 +85,7 @@ class WindowArea {
 	}
 
 	public function isValid($slot, $index) {
+		// TODO (vy): Actually check if the slot is valid?
 		return true;
 	}
 }

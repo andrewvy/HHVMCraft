@@ -95,7 +95,7 @@ class Window {
 			$slots[$i] = ItemStack::emptyStack();
 		}
 
-		// TODO: Need to create new itemslots with all of the itemslots of the windowareas.
+		// TODO (vy): Need to create new itemslots with all of the itemslots of the windowareas.
 		foreach ($this->WindowAreas as $Area) {
 			for ($i = 0; $i < $Area->length; $i++) {
 				$index = $Area->startIndex + $i;

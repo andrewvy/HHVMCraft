@@ -17,6 +17,8 @@ class PhysicsEngine {
 		$this->BlockRepository = $BlockRepository;
 	}
 
+	// TODO (vy): Methods for manipulating PhysicsEngine tracked entities
+
 	public function addEntity($Entity) {
 	}
 

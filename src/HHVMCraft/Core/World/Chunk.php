@@ -124,6 +124,10 @@ class Chunk {
 	public function deserialize() {
 		$deserialized = "";
 
+		/*
+
+		TODO (vy): Actually build chunk deserializer
+
 		$blockSize = count($this->Blocks);
 		$metadataSize = count($this->Metadata);
 		$blocklightSize = count($this->BlockLight);
@@ -134,16 +138,18 @@ class Chunk {
 		}
 
 		for ($j = 0; $j < $metadataSize; $j++) {
-			$deserialized .= pack("h", $this->Metadata[$j])[1];
+			$deserialized .= pack("h", $this->Metadata[$j]);
 		}
 
 		for ($k = 0; $k < $blocklightSize; $k++) {
-			$deserialized .= pack("h", $this->BlockLights[$k])[1];
+			$deserialized .= pack("h", $this->BlockLights[$k]);
 		}
 
 		for ($l = 0; $l < $skylightSize; $l++) {
-			$deserialized .= pack("h", $this->SkyLight[$l])[1];
+			$deserialized .= pack("h", $this->SkyLight[$l]);
 		}
+
+		 */
 
 		return $deserialized;
 	}

@@ -11,7 +11,7 @@ class DisconnectPacket {
 	const id = "ff";
 	public $reason;
 
-	public function __construct($reason) {
+	public function __construct($reason="") {
 		$this->reason = $reason;
 	}
 

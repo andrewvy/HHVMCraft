@@ -35,7 +35,6 @@ class Entity {
 		$this->Event = $Event;
 	}
 
-
 	public function setPosition($x=0, $y=0, $z=0) {
 		$this->Position->x = $x;
 		$this->Position->y = $y;
@@ -71,7 +70,7 @@ class Entity {
 	}
 
 	public function metadata() {
-		// Metadata Dictionary???
+		// TODO (vy): Metadata Dictionary???
 	}
 
 	public function update($EntityManager) {

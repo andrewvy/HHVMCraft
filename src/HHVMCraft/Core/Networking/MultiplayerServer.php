@@ -79,7 +79,8 @@ class MultiplayerServer extends EventEmitter {
 	}
 
 	public function acceptClient($connection) {
-		array_push($this->Clients, new Client($connection, $this));
+		$client = new Client($connection, $this);
+		$this->Clients[$client->uuid] = $client;
 	}
 
 	public function gameLoop() {
@@ -100,14 +101,14 @@ class MultiplayerServer extends EventEmitter {
 		}
 	}
 
-	public function handleDisconnect($Client, $ServerOriginated = false, $reason) {
+	public function handleDisconnect($Client, $ServerOriginated = false, $reason="") {
 		if ($ServerOriginated) {
 			$Client->disconnectWithReason($reason);
 		} else {
 			$Client->disconnect();
 		}
 
-		unset($this->Clients[$Client]);
-		// TODO: Broadcast message that this player has disconnected from the server.
+		unset($this->Clients[$Client->uuid]);
+		// TODO (vy): Broadcast message that this player has disconnected from the server.
 	}
 }
