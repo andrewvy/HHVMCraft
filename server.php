@@ -6,6 +6,8 @@
  * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
  * // */
 
+date_default_timezone_set('UTC');
+
 require "vendor/autoload.php";
 
 use HHVMCraft\Core\Networking\MultiplayerServer;
