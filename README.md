@@ -3,6 +3,8 @@
 STATUS: MIGRATING TO REGULAR VANILLA PHP
 * Can't compile HHVM on my Yosemite machine anymore, sadly ): *
 
+[![Build Status](https://travis-ci.org/andrewvy/HHVMCraft.svg?branch=master)](https://travis-ci.org/andrewvy/HHVMCraft)
+
 A Minecraft Beta 1.7.3 Server implemented in PHP, based off of 
 [Truecraft's implementation](https://github.com/SirCmpwn/TrueCraft).
 
