@@ -10,6 +10,8 @@
 
 namespace HHVMCraft\Core\Networking;
 
+use HHVMCraft\Core\Helpers\Hex;
+
 // http://stackoverflow.questions/16039751/php-pack-format-for-signed-32-int-big-endian
 define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
 
@@ -55,7 +57,7 @@ class StreamWrapper {
 	}
 
 	public function readInt() {
-		return unpack("l", $this->streamBuffer->read(4))[1];
+		return unpack("N", $this->streamBuffer->read(4))[1];
 	}
 
 	public function writeInt($data) {
@@ -75,7 +77,7 @@ class StreamWrapper {
 	}
 
 	public function readString16() {
-		$l = $this->streamWrapper->read(2);
+		$l = $this->readUInt16();
 		$str = "";
 
 		for ($i = 0; $i < $l; $i++) {
@@ -95,8 +97,8 @@ class StreamWrapper {
 		return $str;
 	}
 
-	public function readDouble($data) {
-		return unpack("d", $this->streamWrapper->read(8))[1];
+	public function readDouble() {
+		return unpack("d", $this->streamBuffer->read(8))[1];
 	}
 
 	public function writeDouble($data) {

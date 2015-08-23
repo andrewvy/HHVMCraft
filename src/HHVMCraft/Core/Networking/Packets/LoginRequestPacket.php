@@ -13,7 +13,7 @@ class LoginRequestPacket {
 	public $username;
 
 	public function readPacket($StreamWrapper) {
-		$this->protocolVersion = hexdec(bin2hex($StreamWrapper->readInt()));
+		$this->protocolVersion = $StreamWrapper->readInt();
 		$this->username = $StreamWrapper->readString16();
 
 		// These bytes are not used..

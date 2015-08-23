@@ -11,6 +11,7 @@ date_default_timezone_set('UTC');
 require "vendor/autoload.php";
 
 use HHVMCraft\Core\Networking\MultiplayerServer;
+error_reporting(E_ALL);
 
 $addr = "127.0.0.01";
 

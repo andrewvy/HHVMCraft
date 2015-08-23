@@ -42,27 +42,29 @@ class LoginHandler {
 
 			// Send packaet that sets the player's spawnpoint to that location.
 			$client->enqueuePacket(new SpawnPositionPacket(
-			$client->PlayerEntity->Position->x,
-			$client->PlayerEntity->Position->y,
-			$client->PlayerEntity->Position->z));
+				$client->PlayerEntity->Position->x,
+				$client->PlayerEntity->Position->y,
+				$client->PlayerEntity->Position->z)
+			);
 
 			// send packet that actually sets the player's current position to that position.
 			$client->enqueuepacket(new setplayerpositionpacket(
-			$client->PlayerEntity->Position->x,
-			$client->PlayerEntity->Position->y,
-			$client->PlayerEntity->Position->y + PlayerEntity::Height,
-			$client->PlayerEntity->Position->z,
-			0,
-			0,
-			true));
+				$client->PlayerEntity->Position->x,
+				$client->PlayerEntity->Position->y,
+				$client->PlayerEntity->Position->y + PlayerEntity::Height,
+				$client->PlayerEntity->Position->z,
+				0,
+				0,
+				true)
+			);
 
 			// Send the world time to the client.
 			$client->enqueuePacket(new TimeUpdatePacket(
-			$server->World->getTime()));
+				$server->World->getTime())
+			);
 
 			// Begin sending chunk data.
 			$client->updateChunks();
-
 			$server->Logger->throwLog("Added new client!");
 
 		} else {

@@ -84,7 +84,7 @@ class MultiplayerServer extends EventEmitter {
 	}
 
 	public function gameLoop() {
-		foreach ($this->Clients as &$Client) {
+		foreach ($this->Clients as $Client) {
 			while ($Client->PacketQueueCount > 0) {
 				$Packet = $Client->dequeuePacket();
 				$this->PacketReader->writePacket($Packet, $Client);
