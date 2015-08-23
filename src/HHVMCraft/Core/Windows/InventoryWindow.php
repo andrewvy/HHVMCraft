@@ -25,7 +25,7 @@ class InventoryWindow extends Window {
 		new CraftingWindowArea($CraftingRepository, self::craftingOutputIndex),
 		new ArmorWindowArea(self::armorIndex),
 		new WindowArea(self::mainIndex, 27, 9, 3),
-		new WindowArea(self::hotbarIndex, 9, 9, 1),
+		new WindowArea(self::hotbarIndex, 9, 9, 1)
 		];
 	}
 

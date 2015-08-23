@@ -7,6 +7,7 @@
  */
 namespace HHVMCraft\Core\Networking;
 
+use HHVMCraft\API\ItemStack;
 use HHVMCraft\API\Coordinates2D;
 use HHVMCraft\Core\Helpers\Hex;
 use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
@@ -42,6 +43,7 @@ class Client {
 		$this->Server = $server;
 		$this->World = $server->World;
 		$this->Inventory = new InventoryWindow($server->CraftingRepository);
+		$this->setItem(0x01, 0x40, 0x00, 3, 0);
 		$this->setupPacketListener();
 	}
 
@@ -133,5 +135,9 @@ class Client {
 		$this->enqueuePacket(new ChatMessagePacket(
 			$message
 		));
+	}
+
+	public function setItem($id=0x00, $amount=0x40, $metadata=0x00, $window=3, $slot=0) {
+		$this->Inventory->WindowAreas[$window]->Items[$slot] = new ItemStack($id, $amount, $metadata);
 	}
 }
