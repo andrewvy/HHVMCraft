@@ -34,6 +34,7 @@ class PacketHandler {
 		$this->Handlers[Packets\PlayerPositionPacket::id] = '\Handlers\PlayerHandler::HandlePosition';
 		$this->Handlers[Packets\PlayerLookPacket::id] = '\Handlers\PlayerHandler::HandleLook';
 		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = '\Handlers\PlayerHandler::HandlePositionAndLook';
+		$this->Handlers[Packets\RespawnPacket::id] = '\Handlers\PlayerHandler::HandleRespawn';
 	}
 
 	public function handlePacket($packet, $client, $server) {
@@ -42,7 +43,6 @@ class PacketHandler {
 			// is called by figuring out the handler by packet ID.
 			// This allows us to have a base class Handler around generic action
 			// while specificing a specific function to handle the packet.
-
 			call_user_func('\HHVMCraft\Core\Networking' . $this->Handlers[$packet::id], $packet, $client, $server);
 		} else {
 			$server->Logger->throwWarning("No handler for packet ID: " . $packet::id);

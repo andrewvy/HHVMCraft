@@ -7,6 +7,10 @@
  */
 namespace HHVMCraft\Core\Networking\Handlers;
 
+use HHVMCraft\Core\Entities\PlayerEntity;
+use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
+use HHVMCraft\Core\Networking\Packets\RespawnPacket;
+
 class PlayerHandler {
 
 	public static function HandleGrounded() {
@@ -23,5 +27,20 @@ class PlayerHandler {
 	}
 
 	public static function HandlePositionAndLook() {
+	}
+
+	public static function HandleRespawn($Packet, $Client, $Server) {
+		$Client->PlayerEntity->Position = $Client->World->ChunkProvider->spawnpoint;
+		$Client->enqueuePacket(new SetPlayerPositionPacket(
+			$Client->PlayerEntity->Position->x,
+			$Client->PlayerEntity->Position->y,
+			$Client->PlayerEntity->Position->y + PlayerEntity::Height,
+			$Client->PlayerEntity->Position->z,
+			0,
+			0,
+			true)
+		);
+
+		$Client->enqueuePacket(new RespawnPacket());
 	}
 }

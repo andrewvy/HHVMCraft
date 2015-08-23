@@ -34,17 +34,18 @@ class PacketReader {
 		$this->registerPacketType('Packets\SpawnPositionPacket', false, true);
 //		$this->registerPacketType(Packets\UseEntityPacket, true, false);
 		$this->registerPacketType('Packets\UpdateHealthPacket', false, true);
-//		$this->registerPacketType(Packets\RespawnPacket);
+		$this->registerPacketType('Packets\RespawnPacket');
 		$this->registerPacketType('Packets\PlayerGroundedPacket', true, false);
 		$this->registerPacketType('Packets\PlayerPositionPacket', true, false);
 		$this->registerPacketType('Packets\PlayerLookPacket', true, false);
 		$this->registerPacketType('Packets\PlayerPositionAndLookPacket', true, false);
 		$this->registerPacketType('Packets\SetPlayerPositionPacket', false, true);
+		$this->registerPacketType('Packets\HoldingChangePacket', true, false);
 //		$this->registerPacketType(Packets\PlayerDiggingPacket, true, false);
 //		$this->registerPacketType(Packets\PlayerBlockPlacementPacket, true, false);
 //		$this->registerPacketType(Packets\ChangeHeldItemPacket, true, false);
 //		$this->registerPacketType(Packets\UseBedPacket, false, true);
-//		$this->registerPacketType(Packets\AnimationPacket);
+		$this->registerPacketType('Packets\AnimationPacket');
 //		$this->registerPacketType(Packets\PlayerActionPacket, true, false);
 		$this->registerPacketType('Packets\SpawnPlayerPacket', false, true);
 //		$this->registerPacketType(Packets\SpawnItemPacket, false, true);
@@ -120,6 +121,7 @@ class PacketReader {
 
 		//TODO: This needs to be redone at a later date
 		$construct = "HHVMCraft\\Core\\Networking\\" . $type;
+
 		$packet = new $construct();
 		$packet->readPacket($client->streamWrapper);
 
