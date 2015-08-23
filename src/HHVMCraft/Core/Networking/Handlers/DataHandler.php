@@ -14,7 +14,8 @@ class DataHandler {
 	}
 
 	public static function HandleChatMessage($Packet, $Client, $Server) {
-		$Server->Logger->throwLog("<" . $Client->username . "> " . $Packet->message);
+		$message = "<" . $Client->username . "> " . $Packet->message;
+		$Server->sendMessage($message);
 	}
 
 	public static function HandleDisconnect($Packet, $Client, $Server) {
