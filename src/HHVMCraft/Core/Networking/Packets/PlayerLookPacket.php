@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class PlayerLookPacket {
-	const id = "0c";
+	const id = 0x0C;
 
 	public $yaw;
 	public $pitch;

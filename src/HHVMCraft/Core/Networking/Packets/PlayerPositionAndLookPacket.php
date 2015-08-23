@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class PlayerPositionAndLookPacket {
-	const id = "0d";
+	const id = 0x0D;
 
 	public $x;
 	public $y;

@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class TimeUpdatePacket {
-	const id = "04";
+	const id = 0x04;
 	public $time;
 
 	public function __construct($time) {

@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class WindowItemsPacket {
-	const id = "68";
+	const id = 0x68;
 	public $windowId;
 	public $items;
 

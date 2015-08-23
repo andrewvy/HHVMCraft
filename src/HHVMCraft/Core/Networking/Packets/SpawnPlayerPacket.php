@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class SpawnPlayerPacket {
-	const id = "14";
+	const id = 0x14;
 	public $entityId;
 	public $playerName;
 	public $x;

@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class HandshakePacket {
-	const id = "02";
+	const id = 0x02;
 	public $username;
 
 	public function __construct($username = "") {

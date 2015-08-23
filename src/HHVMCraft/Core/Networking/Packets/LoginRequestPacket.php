@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class LoginRequestPacket {
-	const id = "01";
+	const id = 0x01;
 	public $protocolVersion;
 	public $username;
 

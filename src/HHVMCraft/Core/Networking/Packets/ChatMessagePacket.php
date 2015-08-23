@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class ChatMessagePacket {
-	const id = "03";
+	const id = 0x03;
 	public $message;
 
 	public function __construct($message) {

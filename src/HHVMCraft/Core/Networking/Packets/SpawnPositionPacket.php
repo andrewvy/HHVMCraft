@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class SpawnPositionPacket {
-	const id = "06";
+	const id = 0x06;
 	public $x;
 	public $y;
 	public $z;

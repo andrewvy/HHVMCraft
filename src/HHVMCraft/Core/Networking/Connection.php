@@ -1,6 +1,7 @@
 <?php
 /**
  * Connection is part of HHVMCraft - a Minecraft server implemented in PHP
+ * - Extended off React's Stream
  * - Handles new packets incoming, and stores them in the client's packet buffer.
  * - Also handles cleanly closing the socket.
  *

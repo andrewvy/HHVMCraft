@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class PlayerGroundedPacket {
-	const id = "0a";
+	const id = 0x0A;
 	public $onGround;
 
 	public function readPacket($StreamWrapper) {

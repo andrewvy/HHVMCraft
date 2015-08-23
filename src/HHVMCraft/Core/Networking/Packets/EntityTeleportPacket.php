@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class EntityTeleportPacket {
-	const id = "22";
+	const id = 0x22;
 	public $entityId;
 	public $x;
 	public $y;

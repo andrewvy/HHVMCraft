@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class ChunkPreamblePacket {
-	const id = "32";
+	const id = 0x32;
 	public $x;
 	public $z;
 	public $load;

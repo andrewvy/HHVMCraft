@@ -7,6 +7,7 @@
 * @copyright Andrew Vy 2015
 * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
 */
+
 namespace HHVMCraft\Core\Networking;
 
 // http://stackoverflow.questions/16039751/php-pack-format-for-signed-32-int-big-endian
@@ -14,97 +15,78 @@ define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
 
 class StreamWrapper {
 	public $stream;
-	public $streamBuffer = [];
+	public $streamBuffer;
 
 	public function __construct($stream) {
 		$this->stream = $stream;
+		$this->streamBuffer = new \EventBuffer();
 	}
 
 	public function data($data) {
-		$this->streamBuffer = $this->streamBuffer + str_split(bin2hex($data), 2);
-	}
-
-	// UINT8: 0x00
-
-	public function readBool() {
-		$bool = $this->readUInt8();
-
-		return (bool) $bool;
+		$this->streamBuffer->add($data);
 	}
 
 	public function readUInt8() {
-		$b = array_shift($this->streamBuffer);
-		if ($b) {
-		return $b;
-		}
-		else {
-		throw new \Exception("Malformed packet, buffer is empty");
-		}
+		return unpack("c", $this->streamBuffer->read(1))[1];
+	}
+
+	public function writeUInt8($data) {
+		return pack("c", $data);
+	}
+
+	public function readBool() {
+		return (bool) $this->readUInt8();
 	}
 
 	public function writeBool($data) {
 		if ($data == true) {
-		$this->writeUInt8(0x01);
-		}
-		else {
-		$this->writeUInt8(0x00);
+			$this->writeUInt8(0x01);
+		} else {
+			$this->writeUInt8(0x00);
 		}
 	}
 
-	public function writeUInt8($data) {
-		return pack("H*", $data);
+	public function readUInt16() {
+		return unpack("n", $this->streamBuffer->read(2))[1];
 	}
-
-	// UINT16: 0x0000
 
 	public function writeUInt16($data) {
 		return pack("n*", $data);
 	}
 
 	public function readInt() {
-		return pack("H*", $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
+		return unpack("l", $this->streamBuffer->read(4))[1];
 	}
-
-	// INT: 0x0000 0x0000
 
 	public function writeInt($data) {
 		if (BIG_ENDIAN) {
-		return pack('l', $data);
+			return pack('l', $data);
 		}
 
 		return strrev(pack("l*", $data));
-		}
-
-	public function readLong() {
-		return pack("H*", $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8() . $this->readUInt8());
 	}
 
-	// LONG: 0x0000 0x0000 0x0000 0x0000
+	public function readLong() {
+		return unpack("q", $this->streamBuffer->read(8))[1];
+	}
 
 	public function writeLong($data) {
 		return pack("q*", $data);
 	}
 
 	public function readString16() {
-		$l = hexdec(bin2hex($this->readUInt16()));
+		$l = $this->streamWrapper->read(2);
 		$str = "";
 
 		for ($i = 0; $i < $l; $i++) {
-			$str = $str . $this->readUInt16();
+			$str = $str . chr($this->readUInt16());
 		}
 
 		if (strlen($str) > 0) {
 			return $str;
 		} else {
-		// No string found?
+			// No string found?
 		}
-	}
-
-	// STRING16: 0x0000 0x0000...
-	// UCS-2 encoding, big endian, U+0000 U+0000 ....
-
-	public function readUInt16() {
-		return pack("H*", $this->readUInt8() . $this->readUInt8());
 	}
 
 	public function writeString16($str) {
@@ -113,22 +95,8 @@ class StreamWrapper {
 		return $str;
 	}
 
-	public function readUInt8Array($length) {
-		$array = [];
-		for ($i = 0; $i < $length; $i++) {
-		array_push($array, $this->readUInt8());
-		}
-
-		return $array;
-	}
-
-	public function readDouble() {
-		$double = [];
-		for ($i = 0; $i < 8; $i++) {
-			array_push($double, $this->readUInt8());
-		}
-
-		return pack("d*", $double);
+	public function readDouble($data) {
+		return unpack("d", $this->streamWrapper->read(8))[1];
 	}
 
 	public function writeDouble($data) {
@@ -137,10 +105,6 @@ class StreamWrapper {
 		}
 
 		return strrev(pack("d", $data));
-	}
-
-	public function writeUInt8Array($array) {
-		return pack("H*", $array);
 	}
 
 	public function writePacket($data) {

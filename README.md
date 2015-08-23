@@ -11,6 +11,12 @@ A Minecraft Beta 1.7.3 Server implemented in PHP, based off of
 The goal of this project is not to be a fully-functional server,
 but rather a proof-of-concept for PHP and HHVM.
 
+### Installation?
+
+You need pear + pecl + composer.
+
+Also, [libevent is required.](http://libevent.org/) along with [event](https://pecl.php.net/package/event)
+
 ### Why?
 
 This is a little coding exercise/project, it's not intended to be a serious 
@@ -50,4 +56,4 @@ Got past the login protocol, now we need chunk sending!
 [ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.  
 [PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer  
 [PHPUnit](https://phpunit.de) - PHP Testing Framework  
-[Monolog](https://github.com/Seldaek/monolog) - Logging Framework
+[Monolog](https://github.com/Seldaek/monolog) - Logging Framework  

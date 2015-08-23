@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class DisconnectPacket {
-	const id = "ff";
+	const id = 0xFF;
 	public $reason;
 
 	public function __construct($reason="") {

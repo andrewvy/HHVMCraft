@@ -10,7 +10,7 @@ namespace HHVMCraft\Core\Networking\Packets;
 use HHVMCraft\Core\Helpers\Hex;
 
 class ChunkDataPacket {
-	const id = "33";
+	const id = 0x33;
 
 	public $x;
 	public $y;

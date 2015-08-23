@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class EntityVelocityPacket {
-	const id = "1c";
+	const id = 0x1c;
 	public $entityId;
 	public $xVel;
 	public $yVel;

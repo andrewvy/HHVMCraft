@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class PlayerPositionPacket {
-	const id = "0b";
+	const id = 0x0B;
 
 	public $x;
 	public $y;

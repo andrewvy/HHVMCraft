@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class LoginResponsePacket {
-	const id = "01";
+	const id = 0x01;
 	public $Dimension;
 	public $EntityID;
 	public $Seed;
