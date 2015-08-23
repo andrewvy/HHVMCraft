@@ -6,6 +6,7 @@
 * @license MIT <https://github.com/andrewvy/HHVMCraft/blob/master/LICENSE.md>
 */
 namespace HHVMCraft\Core\Networking\Packets;
+use HHVMCraft\Core\Helpers\Hex;
 
 class ChunkPreamblePacket {
 	const id = 0x32;
@@ -23,7 +24,7 @@ class ChunkPreamblePacket {
 		$str = $StreamWrapper->writeUInt8(self::id) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt($this->z) .
-		$StreamWrapper->writeBool($this->load);
+		$StreamWrapper->writeUInt8($this->load);
 
 		return $StreamWrapper->writePacket($str);
 	}

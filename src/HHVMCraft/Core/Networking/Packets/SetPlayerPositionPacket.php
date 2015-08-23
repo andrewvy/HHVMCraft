@@ -8,7 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 class SetPlayerPositionPacket {
-	const id = 0x0B;
+	const id = 0x0D;
 	public $x;
 	public $y;
 	public $z;
@@ -35,7 +35,7 @@ class SetPlayerPositionPacket {
 		$StreamWrapper->writeDouble($this->z) .
 		$StreamWrapper->writeInt($this->yaw) .
 		$StreamWrapper->writeInt($this->pitch) .
-		$StreamWrapper->writeBool($this->onGround);
+		$StreamWrapper->writeUInt8($this->onGround);
 
 		return $StreamWrapper->writePacket($str);
 	}

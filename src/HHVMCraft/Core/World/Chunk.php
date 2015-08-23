@@ -125,23 +125,18 @@ class Chunk {
 	public function deserialize() {
 		$deserialized = "";
 
-#		TODO (vy): Actually build chunk deserializer
-
 		try {
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= decbin(0x03);
+				$deserialized .= "03";
 			}
-
-			for ($j = 0; $j < self::Size; $j++) {
-				$deserialized .= decbin(0);
+			for ($i = 0; $i < self::Size; $i++) {
+				$deserialized .= "0";
 			}
-
-			for ($k = 0; $k < self::Size; $k++) {
-				$deserialized .= decbin(0);
+			for ($i = 0; $i < self::Size; $i++) {
+				$deserialized .= "0";
 			}
-
-			for ($l = 0; $l < self::Size; $l++) {
-				$deserialized .= decbin(0);
+			for ($i = 0; $i < self::Size; $i++) {
+				$deserialized .= "0";
 			}
 		} catch (Exception $e) {
    			echo 'Caught exception: ',  $e->getMessage(), "\n";
