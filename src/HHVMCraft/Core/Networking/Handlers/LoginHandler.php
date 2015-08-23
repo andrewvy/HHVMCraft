@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\Networking\Handlers;
 
 use HHVMCraft\Core\Entities\PlayerEntity;
+use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
 use HHVMCraft\Core\Networking\Packets\HandshakeResponsePacket;
 use HHVMCraft\Core\Networking\Packets\LoginResponsePacket;
 use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
@@ -66,6 +67,10 @@ class LoginHandler {
 			// Begin sending chunk data.
 			$client->updateChunks();
 			$server->Logger->throwLog("Added new client!");
+
+			$client->enqueuePacket(new ChatMessagePacket(
+				"Someone has joined the server!")
+			);
 
 		} else {
 			// The client's version is not the same as this server implementation.
