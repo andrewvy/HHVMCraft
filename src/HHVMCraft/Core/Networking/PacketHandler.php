@@ -25,7 +25,7 @@ class PacketHandler {
 	public function registerHandlers() {
 		$this->Handlers[Packets\KeepAlivePacket::id] = '\Handlers\DataHandler::HandleKeepAlive';
 		$this->Handlers[Packets\DisconnectPacket::id] = '\Handlers\DataHandler::HandleDisconnect';
-		$this->Handlers[Packets\ChatMessagePacket::id] = '\Handlers\DataHandler::HandleChatMessage';
+		$this->Handlers[Packets\ChatMessagePacket::id] = '\Handlers\ChatHandler::HandleChatMessage';
 
 		$this->Handlers[Packets\HandshakePacket::id] = '\Handlers\LoginHandler::HandleHandshake';
 		$this->Handlers[Packets\LoginRequestPacket::id] = '\Handlers\LoginHandler::HandleLoginRequest';

@@ -8,6 +8,8 @@
 namespace HHVMCraft\Core\Networking;
 
 use HHVMCraft\API\Coordinates2D;
+use HHVMCraft\Core\Helpers\Hex;
+use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
 use HHVMCraft\Core\Networking\Packets\ChunkDataPacket;
 use HHVMCraft\Core\Networking\Packets\ChunkPreamblePacket;
 use HHVMCraft\Core\Networking\Packets\DisconnectPacket;
@@ -60,16 +62,12 @@ class Client {
 	}
 
 	public function updateChunks() {
-		for ($i = 0; $i < 1; $i++) {
-			for ($j = 0; $j < 1; $j++) {
-				$Coordinates2D = new Coordinates2D($i, $j);
-				$chunk = $this->World->generateChunk($Coordinates2D);
-				$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
-				$data = $this->createChunkPacket($chunk);
-				// $this->enqueuePacket($preamble);
-				// $this->enqueuePacket($data);
-			}
-		}
+		$Coordinates2D = new Coordinates2D(0, 0);
+		$chunk = $this->World->generateChunk($Coordinates2D);
+		$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
+		$data = $this->createChunkPacket($chunk);
+//		$this->enqueuePacket($preamble);
+//		$this->enqueuePacket($data);
 	}
 
 	public function createChunkPacket($chunk) {
@@ -102,7 +100,7 @@ class Client {
 	}
 
 	public function loadChunk($Coordinates2D) {
-		$chunk = $this->World->getFakeChunk($Coordinates2D);
+		$chunk = $this->World->generateChunk($Coordinates2D);
 		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));
 		$this->enqueuePacket($this->createChunkPacket($chunk));
 
@@ -131,4 +129,9 @@ class Client {
 		$this->connection->handleClose();
 	}
 
+	public function sendMessage($message="") {
+		$this->enqueuePacket(new ChatMessagePacket(
+			$message
+		));
+	}
 }

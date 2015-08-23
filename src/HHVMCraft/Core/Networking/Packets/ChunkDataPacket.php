@@ -33,13 +33,13 @@ class ChunkDataPacket {
 
 	public function writePacket($StreamWrapper) {
 		$str = $StreamWrapper->writeUInt8(self::id) .
-		$StreamWrapper->writeInt($this->x * $this->Width) .
+		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeUInt16(0) .
-		$StreamWrapper->writeInt($this->z * $this->Depth) .
+		$StreamWrapper->writeInt($this->z) .
 		$StreamWrapper->writeUInt8("09") .
 		$StreamWrapper->writeUInt8("7F") .
 		$StreamWrapper->writeUInt8("09") .
-		$StreamWrapper->writeInt(strlen($this->BlockData)) .
+		$StreamWrapper->writeInt(0x01) .
 		$this->BlockData;
 
 		return $StreamWrapper->writePacket($str);

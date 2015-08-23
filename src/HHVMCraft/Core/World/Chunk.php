@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\World;
 
 use HHVMCraft\API\Coordinates2D;
+use HHVMCraft\Core\Helpers\Hex;
 
 class Chunk {
 	const Width = 16;
@@ -124,32 +125,27 @@ class Chunk {
 	public function deserialize() {
 		$deserialized = "";
 
-		/*
+#		TODO (vy): Actually build chunk deserializer
 
-		TODO (vy): Actually build chunk deserializer
+		try {
+			for ($i = 0; $i < self::Size; $i++) {
+				$deserialized .= decbin(0x03);
+			}
 
-		$blockSize = count($this->Blocks);
-		$metadataSize = count($this->Metadata);
-		$blocklightSize = count($this->BlockLight);
-		$skylightSize = count($this->SkyLight);
+			for ($j = 0; $j < self::Size; $j++) {
+				$deserialized .= decbin(0);
+			}
 
-		for ($i = 0; $i < $blockSize; $i++) {
-			$deserialized .= pack("h", $this->Blocks[$i]);
+			for ($k = 0; $k < self::Size; $k++) {
+				$deserialized .= decbin(0);
+			}
+
+			for ($l = 0; $l < self::Size; $l++) {
+				$deserialized .= decbin(0);
+			}
+		} catch (Exception $e) {
+   			echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
-
-		for ($j = 0; $j < $metadataSize; $j++) {
-			$deserialized .= pack("h", $this->Metadata[$j]);
-		}
-
-		for ($k = 0; $k < $blocklightSize; $k++) {
-			$deserialized .= pack("h", $this->BlockLights[$k]);
-		}
-
-		for ($l = 0; $l < $skylightSize; $l++) {
-			$deserialized .= pack("h", $this->SkyLight[$l]);
-		}
-
-		 */
 
 		return $deserialized;
 	}

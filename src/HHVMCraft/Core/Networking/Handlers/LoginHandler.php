@@ -49,7 +49,7 @@ class LoginHandler {
 			);
 
 			// send packet that actually sets the player's current position to that position.
-			$client->enqueuepacket(new setplayerpositionpacket(
+			$client->enqueuePacket(new SetPlayerPositionPacket(
 				$client->PlayerEntity->Position->x,
 				$client->PlayerEntity->Position->y,
 				$client->PlayerEntity->Position->y + PlayerEntity::Height,

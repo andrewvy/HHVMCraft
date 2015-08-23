@@ -7,25 +7,26 @@
  */
 namespace HHVMCraft\Core\Networking\Handlers;
 
-class DataHandler {
-
-	public static function HandleKeepAlive() {
-		// Do nothing for now
-	}
-
+class ChatHandler {
 	public static function HandleChatMessage($Packet, $Client, $Server) {
 		if ($Packet->message[0] == "/") {
+			self::handleCommand($Packet->message, $Client, $Server);
 		} else {
 			$message = "<" . $Client->username . "> " . $Packet->message;
 			$Server->sendMessage($message);
 		}
 	}
 
-	public static function HandleDisconnect($Packet, $Client, $Server) {
-		// If called, this means we've read a serverbound packet that a client has disconnected.
-
-		$Server->Logger->throwLog("Client has disconnected for reason: " . $Packet->reason);
-
-		$Server->handleDisconnect($Client);
+	public static function handleCommand($message="", $Client, $Server) {
+		$args = explode(" ", $message);
+		switch ($args[0]) {
+			case "/ping":
+				$Client->sendMessage("Pong!");
+				break;
+			default:
+				$Client->sendMessage("Command not recognized!");
+		}
 	}
+
+	# TODO (vy): Port commands into their own functions here
 }
