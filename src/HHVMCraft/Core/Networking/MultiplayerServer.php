@@ -18,7 +18,10 @@ use HHVMCraft\Core\Entities\EntityManager;
 use HHVMCraft\Core\Helpers\Logger;
 use HHVMCraft\Core\Networking\Handlers;
 use HHVMCraft\Core\Networking\PackerReader;
+
 use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
+use HHVMCraft\Core\Networking\Packets\KeepAlivePacket;
+
 use HHVMCraft\Core\World\World;
 use React\Socket\Server;
 
@@ -72,6 +75,7 @@ class MultiplayerServer extends EventEmitter {
 		});
 
 		$this->loop->addPeriodicTimer(1, function () {
+			$this->emitKeepAlive();
 			$this->World->updateTime();
 		});
 
@@ -112,6 +116,12 @@ class MultiplayerServer extends EventEmitter {
 		unset($this->Clients[$Client->uuid]);
 
 		$this->sendMessage($Client->username." has disconnected from the server.");
+	}
+
+	public function emitKeepAlive() {
+		foreach ($this->Clients as $Client) {
+			$Client->enqueuePacket(new KeepAlivePacket());
+		}
 	}
 
 	public function sendMessage($message="") {

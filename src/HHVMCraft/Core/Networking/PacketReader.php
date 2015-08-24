@@ -32,7 +32,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\TimeUpdatePacket', false, true);
 //		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
 		$this->registerPacketType('Packets\SpawnPositionPacket', false, true);
-//		$this->registerPacketType(Packets\UseEntityPacket, true, false);
+		$this->registerPacketType('Packets\UseEntityPacket', true, false);
 		$this->registerPacketType('Packets\UpdateHealthPacket', false, true);
 		$this->registerPacketType('Packets\RespawnPacket');
 		$this->registerPacketType('Packets\PlayerGroundedPacket', true, false);
@@ -41,8 +41,9 @@ class PacketReader {
 		$this->registerPacketType('Packets\PlayerPositionAndLookPacket', true, false);
 		$this->registerPacketType('Packets\SetPlayerPositionPacket', false, true);
 		$this->registerPacketType('Packets\HoldingChangePacket', true, false);
+		$this->registerPacketType('Packets\EntityActionPacket', true, false);
 //		$this->registerPacketType(Packets\PlayerDiggingPacket, true, false);
-//		$this->registerPacketType(Packets\PlayerBlockPlacementPacket, true, false);
+		$this->registerPacketType('Packets\PlayerBlockPlacementPacket', true, false);
 //		$this->registerPacketType(Packets\ChangeHeldItemPacket, true, false);
 //		$this->registerPacketType(Packets\UseBedPacket, false, true);
 		$this->registerPacketType('Packets\AnimationPacket');

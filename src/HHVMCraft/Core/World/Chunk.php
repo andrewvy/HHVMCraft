@@ -125,9 +125,12 @@ class Chunk {
 	public function deserialize() {
 		$deserialized = "";
 
+		# TODO (vy): the zlib turns these hex into ascii form of hex
+		# so you will probably have to do decbin or some crazy stuff
+
 		try {
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "03";
+				$deserialized .= "#";
 			}
 			for ($i = 0; $i < self::Size; $i++) {
 				$deserialized .= "0";

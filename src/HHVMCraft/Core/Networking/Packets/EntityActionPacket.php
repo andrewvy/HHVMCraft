@@ -7,15 +7,15 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
-class KeepAlivePacket {
-	const id = 0x00;
+class EntityActionPacket {
+	const id = 0x13;
 
-	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id);
-		return $StreamWrapper->writePacket($str);
-	}
+	public $eid;
+	public $action;
 
 	public function readPacket($StreamWrapper) {
-		$StreamWrapper->readUInt8();
+		$this->eid = $StreamWrapper->readInt();
+		$this->action = $StreamWrapper->readUInt8();
 	}
+
 }
