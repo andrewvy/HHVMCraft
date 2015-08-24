@@ -30,7 +30,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\HandshakeResponsePacket', false, true);
 		$this->registerPacketType('Packets\ChatMessagePacket', true, true);
 		$this->registerPacketType('Packets\TimeUpdatePacket', false, true);
-//		$this->registerPacketType(Packets\EntityEquipmentPacket, false, true);
+		$this->registerPacketType('Packets\EntityEquipmentPacket', false, true);
 		$this->registerPacketType('Packets\SpawnPositionPacket', false, true);
 		$this->registerPacketType('Packets\UseEntityPacket', true, false);
 		$this->registerPacketType('Packets\UpdateHealthPacket', false, true);
@@ -42,30 +42,28 @@ class PacketReader {
 		$this->registerPacketType('Packets\SetPlayerPositionPacket', false, true);
 		$this->registerPacketType('Packets\HoldingChangePacket', true, false);
 		$this->registerPacketType('Packets\EntityActionPacket', true, false);
-//		$this->registerPacketType(Packets\PlayerDiggingPacket, true, false);
+		$this->registerPacketType('Packets\PlayerDiggingPacket', true, false);
 		$this->registerPacketType('Packets\PlayerBlockPlacementPacket', true, false);
-//		$this->registerPacketType(Packets\ChangeHeldItemPacket, true, false);
-//		$this->registerPacketType(Packets\UseBedPacket, false, true);
+		$this->registerPacketType('Packets\UseBedPacket', false, true);
 		$this->registerPacketType('Packets\AnimationPacket');
-//		$this->registerPacketType(Packets\PlayerActionPacket, true, false);
 		$this->registerPacketType('Packets\SpawnPlayerPacket', false, true);
-//		$this->registerPacketType(Packets\SpawnItemPacket, false, true);
-//		$this->registerPacketType(Packets\CollectItemPacket, false, true);
+		$this->registerPacketType('Packets\PickupSpawnPacket', false, true);
+		$this->registerPacketType('Packets\CollectItemPacket', false, true);
 //		$this->registerPacketType(Packets\SpawnGenericEntityPacket, false, true);
 //		$this->registerPacketType(Packets\SpawnMobPacket, false, true);
 //		$this->registerPacketType(Packets\SpawnPaintingPacket, false, true);
 
-//		$this->registerPacketType(Packets\EntityVelocityPacket, false, true);
+		$this->registerPacketType('Packets\EntityVelocityPacket', false, true);
 //		$this->registerPacketType(Packets\DestroyEntityPacket, false, true);
 //		$this->registerPacketType(Packets\UselessEntityPacket, false, true);
 //		$this->registerPacketType(Packets\EntityRelativeMovePacket, false, true);
 //		$this->registerPacketType(Packets\EntityLookPacket, false, true);
 //		$this->registerPacketType(Packets\EntityLookAndRelativeMovePacket, false, true);
-//		$this->registerPacketType(Packets\EntityTeleportPacket, false, true);
+		$this->registerPacketType('Packets\EntityTeleportPacket', false, true);
 
 //		$this->registerPacketType(Packets\EntityStatusPacket, false, true);
 //		$this->registerPacketType(Packets\AttachEntityPacket, false, true);
-//		$this->registerPacketType(Packets\EntityMetadataPacket, false, true);
+		$this->registerPacketType('Packets\EntityMetadataPacket', false, true);
 
 		$this->registerPacketType('Packets\ChunkPreamblePacket', false, true);
 		$this->registerPacketType('Packets\ChunkDataPacket', false, true);
