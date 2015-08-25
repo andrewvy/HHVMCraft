@@ -72,13 +72,6 @@ class Client {
 		$z = $chunk->z;
 
 		$blockdata = $chunk->deserialize();
-
-		//  Must flatten data and be zlib deflated
-		//  1) Block Types
-		//  2) Block Metadata
-		//  3) Block Light
-		//  4) Sky Light
-
 		$compress = gzcompress($blockdata);
 
 		return new ChunkDataPacket(

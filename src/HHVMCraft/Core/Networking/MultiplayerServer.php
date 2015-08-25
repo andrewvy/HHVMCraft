@@ -95,9 +95,7 @@ class MultiplayerServer extends EventEmitter {
 	}
 
 	public function writePacket($packet, $client) {
-		$this->loop->nextTick( function() {
-			$this->PacketReader->writePacket($packet, $client);
-		});
+		$this->PacketReader->writePacket($packet, $client);
 	}
 
 	public function handleDisconnect($Client, $ServerOriginated = false, $reason="") {
