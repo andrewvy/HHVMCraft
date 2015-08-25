@@ -67,10 +67,6 @@ class MultiplayerServer extends EventEmitter {
 		$this->socket->listen($port);
 
 		$this->loop->addPeriodicTimer($this->tickRate, function () {
-			$this->gameLoop();
-		});
-
-		$this->loop->addPeriodicTimer($this->tickRate, function () {
 			$this->EntityManager->update();
 		});
 
@@ -88,22 +84,20 @@ class MultiplayerServer extends EventEmitter {
 		$this->Clients[$client->uuid] = $client;
 	}
 
-	public function gameLoop() {
-		foreach ($this->Clients as $Client) {
-			while ($Client->PacketQueueCount > 0) {
-				$Packet = $Client->dequeuePacket();
-				$this->PacketReader->writePacket($Packet, $Client);
-			}
-		}
-	}
-
 	public function handlePacket($client) {
 		$packet = $this->PacketReader->readPacket($client);
+
 		if ($packet) {
 			$this->PacketHandler->handlePacket($packet, $client, $this);
 		} else {
 			$this->Logger->throwWarning("No handler found for packet.");
 		}
+	}
+
+	public function writePacket($packet, $client) {
+		$this->loop->nextTick( function() {
+			$this->PacketReader->writePacket($packet, $client);
+		});
 	}
 
 	public function handleDisconnect($Client, $ServerOriginated = false, $reason="") {

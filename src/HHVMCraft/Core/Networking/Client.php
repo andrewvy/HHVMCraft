@@ -54,15 +54,6 @@ class Client {
 		});
 	}
 
-	public function dequeuePacket() {
-		if ($this->PacketQueueCount == 0) {
-			return false;
-		} else {
-			$this->PacketQueueCount--;
-			return array_shift($this->PacketQueue);
-		}
-	}
-
 	public function updateChunks() {
 		for ($x = 0; $x < 2; $x++) {
 			for ($z = 0; $z < 2; $z++) {
@@ -101,8 +92,7 @@ class Client {
 	}
 
 	public function enqueuePacket($packet) {
-		$this->PacketQueueCount++;
-		array_push($this->PacketQueue, $packet);
+		$this->Server->writePacket($packet, $this);
 	}
 
 	public function loadChunk($Coordinates2D) {
