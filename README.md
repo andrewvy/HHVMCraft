@@ -43,12 +43,9 @@ So if you have any comments, please feel free to create an issue.
 - NBT deserializing/serializing needs to be added.
 - Packet Handlers need to be added.
 
-WE'RE EVEN CLOSER! I just need to build the in-memory chunk deserializer/serializer, 
-grunt work with packet data sending and I will finally have a cool visual demo!
+We can actually walk around on stuff and chat!
 
-Got past the login protocol, now we need chunk sending! 
-
-![](http://i.imgur.com/lAtvZZO.png)
+![](https://cloud.githubusercontent.com/assets/2051361/9459210/b9a2cfb8-4aad-11e5-9164-66e1da98808a.png)
 
 ## Libraries used
 
