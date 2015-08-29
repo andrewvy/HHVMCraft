@@ -27,14 +27,14 @@ class Logger {
 		$this->PacketLog = new MLogger('PacketLogger');
 		$this->PacketLog->pushHandler(new StreamHandler('logs/packet_log'), MLogger::INFO);
 		$this->ServerLog = new MLogger('ServerLogger');
-		$this->OutLog = new MLogger('OutLogger');
-		$this->OutLog->pushHandler(new StreamHandler('logs/out_log'), MLogger::INFO);
+#		$this->OutLog = new MLogger('OutLogger');
+#		$this->OutLog->pushHandler(new StreamHandler('logs/out_log'), MLogger::INFO);
 	}
 
 	public function throwLog($msg) {
 		$response = $this::PREFIX . $msg . PHP_EOL;
 		$this->ServerLog->addInfo($response);
-		$this->OutLog->addInfo($response);
+#		$this->OutLog->addInfo($response);
 	}
 
 	public function throwWarning($msg) {
