@@ -14,6 +14,7 @@ class Entity {
 	public $enablePropertyChange = true;
 	public $entityId = -1;
 	public $spawnTime;
+	public $uuid;
 
 	public $Position;
 	public $Velocity;
@@ -25,6 +26,7 @@ class Entity {
 	public $Event;
 
 	public function __construct($Event) {
+		$this->uuid = uniqid("entity");
 		$this->spawnTime = new \DateTime();
 		$this->Velocity = new Vec3(0,0,0);
 		$this->Position = new Coordinates3D(0,0,0);

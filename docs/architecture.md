@@ -83,3 +83,16 @@ CLIENT PACKET HANDLER
 	2) PACKET Z - Client 2
 	3) PACKET A - Client 1
 	4) PACKET Y - Client 3
+
+ENTITIY MANAGER
+-----------------
+
+EM holds the UUID -> entity relationship
+Clients holds the array of UUIDs that the client "knows" about.
+
+
+When an entity updates the position, we need to check if the entity has moved out of range of any clients.
+Calculate range by checking the 3D coordinates of the Entity
+If an entity is out of range:
+	Remove it from the array of known entities from that client
+	And if the entity is a PlayerEntity, also remove the client from the moved entity's client

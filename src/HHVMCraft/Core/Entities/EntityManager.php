@@ -68,7 +68,7 @@ class EntityManager {
 
 		// Remove entities from the client that have moved out of range of the client.
 		for ($i = 0; $i < count($client->KnownEntities); $i++) {
-			$knownEntity = $client->KnownEntities[$i];
+			$knownEntity = $client->knownEntities[$i];
 
 			if ($knownEntity->Position->distanceTo($entity->Position) > $client->chunkRadius * Chunk::Depth) {
 				$client->enqueuePacket(new DestroyEntityPacket($knownEntity->entityId));
@@ -109,7 +109,7 @@ class EntityManager {
 	}
 
 	public function sendEntityToClient($client, $entity) {
-		array_push($client->knownEntities, $entity);
+		array_push($client->knownEntities, $entity->uuid);
 
 		$client->enqueuePacket($entity->spawnPacket);
 
