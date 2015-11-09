@@ -13,9 +13,7 @@ but rather a proof-of-concept for PHP and HHVM.
 
 ### Installation?
 
-You need pear + pecl + composer.
-
-Also, [libevent is required.](http://libevent.org/) along with [event](https://pecl.php.net/package/event)
+You need composer.
 
 ### Why?
 
@@ -51,6 +49,5 @@ We can actually walk around on stuff and chat!
 
 [Evenement](https://github.com/igorw/evenement) - Event Dispatching Library  
 [ReactPHP](https://github.com/reactphp/react) - Low-level async event-driven library for PHP.  
-[PHP-NBT-Decoder-Encoder](https://github.com/TheFrozenFire/PHP-NBT-Decoder-Encoder) - NBT Serializer/Deserializer  
 [PHPUnit](https://phpunit.de) - PHP Testing Framework  
 [Monolog](https://github.com/Seldaek/monolog) - Logging Framework  

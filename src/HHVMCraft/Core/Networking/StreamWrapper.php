@@ -21,15 +21,27 @@ class StreamWrapper {
 
 	public function __construct($stream) {
 		$this->stream = $stream;
-		$this->streamBuffer = new \EventBuffer();
+		$this->streamBuffer = [];
 	}
 
 	public function data($data) {
-		$this->streamBuffer->add($data);
+		$arr = str_split(bin2hex($data), 2);
+		for ($i = 0; $i < count($arr); $i++) {
+			array_push($this->streamBuffer, $arr[$i]);
+		}
+	}
+
+	public function read($len) {
+		$s = "";
+		for ($i = 0; $i < $len; $i++) {
+			$s = $s.hex2bin(array_shift($this->streamBuffer));
+		}
+
+		return $s;
 	}
 
 	public function readUInt8() {
-		return unpack("c", $this->streamBuffer->read(1))[1];
+		return unpack("c", $this->read(1))[1];
 	}
 
 	public function writeUInt8($data) {
@@ -49,7 +61,7 @@ class StreamWrapper {
 	}
 
 	public function readUInt16() {
-		return unpack("n", $this->streamBuffer->read(2))[1];
+		return unpack("n", $this->read(2))[1];
 	}
 
 	public function writeUInt16($data) {
@@ -57,7 +69,7 @@ class StreamWrapper {
 	}
 
 	public function readInt() {
-		return unpack("N", $this->streamBuffer->read(4))[1];
+		return unpack("N", $this->read(4))[1];
 	}
 
 	public function writeInt($data) {
@@ -69,7 +81,7 @@ class StreamWrapper {
 	}
 
 	public function readLong() {
-		return unpack("q", $this->streamBuffer->read(8))[1];
+		return unpack("q", $this->read(8))[1];
 	}
 
 	public function writeLong($data) {
@@ -98,7 +110,7 @@ class StreamWrapper {
 	}
 
 	public function readDouble() {
-		return unpack("d", $this->streamBuffer->read(8))[1];
+		return unpack("d", $this->read(8))[1];
 	}
 
 	public function writeDouble($data) {
