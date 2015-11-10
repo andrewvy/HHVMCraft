@@ -12,7 +12,13 @@ but rather a proof-of-concept for PHP and HHVM.
 
 ### Installation?
 
-You need composer.
+You need composer!
+
+`composer install`
+
+and
+
+`php server.php` or `hhvm server.php`!
 
 ### Why?
 
