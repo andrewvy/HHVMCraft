@@ -20,21 +20,28 @@ class PacketHandler {
 		$this->Handlers = new \ArrayObject();
 
 		$this->registerHandlers();
+
+		$dataHandler = new Handlers\DataHandler();
+		$chatHandler = new Handlers\ChatHandler();
+		$loginHandler = new Handlers\LoginHandler();
+		$playerHandler = new Handlers\PlayerHandler();
+
 	}
 
 	public function registerHandlers() {
-		$this->Handlers[Packets\KeepAlivePacket::id] = '\HHVMCraft\Core\Networking\Handlers\DataHandler::HandleKeepAlive';
-		$this->Handlers[Packets\DisconnectPacket::id] = '\HHVMCraft\Core\Networking\Handlers\DataHandler::HandleDisconnect';
-		$this->Handlers[Packets\ChatMessagePacket::id] = '\HHVMCraft\Core\Networking\Handlers\ChatHandler::HandleChatMessage';
 
-		$this->Handlers[Packets\HandshakePacket::id] = '\HHVMCraft\Core\Networking\Handlers\LoginHandler::HandleHandshake';
-		$this->Handlers[Packets\LoginRequestPacket::id] = '\HHVMCraft\Core\Networking\Handlers\LoginHandler::HandleLoginRequest';
+		$this->Handlers[Packets\KeepAlivePacket::id] = function($packet, $client, $server) { Handlers\DataHander::HandleKeepAlive($packet, $client, $server); };
+		$this->Handlers[Packets\DisconnectPacket::id] = function($packet, $client, $server) { Handlers\DataHandler::HandleDisconnect($packet, $client, $server); };
+		$this->Handlers[Packets\ChatMessagePacket::id] = function($packet, $client, $server) { Handlers\ChatHandler::HandleChatMessage($packet, $client, $server); };
 
-		$this->Handlers[Packets\PlayerGroundedPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleGrounded';
-		$this->Handlers[Packets\PlayerPositionPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandlePosition';
-		$this->Handlers[Packets\PlayerLookPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleLook';
-		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandlePositionAndLook';
-		$this->Handlers[Packets\RespawnPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleRespawn';
+		$this->Handlers[Packets\HandshakePacket::id] = function($packet, $client, $server) { Handlers\LoginHandler::HandleHandshake($packet, $client, $server); };
+		$this->Handlers[Packets\LoginRequestPacket::id] = function($packet, $client, $server) { Handlers\LoginHandler::HandleLoginRequest($packet, $client, $server); };
+
+		$this->Handlers[Packets\PlayerGroundedPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleGrounded($packet, $client, $server); };
+		$this->Handlers[Packets\PlayerPositionPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandlePosition($packet, $client, $server); };
+		$this->Handlers[Packets\PlayerLookPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleLook($packet, $client, $server); };
+		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandlePositionAndLook($packet, $client, $server); };
+		$this->Handlers[Packets\RespawnPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleRespawn($packet, $client, $server); };
 	}
 
 	public function handlePacket($packet, $client, $server) {
