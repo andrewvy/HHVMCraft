@@ -1,7 +1,6 @@
 # HHVMCraft
 
-STATUS: MIGRATING TO REGULAR VANILLA PHP
-* Can't compile HHVM on my Yosemite machine anymore, sadly ): *
+Works on PHP 7.0.0 RC6 and HHVM 3.10.1!
 
 [![Build Status](https://travis-ci.org/andrewvy/HHVMCraft.svg?branch=master)](https://travis-ci.org/andrewvy/HHVMCraft)
 
