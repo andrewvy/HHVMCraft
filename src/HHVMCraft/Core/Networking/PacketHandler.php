@@ -23,27 +23,28 @@ class PacketHandler {
 	}
 
 	public function registerHandlers() {
-		$this->Handlers[Packets\KeepAlivePacket::id] = '\Handlers\DataHandler::HandleKeepAlive';
-		$this->Handlers[Packets\DisconnectPacket::id] = '\Handlers\DataHandler::HandleDisconnect';
-		$this->Handlers[Packets\ChatMessagePacket::id] = '\Handlers\ChatHandler::HandleChatMessage';
+		$this->Handlers[Packets\KeepAlivePacket::id] = '\HHVMCraft\Core\Networking\Handlers\DataHandler::HandleKeepAlive';
+		$this->Handlers[Packets\DisconnectPacket::id] = '\HHVMCraft\Core\Networking\Handlers\DataHandler::HandleDisconnect';
+		$this->Handlers[Packets\ChatMessagePacket::id] = '\HHVMCraft\Core\Networking\Handlers\ChatHandler::HandleChatMessage';
 
-		$this->Handlers[Packets\HandshakePacket::id] = '\Handlers\LoginHandler::HandleHandshake';
-		$this->Handlers[Packets\LoginRequestPacket::id] = '\Handlers\LoginHandler::HandleLoginRequest';
+		$this->Handlers[Packets\HandshakePacket::id] = '\HHVMCraft\Core\Networking\Handlers\LoginHandler::HandleHandshake';
+		$this->Handlers[Packets\LoginRequestPacket::id] = '\HHVMCraft\Core\Networking\Handlers\LoginHandler::HandleLoginRequest';
 
-		$this->Handlers[Packets\PlayerGroundedPacket::id] = '\Handlers\PlayerHandler::HandleGrounded';
-		$this->Handlers[Packets\PlayerPositionPacket::id] = '\Handlers\PlayerHandler::HandlePosition';
-		$this->Handlers[Packets\PlayerLookPacket::id] = '\Handlers\PlayerHandler::HandleLook';
-		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = '\Handlers\PlayerHandler::HandlePositionAndLook';
-		$this->Handlers[Packets\RespawnPacket::id] = '\Handlers\PlayerHandler::HandleRespawn';
+		$this->Handlers[Packets\PlayerGroundedPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleGrounded';
+		$this->Handlers[Packets\PlayerPositionPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandlePosition';
+		$this->Handlers[Packets\PlayerLookPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleLook';
+		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandlePositionAndLook';
+		$this->Handlers[Packets\RespawnPacket::id] = '\HHVMCraft\Core\Networking\Handlers\PlayerHandler::HandleRespawn';
 	}
 
 	public function handlePacket($packet, $client, $server) {
-		if ($this->Handlers[$packet::id]) {
+		$func = $this->Handlers[$packet::id];
+		if ($func) {
 			// Through some fun hackery, the correct handler function
 			// is called by figuring out the handler by packet ID.
 			// This allows us to have a base class Handler around generic action
 			// while specificing a specific function to handle the packet.
-			call_user_func('\HHVMCraft\Core\Networking' . $this->Handlers[$packet::id], $packet, $client, $server);
+			$func($packet, $client, $server);
 		}
 	}
 }
