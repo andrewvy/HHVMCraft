@@ -20,6 +20,10 @@ and
 
 `php server.php` or `hhvm server.php`!
 
+Make sure you're using the b1.7.3 client! Check the `Allow use of Old Beta Minecraft Versions`.
+
+![](https://cloud.githubusercontent.com/assets/2051361/11055769/2b601e68-872f-11e5-81f3-da8c1a9e83ff.png)
+
 ### Why?
 
 This is a little coding exercise/project, it's not intended to be a serious 
