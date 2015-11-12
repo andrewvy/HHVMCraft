@@ -11,7 +11,7 @@ class ChatMessagePacket {
 	const id = 0x03;
 	public $message;
 
-	public function __construct($message) {
+	public function __construct($message="") {
 		$this->message = $message;
 	}
 

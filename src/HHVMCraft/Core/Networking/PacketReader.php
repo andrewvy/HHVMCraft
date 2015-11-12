@@ -19,6 +19,8 @@ class PacketReader {
 
 	public function __construct($protocol_version = 14) {
 		$this->protocol_version = $protocol_version;
+		$this->ServerboundPackets = new \SplFixedArray(256);
+		$this->ClientboundPackets = new \SplFixedArray(256);
 	}
 
 	public function registerPackets() {

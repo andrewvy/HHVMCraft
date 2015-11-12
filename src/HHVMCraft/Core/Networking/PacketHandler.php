@@ -17,7 +17,7 @@ class PacketHandler {
 
 	public function __construct($server) {
 		$this->server = $server;
-		$this->Handlers = new \ArrayObject();
+		$this->Handlers = new \SplFixedArray(256);
 
 		$this->registerHandlers();
 
