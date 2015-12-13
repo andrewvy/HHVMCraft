@@ -12,16 +12,15 @@
 namespace HHVMCraft\Core\Networking;
 
 use Evenement\EventEmitter;
+
 use HHVMCraft\API\BlockRepository;
 use HHVMCraft\API\CraftingRepository;
 use HHVMCraft\Core\Entities\EntityManager;
 use HHVMCraft\Core\Helpers\Logger;
 use HHVMCraft\Core\Networking\Handlers;
 use HHVMCraft\Core\Networking\PackerReader;
-
 use HHVMCraft\Core\Networking\Packets\ChatMessagePacket;
 use HHVMCraft\Core\Networking\Packets\KeepAlivePacket;
-
 use HHVMCraft\Core\World\World;
 use React\Socket\Server;
 

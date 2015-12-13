@@ -8,9 +8,17 @@
             "email": "andrew@andrewvy.com"
         }
     ],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/markkimsal/event-loop"
+		}
+	],
     "require": {
         "react/react": "0.4.*",
-        "monolog/monolog": "~1.13"
+		"react/event-loop": "dev-feature/pecl-ev",
+        "monolog/monolog": "~1.13",
+		"ext-ev": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.6.*"

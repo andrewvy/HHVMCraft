@@ -21,20 +21,21 @@ class StreamWrapper {
 
 	public function __construct($stream) {
 		$this->stream = $stream;
-		$this->streamBuffer = new \SplQueue();
+		$this->streamBuffer = [];
 	}
 
 	public function data($data) {
 		$arr = str_split(bin2hex($data), 2);
 		for ($i = 0; $i < count($arr); $i++) {
-			$this->streamBuffer->enqueue($arr[$i]);
+			array_push($this->streamBuffer, $arr[$i]);
 		}
 	}
 
 	public function read($len) {
 		$s = "";
+		print "read ".$len.PHP_EOL;
 		for ($i = 0; $i < $len; $i++) {
-			$s = $s.hex2bin($this->streamBuffer->dequeue());
+			$s = $s.hex2bin(array_shift($this->streamBuffer));
 		}
 
 		return $s;
