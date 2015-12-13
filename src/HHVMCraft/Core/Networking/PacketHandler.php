@@ -29,8 +29,7 @@ class PacketHandler {
 	}
 
 	public function registerHandlers() {
-
-		$this->Handlers[Packets\KeepAlivePacket::id] = function($packet, $client, $server) { Handlers\DataHander::HandleKeepAlive($packet, $client, $server); };
+		$this->Handlers[Packets\KeepAlivePacket::id] = function($packet, $client, $server) { Handlers\DataHandler::HandleKeepAlive($packet, $client, $server); };
 		$this->Handlers[Packets\DisconnectPacket::id] = function($packet, $client, $server) { Handlers\DataHandler::HandleDisconnect($packet, $client, $server); };
 		$this->Handlers[Packets\ChatMessagePacket::id] = function($packet, $client, $server) { Handlers\ChatHandler::HandleChatMessage($packet, $client, $server); };
 
@@ -46,6 +45,8 @@ class PacketHandler {
 
 	public function handlePacket($packet, $client, $server) {
 		$func = $this->Handlers[$packet::id];
+
+
 		if ($func) {
 			// Through some fun hackery, the correct handler function
 			// is called by figuring out the handler by packet ID.
