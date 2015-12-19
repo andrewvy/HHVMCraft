@@ -33,7 +33,6 @@ class StreamWrapper {
 
 	public function read($len) {
 		$s = "";
-		print "read ".$len.PHP_EOL;
 		for ($i = 0; $i < $len; $i++) {
 			$s = $s.hex2bin(array_shift($this->streamBuffer));
 		}
