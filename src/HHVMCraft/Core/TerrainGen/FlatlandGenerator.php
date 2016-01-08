@@ -29,7 +29,7 @@ class FlatlandGenerator {
 			for ($x = 0; $x < 16; $x++) {
 				for ($z = 0; $z < 16; $z++) {
 					if ($y < 9) {
-						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x02);
+						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x03);
 					} else {
 						$newC->setBlockID(new Coordinates3D($x, $y, $z), 0x02);
 					}
