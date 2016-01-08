@@ -25,16 +25,15 @@ class StreamWrapper {
 	}
 
 	public function data($data) {
-		$arr = str_split(bin2hex($data), 2);
-		for ($i = 0; $i < count($arr); $i++) {
-			array_push($this->streamBuffer, $arr[$i]);
-		}
+		$arr = array_reverse(str_split(bin2hex($data), 2));
+
+		$this->streamBuffer = array_merge($this->streamBuffer, $arr);
 	}
 
 	public function read($len) {
 		$s = "";
 		for ($i = 0; $i < $len; $i++) {
-			$s = $s.hex2bin(array_shift($this->streamBuffer));
+			$s = $s.hex2bin(array_pop($this->streamBuffer));
 		}
 
 		return $s;
