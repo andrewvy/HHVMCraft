@@ -37,8 +37,6 @@ class MultiplayerServer extends EventEmitter {
 	public $socket;
 
 	public $tickRate = 0.05;
-	public $pktTime = 0;
-	public $readTime = 0;
 
 	public function __construct($address) {
 		$this->address = $address;
@@ -57,7 +55,6 @@ class MultiplayerServer extends EventEmitter {
 		$this->EntityManager = new EntityManager($this, $this->World);
 
 		$this->Logger = new Logger();
-		$this->pktTime = 0;
 	}
 
 	public function start($port) {
@@ -91,10 +88,6 @@ class MultiplayerServer extends EventEmitter {
 		$this->loop->nextTick(function() use ($self, $client) {
 			$packet = $self->PacketReader->readPacket($client);
 
-			$s = microtime();
-			print "READ ".(($s - $self->pktTime) * 1000).PHP_EOL;
-			$self->pktTime = $s;
-
 			if ($packet) {
 				$self->loop->nextTick(function() use ($self, $packet, $client) {
 					$self->PacketHandler->handlePacket($packet, $client, $self);
@@ -107,10 +100,6 @@ class MultiplayerServer extends EventEmitter {
 		$self = $this;
 
 		$this->loop->nextTick(function() use ($self, $packet, $client) {
-			$s = microtime();
-			print "WRITE ".(($s - $self->readTime) * 1000).PHP_EOL;
-			$self->readTime = $s;
-
 			$self->PacketReader->writePacket($packet, $client);
 		});
 	}
