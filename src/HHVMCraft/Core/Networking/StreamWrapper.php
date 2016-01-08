@@ -30,6 +30,10 @@ class StreamWrapper {
 		$this->streamBuffer = array_merge($this->streamBuffer, $arr);
 	}
 
+	public function close() {
+		$this->streamBuffer = [];
+	}
+
 	public function read($len) {
 		$s = "";
 		for ($i = 0; $i < $len; $i++) {

@@ -36,6 +36,8 @@ class Client {
 	public $chunkRadius = 5;
 	public $Inventory;
 
+	public $pktCount = 0;
+
 	public function __construct($connection, $server) {
 		$this->uuid = uniqid("client");
 		$this->connection = $connection;
@@ -45,12 +47,18 @@ class Client {
 		$this->Inventory = new InventoryWindow($server->CraftingRepository);
 		$this->setItem(0x01, 0x40, 0x00, 3, 0);
 		$this->setupPacketListener();
+		$this->pktCount = 0;
 	}
 
 	public function setupPacketListener() {
 		$this->connection->on('data', function ($data) {
+			$this->pktCount++;
 			$this->streamWrapper->data($data);
-			$this->Server->handlePacket($this);
+
+			while ($this->pktCount > 0) {
+				$this->Server->handlePacket($this);
+				$this->pktCount--;
+			}
 		});
 	}
 
@@ -106,13 +114,12 @@ class Client {
 	}
 
 	public function disconnect() {
-		$this->packetQueue = [];
+		$this->streamWrapper->close();
 		$this->loadedChunks = [];
 		$this->connection->handleClose();
 	}
 
 	public function disconnectWithReason($reason) {
-		$this->packetQueue = [];
 		$this->loadedChunks = [];
 		$this->enqueuePacket(new DisconnectPacket($reason));
 		$this->connection->handleClose();

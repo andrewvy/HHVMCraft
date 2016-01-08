@@ -108,10 +108,12 @@ class PacketReader {
 	public function readPacket($client, $serverbound = true) {
 		$id = $client->streamWrapper->readUInt8();
 
-		if ($serverbound) {
+		if ($serverbound && isset($this->ServerboundPackets[$id])) {
 			$type = $this->ServerboundPackets[$id];
-		} else {
+		} else if (isset($this->ClientboundPackets[$id])) {
 			$type = $this->ClientboundPackets[$id];
+		} else if ($id == -1) {
+			$type = $this->ServerboundPackets[0xFF];
 		}
 
 		if ($type == null) {
