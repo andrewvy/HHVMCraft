@@ -36,9 +36,9 @@ class ChunkDataPacket {
 		$StreamWrapper->writeInt(0) .
 		$StreamWrapper->writeUInt16(0) .
 		$StreamWrapper->writeInt(0) .
-		$StreamWrapper->writeUInt8("09") .
-		$StreamWrapper->writeUInt8("7F") .
-		$StreamWrapper->writeUInt8("09") .
+		$StreamWrapper->writeUInt8(15) .
+		$StreamWrapper->writeUInt8(127) .
+		$StreamWrapper->writeUInt8(15) .
 		$StreamWrapper->writeInt(strlen($this->BlockData)) .
 		$this->BlockData;
 

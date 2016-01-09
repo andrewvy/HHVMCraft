@@ -12,7 +12,7 @@ use HHVMCraft\Core\TerrainGen\FlatlandGenerator;
 
 class World {
 	public $worldname;
-	public $WorldTime = 4000;
+	public $WorldTime = 4020;
 
 	public $Regions = [];
 	public $BlockProvider;
@@ -34,11 +34,11 @@ class World {
 
 	public function updateTime() {
 		// Every second, increase worldtime by 20 ticks.
-		if ($this->WorldTime == 24000) {
-			$this->WorldTime = 0;
-		} else {
-			$this->WorldTime += 20;
-		}
+//		if ($this->WorldTime == 24000) {
+//			$this->WorldTime = 0;
+//		} else {
+//			$this->WorldTime += 20;
+//		}
 	}
 
 	public function getChunk($Coordinates2D) {

@@ -130,7 +130,7 @@ class Chunk {
 
 		try {
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "#";
+				$deserialized .= pack("H*", base_convert("0000 0001", 2, 16));
 			}
 			for ($i = 0; $i < self::Size; $i++) {
 				$deserialized .= "0";
@@ -139,7 +139,7 @@ class Chunk {
 				$deserialized .= "0";
 			}
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "0";
+				$deserialized .= "01";
 			}
 		} catch (Exception $e) {
    			echo 'Caught exception: ',  $e->getMessage(), "\n";
