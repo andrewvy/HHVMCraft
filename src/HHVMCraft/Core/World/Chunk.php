@@ -130,16 +130,16 @@ class Chunk {
 
 		try {
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= pack("H*", base_convert("0000 0001", 2, 16));
+				$deserialized .= chr($this->Blocks[$i]);
 			}
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "0";
+				$deserialized .= chr(0x00);
 			}
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "0";
+				$deserialized .= chr(0xFF);
 			}
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= "01";
+				$deserialized .= chr(0xFF);
 			}
 		} catch (Exception $e) {
    			echo 'Caught exception: ',  $e->getMessage(), "\n";

@@ -53,7 +53,7 @@ class LoginHandler {
 				$client->PlayerEntity->Position->x + 5,
 				$client->PlayerEntity->Position->y + PlayerEntity::Height - 5,
 				$client->PlayerEntity->Position->y,
-				$client->PlayerEntity->Position->z+130,
+				$client->PlayerEntity->Position->z+15,
 				0,
 				0,
 				0)
