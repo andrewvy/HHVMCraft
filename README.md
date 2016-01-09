@@ -7,6 +7,8 @@ Works on PHP 7.0.0 RC6 and HHVM 3.10.1!
 A Minecraft Beta 1.7.3 Server implemented in PHP, based off of 
 [Truecraft's implementation](https://github.com/SirCmpwn/TrueCraft).
 
+![](https://cloud.githubusercontent.com/assets/2051361/12218462/9e2e6ed4-b6d4-11e5-889a-d8cd05da589f.png)
+
 The goal of this project is not to be a fully-functional server,
 but rather a proof-of-concept for PHP and HHVM.
 
@@ -38,21 +40,7 @@ So if you have any comments, please feel free to create an issue.
 
 ## Current Progress
 
-------- 60% -------
-
-- EntityManager needs to be fleshed out.
-- BlockRepository and BlockProviders need to be added.
-- ItemRepository and ItemProviders need to be added.
-- CraftingRepository and CraftingProvider need to be added.
-- PhysicsEngine needs to be added.
-- Bunch'o packets need to be created.
-- Chunk data needs to be sent over.
-- NBT deserializing/serializing needs to be added.
-- Packet Handlers need to be added.
-
-We can actually walk around on stuff and chat!
-
-![](https://cloud.githubusercontent.com/assets/2051361/9459210/b9a2cfb8-4aad-11e5-9164-66e1da98808a.png)
+View [Things to make functional demo](https://github.com/andrewvy/HHVMCraft/issues/1)!
 
 ## Libraries used
 
