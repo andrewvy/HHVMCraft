@@ -10,6 +10,7 @@ namespace HHVMCraft\Core\Networking\Handlers;
 use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
 use HHVMCraft\Core\Networking\Packets\RespawnPacket;
+use HHVMCraft\Core\Networking\Packets\BlockChangePacket;
 
 class PlayerHandler {
 
@@ -42,5 +43,11 @@ class PlayerHandler {
 		);
 
 		$Client->enqueuePacket(new RespawnPacket());
+	}
+
+	public static function HandleBlockPlacement($Packet, $Client, $Server) {
+		$broadcastPacket = new BlockChangePacket($Packet->x, $Packet->y, $Packet->z, $Packet->blockid, 0x00);
+
+		$Server->broadcastPacket($broadcastPacket);
 	}
 }

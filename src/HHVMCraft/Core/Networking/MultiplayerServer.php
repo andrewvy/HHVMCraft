@@ -104,6 +104,12 @@ class MultiplayerServer extends EventEmitter {
 		});
 	}
 
+	public function broadcastPacket($packet) {
+		foreach ($this->Clients as $Client) {
+			$Client->enqueuePacket($packet);
+		}
+	}
+
 	public function handleDisconnect($Client, $ServerOriginated = false, $reason="") {
 		if ($ServerOriginated) {
 			$Client->disconnectWithReason($reason);

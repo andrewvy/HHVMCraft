@@ -70,7 +70,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\ChunkPreamblePacket', false, true);
 		$this->registerPacketType('Packets\ChunkDataPacket', false, true);
 //		$this->registerPacketType(Packets\BulkBlockChangePacket, false, true);
-//		$this->registerPacketType(Packets\BlockChangePacket, false, true);
+		$this->registerPacketType('Packets\BlockChangePacket', false, true);
 //		$this->registerPacketType(Packets\BlockActionPacket, false, true);
 
 //		$this->registerPacketType(Packets\ExplosionPacket, false, true);

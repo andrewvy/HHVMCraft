@@ -41,6 +41,7 @@ class PacketHandler {
 		$this->Handlers[Packets\PlayerLookPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleLook($packet, $client, $server); };
 		$this->Handlers[Packets\PlayerPositionAndLookPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandlePositionAndLook($packet, $client, $server); };
 		$this->Handlers[Packets\RespawnPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleRespawn($packet, $client, $server); };
+		$this->Handlers[Packets\PlayerBlockPlacementPacket::id] = function($packet, $client, $server) { Handlers\PlayerHandler::HandleBlockPlacement($packet, $client, $server); };
 	}
 
 	public function handlePacket($packet, $client, $server) {
