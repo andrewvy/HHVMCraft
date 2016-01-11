@@ -23,6 +23,10 @@ class ChatHandler {
 	public static function handleCommand($message="", $Client, $Server) {
 		$args = explode(" ", $message);
 		switch ($args[0]) {
+			case "/buffer":
+				$count = "Buffer is: ".count($Client->streamWrapper->streamBuffer);
+				$Client->sendMessage($count);
+				break;
 			case "/ping":
 				$Client->sendMessage("Pong!");
 				break;

@@ -66,8 +66,9 @@ class LoginHandler {
 
 			// Begin sending chunk data.
 			$client->updateChunks();
+
 			$server->Logger->throwLog("Added new client!");
-			$server->sendMessage("Someone has joined the server!");
+			$server->sendMessage($client->username . " has joined the server!");
 
 		} else {
 			// The client's version is not the same as this server implementation.
