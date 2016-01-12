@@ -24,19 +24,27 @@ class PlayerHandler {
 		$client->PlayerEntity->Position->z = $packet->z;
 	}
 
-	public static function HandleLook() {
+	public static function HandleLook($Packet, $Client, $Server) {
+		$Client->PlayerEntity->Position->pitch = $Packet->pitch;
+		$Client->PlayerEntity->Position->yaw = $Packet->yaw;
 	}
 
-	public static function HandlePositionAndLook() {
+	public static function HandlePositionAndLook($Packet, $Client, $Server) {
+		$Client->PlayerEntity->Position->x = $Packet->x;
+		$Client->PlayerEntity->Position->y = $Packet->y;
+		$Client->PlayerEntity->Position->z = $Packet->z;
+		$Client->PlayerEntity->Position->pitch = $Packet->pitch;
+		$Client->PlayerEntity->Position->yaw = $Packet->yaw;
 	}
 
 	public static function HandleRespawn($Packet, $Client, $Server) {
-		$Client->PlayerEntity->Position = $Client->World->ChunkProvider->spawnpoint;
+		$spawnpoint = $Client->World->ChunkProvider->spawnpoint;
+
 		$Client->enqueuePacket(new SetPlayerPositionPacket(
-			$Client->PlayerEntity->Position->x,
-			$Client->PlayerEntity->Position->y,
-			$Client->PlayerEntity->Position->y + PlayerEntity::Height,
-			$Client->PlayerEntity->Position->z,
+			$spawnpoint->x,
+			$spawnpoint->y,
+			$spawnpoint->y + PlayerEntity::Height,
+			$spawnpoint->z,
 			0,
 			0,
 			true)
