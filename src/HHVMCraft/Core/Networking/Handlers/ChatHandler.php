@@ -8,6 +8,7 @@
 
 namespace HHVMCraft\Core\Networking\Handlers;
 
+use HHVMCraft\API\Coordinates3D;
 use HHVMCraft\Core\Networking\Packets\UpdateHealthPacket;
 
 class ChatHandler {
@@ -39,6 +40,14 @@ class ChatHandler {
 				}
 
 				$Client->enqueuePacket(new UpdateHealthPacket($args[1]));
+				break;
+			case "/getpos":
+				$x = $Client->PlayerEntity->Position->x;
+				$y = $Client->PlayerEntity->Position->y;
+				$z = $Client->PlayerEntity->Position->z;
+				$coords = new Coordinates3D($x, $y, $z);
+
+				$Client->sendMessage($coords->toString());
 				break;
 			default:
 				$Client->sendMessage("Command not recognized!");

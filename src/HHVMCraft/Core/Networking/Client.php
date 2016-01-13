@@ -63,16 +63,14 @@ class Client {
 	}
 
 	public function updateChunks() {
-		for ($i = 0; $i < 2; $i++) {
-			for ($j = 0; $j < 2; $j++) {
-				$Coordinates2D = new Coordinates2D($i, $j);
-				$chunk = $this->World->generateChunk($Coordinates2D);
-				$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
-				$data = $this->createChunkPacket($chunk);
-				$this->enqueuePacket($preamble);
-				$this->enqueuePacket($data);
-			}
-		}
+		$i = 0;
+		$j = 0;
+		$Coordinates2D = new Coordinates2D($i, $j);
+		$chunk = $this->World->generateChunk($Coordinates2D);
+		$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
+		$data = $this->createChunkPacket($chunk);
+		$this->enqueuePacket($preamble);
+		$this->enqueuePacket($data);
 	}
 
 	public function createChunkPacket($chunk) {

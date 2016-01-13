@@ -23,6 +23,7 @@ class FlatlandGenerator {
 
 	public function generateChunk($Coordinates2DPos) {
 		$newC = new Chunk($Coordinates2DPos);
+
 		$y = 0;
 		// Flatland, dirt from layer 1 - 8, grass on layer 9.
 		while ($y < 10) {
