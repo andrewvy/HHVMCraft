@@ -12,6 +12,6 @@ class PlayerGroundedPacket {
 	public $onGround;
 
 	public function readPacket($StreamWrapper) {
-		$this->onGround = $StreamWrapper->readUInt8();
+		$this->onGround = $StreamWrapper->readInt8();
 	}
 }

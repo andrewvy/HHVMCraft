@@ -24,14 +24,14 @@ class PickupSpawnPacket {
 
 	public function readPacket($StreamWrapper) {
 		$this->eid = $StreamWrapper->readInt();
-		$this->item = $StreamWrapper->readUInt16();
-		$this->itemcount = $StreamWrapper->readUInt8();
-		$this->damage = $StreamWrapper->readUInt16();
+		$this->item = $StreamWrapper->readInt16();
+		$this->itemcount = $StreamWrapper->readInt8();
+		$this->damage = $StreamWrapper->readInt16();
 		$this->x = $StreamWrapper->readInt();
 		$this->y = $StreamWrapper->readInt();
 		$this->z = $StreamWrapper->readInt();
-		$this->rotation = $StreamWrapper->readUInt8();
-		$this->pitch = $StreamWrapper->readUInt8();
-		$this->roll = $StreamWrapper->readUInt8();
+		$this->rotation = $StreamWrapper->readInt8();
+		$this->pitch = $StreamWrapper->readInt8();
+		$this->roll = $StreamWrapper->readInt8();
 	}
 }

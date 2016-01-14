@@ -23,11 +23,11 @@ class EntityEquipmentPacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id) .
+		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt($this->eid) .
-			$StreamWrapper->writeUInt16($this->slot) .
-			$StreamWrapper->writeUInt16($this->itemid) .
-			$StreamWrapper->writeUInt16($this->damage);
+			$StreamWrapper->writeInt16($this->slot) .
+			$StreamWrapper->writeInt16($this->itemid) .
+			$StreamWrapper->writeInt16($this->damage);
 
 		return $StreamWrapper->writePacket($str);
 	}

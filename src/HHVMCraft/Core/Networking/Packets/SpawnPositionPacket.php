@@ -20,7 +20,7 @@ class SpawnPositionPacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id) .
+		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt($this->y) .
 		$StreamWrapper->writeInt($this->z);

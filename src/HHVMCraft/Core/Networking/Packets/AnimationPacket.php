@@ -16,7 +16,7 @@ class AnimationPacket {
 
 	public function readPacket($StreamWrapper) {
 		$this->eid = $StreamWrapper->readInt();
-		$this->animate = $StreamWrapper->readUInt8();
+		$this->animate = $StreamWrapper->readInt8();
 	}
 
 }

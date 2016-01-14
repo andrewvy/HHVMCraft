@@ -16,7 +16,7 @@ class TimeUpdatePacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id) .
+		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeLong($this->time);
 
 		return $StreamWrapper->writePacket($str);

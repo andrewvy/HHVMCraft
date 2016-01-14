@@ -13,7 +13,7 @@ class HoldingChangePacket {
 	public $slotid;
 
 	public function readPacket($StreamWrapper) {
-		$this->slotid = $StreamWrapper->readUInt16();
+		$this->slotid = $StreamWrapper->readInt16();
 	}
 
 }

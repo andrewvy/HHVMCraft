@@ -16,8 +16,8 @@ class DisconnectPacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id) .
-		$StreamWrapper->writeUInt16(strlen($this->reason)) .
+		$str = $StreamWrapper->writeInt8(self::id) .
+		$StreamWrapper->writeInt16(strlen($this->reason)) .
 		$StreamWrapper->writeString16($this->reason);
 
 		return $StreamWrapper->writePacket($str);

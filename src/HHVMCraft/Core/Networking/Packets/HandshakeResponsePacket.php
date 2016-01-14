@@ -19,8 +19,8 @@ class HandshakeResponsePacket {
 	}
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id) .
-		$StreamWrapper->writeUInt16(strlen($this->connectionHash)) .
+		$str = $StreamWrapper->writeInt8(self::id) .
+		$StreamWrapper->writeInt16(strlen($this->connectionHash)) .
 		$StreamWrapper->writeString16($this->connectionHash);
 
 		return $StreamWrapper->writePacket($str);

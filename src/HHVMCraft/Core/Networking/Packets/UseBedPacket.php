@@ -19,9 +19,9 @@ class UseBedPacket {
 
 	public function readPacket($StreamWrapper) {
 		$this->eid = $StreamWrapper->readInt();
-		$this->in_bed = $StreamWrapper->readUInt8();
+		$this->in_bed = $StreamWrapper->readInt8();
 		$this->x = $StreamWrapper->readInt();
-		$this->y = $StreamWrapper->readUInt8();
+		$this->y = $StreamWrapper->readInt8();
 		$this->z = $StreamWrapper->readInt();
 	}
 

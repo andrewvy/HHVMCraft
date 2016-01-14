@@ -19,6 +19,6 @@ class LoginRequestPacket {
 		// These bytes are not used..
 
 		$StreamWrapper->readLong();
-		$StreamWrapper->readUInt8();
+		$StreamWrapper->readInt8();
 	}
 }

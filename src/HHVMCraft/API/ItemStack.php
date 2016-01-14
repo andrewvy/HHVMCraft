@@ -30,16 +30,16 @@ class ItemStack {
 
 	public function fromStream($StreamWrapper) {
 		$slot = self::emptyStack();
-		$slot->id = hexdec(bin2hex($StreamWrapper->readUInt16()));
+		$slot->id = hexdec(bin2hex($StreamWrapper->readInt16()));
 
 		if ($slot->isEmpty()) {
 			return $slot;
 		}
 
-		$slot->icount = hexdec(bin2hex($StreamWrapper->readUInt8()));
-		$slot->metadata = hexdec(bin2hex($StreamWrapper->readUInt16()));
-		$l = hexdec(bin2hex($StreamWrapper->readUInt16()));
-		$buf = $StreamWrapper->readUInt8Array($l);
+		$slot->icount = hexdec(bin2hex($StreamWrapper->readInt8()));
+		$slot->metadata = hexdec(bin2hex($StreamWrapper->readInt16()));
+		$l = hexdec(bin2hex($StreamWrapper->readInt16()));
+		$buf = $StreamWrapper->readInt8Array($l);
 
 		return $slot;
 	}
@@ -53,19 +53,19 @@ class ItemStack {
 	}
 
 	public function toStream($StreamWrapper) {
-		// Handle NBT compressed data stream -> UInt8 array
+		// Handle NBT compressed data stream -> Int8 array
 
-		$str = $StreamWrapper->writeUInt16($this->id);
+		$str = $StreamWrapper->writeInt16($this->id);
 		if ($this->isEmpty()) {
 			return $str;
 		}
 
 		$str = $str .
-		$StreamWrapper->writeUInt8($this->icount) .
-		$StreamWrapper->writeUInt16($this->metadata);
+		$StreamWrapper->writeInt8($this->icount) .
+		$StreamWrapper->writeInt16($this->metadata);
 
 		if ($this->nbt == null) {
-			$str = $str . $StreamWrapper->writeUInt16(-1);
+			$str = $str . $StreamWrapper->writeInt16(-1);
 
 			return $str;
 		}

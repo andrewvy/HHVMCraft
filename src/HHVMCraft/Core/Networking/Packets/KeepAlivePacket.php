@@ -11,11 +11,11 @@ class KeepAlivePacket {
 	const id = 0x00;
 
 	public function writePacket($StreamWrapper) {
-		$str = $StreamWrapper->writeUInt8(self::id);
+		$str = $StreamWrapper->writeInt8(self::id);
 		return $StreamWrapper->writePacket($str);
 	}
 
 	public function readPacket($StreamWrapper) {
-		$StreamWrapper->readUInt8();
+		$StreamWrapper->readInt8();
 	}
 }

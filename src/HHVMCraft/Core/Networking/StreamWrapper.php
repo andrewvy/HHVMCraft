@@ -43,31 +43,31 @@ class StreamWrapper {
 		return $s;
 	}
 
-	public function readUInt8() {
+	public function readInt8() {
 		return unpack("c", $this->read(1))[1];
 	}
 
-	public function writeUInt8($data) {
+	public function writeInt8($data) {
 		return pack("c", $data);
 	}
 
 	public function readBool() {
-		return (bool) $this->readUInt8();
+		return (bool) $this->readInt8();
 	}
 
 	public function writeBool($data) {
 		if ($data == true) {
-			$this->writeUInt8(0x01);
+			$this->writeInt8(0x01);
 		} else {
-			$this->writeUInt8(0x00);
+			$this->writeInt8(0x00);
 		}
 	}
 
-	public function readUInt16() {
+	public function readInt16() {
 		return unpack("n", $this->read(2))[1];
 	}
 
-	public function writeUInt16($data) {
+	public function writeInt16($data) {
 		return pack("n*", $data);
 	}
 
@@ -92,11 +92,11 @@ class StreamWrapper {
 	}
 
 	public function readString16() {
-		$l = $this->readUInt16();
+		$l = $this->readInt16();
 		$str = "";
 
 		for ($i = 0; $i < $l; $i++) {
-			$str = $str . chr($this->readUInt16());
+			$str = $str . chr($this->readInt16());
 		}
 
 		if (strlen($str) > 0) {
