@@ -74,7 +74,7 @@ class PacketReader {
 //		$this->registerPacketType(Packets\BlockActionPacket, false, true);
 
 //		$this->registerPacketType(Packets\ExplosionPacket, false, true);
-//		$this->registerPacketType(Packets\SoundEffectPacket, false, true);
+		$this->registerPacketType('Packets\SoundEffectPacket', false, true);
 
 //		$this->registerPacketType(Packets\EnvironmentStatePacket, false, true);
 //		$this->registerPacketType(Packets\LightningPacket, false, true);
