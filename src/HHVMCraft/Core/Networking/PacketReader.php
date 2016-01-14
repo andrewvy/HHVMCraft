@@ -58,7 +58,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\EntityVelocityPacket', false, true);
 //		$this->registerPacketType(Packets\DestroyEntityPacket, false, true);
 //		$this->registerPacketType(Packets\UselessEntityPacket, false, true);
-//		$this->registerPacketType(Packets\EntityRelativeMovePacket, false, true);
+		$this->registerPacketType('Packets\EntityRelativeMovePacket', false, true);
 //		$this->registerPacketType(Packets\EntityLookPacket, false, true);
 //		$this->registerPacketType(Packets\EntityLookAndRelativeMovePacket, false, true);
 		$this->registerPacketType('Packets\EntityTeleportPacket', false, true);
