@@ -79,8 +79,8 @@ class PacketReader {
 //		$this->registerPacketType(Packets\EnvironmentStatePacket, false, true);
 //		$this->registerPacketType(Packets\LightningPacket, false, true);
 
-//		$this->registerPacketType(Packets\OpenWindowPacket, false, true);
-//		$this->registerPacketType(Packets\CloseWindowPacket);
+		$this->registerPacketType('Packets\OpenWindowPacket', false, true);
+		$this->registerPacketType('Packets\CloseWindowPacket');
 //		$this->registerPacketType(Packets\ClickWindowPacket, true, false);
 //		$this->registerPacketType(Packets\SetSlotPacket, false, true);
 		$this->registerPacketType('Packets\WindowItemsPacket', false, true);
