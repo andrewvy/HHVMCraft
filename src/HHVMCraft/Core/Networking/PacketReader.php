@@ -84,7 +84,7 @@ class PacketReader {
 //		$this->registerPacketType(Packets\ClickWindowPacket, true, false);
 //		$this->registerPacketType(Packets\SetSlotPacket, false, true);
 		$this->registerPacketType('Packets\WindowItemsPacket', false, true);
-//		$this->registerPacketType(Packets\UpdateProgressPacket, false, true);
+		$this->registerPacketType('Packets\UpdateProgressBarPacket', false, true);
 //		$this->registerPacketType(Packets\TransactionStatusPacket, false, true);
 
 //		$this->registerPacketType(Packets\UpdateSignPacket);
