@@ -63,8 +63,8 @@ class PacketReader {
 //		$this->registerPacketType(Packets\EntityLookAndRelativeMovePacket, false, true);
 		$this->registerPacketType('Packets\EntityTeleportPacket', false, true);
 
-//		$this->registerPacketType(Packets\EntityStatusPacket, false, true);
-//		$this->registerPacketType(Packets\AttachEntityPacket, false, true);
+		$this->registerPacketType('Packets\EntityStatusPacket', false, true);
+		$this->registerPacketType('Packets\AttachEntityPacket', false, true);
 		$this->registerPacketType('Packets\EntityMetadataPacket', false, true);
 
 		$this->registerPacketType('Packets\ChunkPreamblePacket', false, true);
