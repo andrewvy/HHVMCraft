@@ -87,7 +87,7 @@ class PacketReader {
 		$this->registerPacketType('Packets\UpdateProgressBarPacket', false, true);
 //		$this->registerPacketType(Packets\TransactionStatusPacket, false, true);
 
-//		$this->registerPacketType(Packets\UpdateSignPacket);
+		$this->registerPacketType('Packets\UpdateSignPacket', false, true);
 //		$this->registerPacketType(Packets\MapDataPacket, false, true);
 
 //		$this->registerPacketType(Packets\UpdateStatisticPacket, false, true);
