@@ -11,6 +11,7 @@ namespace HHVMCraft\Core\Networking\Handlers;
 use HHVMCraft\API\Coordinates3D;
 use HHVMCraft\Core\Networking\Packets\WindowItemsPacket;
 use HHVMCraft\Core\Networking\Packets\UpdateHealthPacket;
+use HHVMCraft\Core\Networking\Packets\BlockChangePacket;
 
 class ChatHandler {
 	public static function HandleChatMessage($Packet, $Client, $Server) {
@@ -79,6 +80,9 @@ class ChatHandler {
 					return $Client->sendMessage("Item ID given was not a valid item id.");
 				}
 
+				break;
+			case "/heart":
+				return $Client->sendMessage("<3");
 				break;
 			default:
 				$Client->sendMessage("Command not recognized!");

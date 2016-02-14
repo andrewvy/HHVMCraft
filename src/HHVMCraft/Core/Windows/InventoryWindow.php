@@ -47,4 +47,34 @@ class InventoryWindow extends Window {
 	public function copyToInventory() {
 
 	}
+
+	public function findEmptySpace() {
+		// Go through window area and find an empty slot
+		$slot_index = -1;
+
+		$window_areas = [
+			$this->WindowAreas[3],
+			$this->WindowAreas[2]
+		];
+
+		foreach ($window_areas as $Area) {
+			for ($i = 0; $i < $Area->length; $i++) {
+				if ($slot_index > -1) {
+					break;
+				}
+
+				$index = $Area->startIndex + $i;
+				$item = $Area->Items[$i];
+
+				if ($item->isEmpty()) {
+					$slot_index = $index;
+					break;
+				} else if ($item->icount >= 64) {
+					continue;
+				}
+			}
+		}
+
+		return $slot_index;
+	}
 }

@@ -7,6 +7,7 @@
  */
 namespace HHVMCraft\Core\Networking\Handlers;
 
+use HHVMCraft\API\Coordinates3D;
 use HHVMCraft\Core\Entities\PlayerEntity;
 use HHVMCraft\Core\Networking\Packets\SetPlayerPositionPacket;
 use HHVMCraft\Core\Networking\Packets\RespawnPacket;
@@ -89,5 +90,42 @@ class PlayerHandler {
 		$broadcastPacket = new BlockChangePacket($x, $y, $z, $Packet->blockid, 0x00);
 
 		$Server->broadcastPacket($broadcastPacket);
+	}
+
+	public static function HandleDigging($Packet, $Client, $Server) {
+		$status = $Packet->status;
+		$x = $Packet->x;
+		$y = $Packet->y;
+		$z = $Packet->z;
+
+		$coords = new Coordinates3D($x, $y, $z);
+
+		$face = $Packet->face;
+
+		switch ($status) {
+			case 0:
+				return 0;
+				break;
+			case 2:
+				$slot_index = $Client->Inventory->findEmptySpace();
+
+				// Translate block coordinates to chunk coordinates
+				// Fetch the chunk that contains that block coords
+				// Get the block id from the chunk
+				// Find empty space where we can increment or add w/ the block id
+				// Update the player inventory with the block id
+
+				if ($slot_index > -1) {
+				}
+
+				$broadcastPacket = new BlockChangePacket($x, $y, $z, 0x00, 0x00);
+				$Server->broadcastPacket($broadcastPacket);
+				break;
+			case 4:
+				return 0;
+				break;
+			default:
+				return 0;
+		}
 	}
 }

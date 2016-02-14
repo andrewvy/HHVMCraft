@@ -15,7 +15,6 @@ class PlayerEntity extends LivingEntity {
 	const Height = 1.62;
 	const Depth = 0.6;
 
-
 	public $username;
 	public $food;
 	public $isCrouching = false;

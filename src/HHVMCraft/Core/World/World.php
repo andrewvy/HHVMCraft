@@ -14,6 +14,7 @@ class World {
 	public $worldname;
 	public $WorldTime = 4020;
 
+	public $Chunks = array();
 	public $Regions = [];
 	public $BlockProvider;
 	public $ChunkProvider;
@@ -42,7 +43,12 @@ class World {
 	}
 
 	public function getChunk($Coordinates2D) {
+		return $this->Chunks[$Coordinates2D->toString()];
+	}
 
+	public function setChunk($Coordinates2D, $Chunk) {
+		$this->Chunks[$Coordinates2D->toString()] = $Chunk;
+		return $Chunk;
 	}
 
 	// For quick purposes, let's just generate a 0,0 chunk.
@@ -53,7 +59,14 @@ class World {
 	}
 
 	public function generateChunk($Coordinates2D) {
-		return $this->ChunkProvider->generateChunk($Coordinates2D);
+		$chunk = $this->getChunk($Coordinates2D);
+
+		if ($chunk) {
+			return $chunk;
+		} else {
+			$new_chunk = $this->ChunkProvider->generateChunk($Coordinates2D);
+			return $this->setChunk($Coordinates2D, $new_chunk);
+		}
 	}
 
 	public function setBlockId($Coordinates3D, $id) {

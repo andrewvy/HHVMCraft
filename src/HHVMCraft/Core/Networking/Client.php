@@ -65,6 +65,7 @@ class Client {
 	public function updateChunks() {
 		$i = 0;
 		$j = 0;
+
 		$Coordinates2D = new Coordinates2D($i, $j);
 		$chunk = $this->World->generateChunk($Coordinates2D);
 		$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);

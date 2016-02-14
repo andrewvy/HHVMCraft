@@ -52,6 +52,10 @@ class ItemStack {
 		return ($this->id == -1);
 	}
 
+	public function toString() {
+		return sprintf('<id: %d, count: %d>', $this->id, $this->icount);
+	}
+
 	public function toStream($StreamWrapper) {
 		// Handle NBT compressed data stream -> Int8 array
 
