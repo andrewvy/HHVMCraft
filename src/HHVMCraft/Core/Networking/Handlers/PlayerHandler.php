@@ -56,6 +56,6 @@ class PlayerHandler {
 	public static function HandleBlockPlacement($Packet, $Client, $Server) {
 		$broadcastPacket = new BlockChangePacket($Packet->x, $Packet->y, $Packet->z, $Packet->blockid, 0x00);
 
-		$Client->enqueuePacket($broadcastPacket);
+		$Server->broadcastPacket($broadcastPacket);
 	}
 }

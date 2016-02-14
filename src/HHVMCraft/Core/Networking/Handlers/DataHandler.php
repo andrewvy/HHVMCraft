@@ -13,14 +13,6 @@ class DataHandler {
 		// Do nothing for now
 	}
 
-	public static function HandleChatMessage($Packet, $Client, $Server) {
-		if ($Packet->message[0] == "/") {
-		} else {
-			$message = "<" . $Client->username . "> " . $Packet->message;
-			$Server->sendMessage($message);
-		}
-	}
-
 	public static function HandleDisconnect($Packet, $Client, $Server) {
 		// If called, this means we've read a serverbound packet that a client has disconnected.
 

@@ -9,6 +9,7 @@
 namespace HHVMCraft\Core\Networking\Handlers;
 
 use HHVMCraft\API\Coordinates3D;
+use HHVMCraft\Core\Networking\Packets\WindowItemsPacket;
 use HHVMCraft\Core\Networking\Packets\UpdateHealthPacket;
 
 class ChatHandler {
@@ -23,6 +24,8 @@ class ChatHandler {
 
 	public static function handleCommand($message="", $Client, $Server) {
 		$args = explode(" ", $message);
+		$args_count = count($args);
+
 		switch ($args[0]) {
 			case "/buffer":
 				$count = "Buffer is: ".count($Client->streamWrapper->streamBuffer);
@@ -48,6 +51,34 @@ class ChatHandler {
 				$coords = new Coordinates3D($x, $y, $z);
 
 				$Client->sendMessage($coords->toString());
+				break;
+			case "/give":
+				// give a stack of the given item id to the client
+				// /give 5 <- gives 64 of item_id: 5
+				// /give 5 32 <- gives 32 of item_id: 5
+
+				if (!is_numeric($args[1])) {
+					return $Client->sendMessage("/give [id] [count]. Numerical Item ID needed!");
+				}
+
+				if ($args_count == 3 && !is_numeric($args[2])) {
+					return $Client->sendMessage("/give [id] [count]. Numerical Item count needed!");
+				} else if ($args_count == 3) {
+					$item_count = (int) $args[2];
+				} else {
+					$item_count = 0x40;
+				}
+
+				$item_id = (int) $args[1];
+
+				if ($item_id > 0x00) {
+					$Client->setItem($item_id, $item_count);
+					$Client->enqueuePacket(new WindowItemsPacket(0, $Client->Inventory->getSlots()));
+					return $Client->sendMessage("Successfully gave a stack of " . $args[1]);
+				} else {
+					return $Client->sendMessage("Item ID given was not a valid item id.");
+				}
+
 				break;
 			default:
 				$Client->sendMessage("Command not recognized!");
