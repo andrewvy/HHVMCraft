@@ -5,7 +5,7 @@ Works on PHP 7.0.0 RC6 and HHVM 3.10.1!
 [![Build Status](https://travis-ci.org/andrewvy/HHVMCraft.svg?branch=master)](https://travis-ci.org/andrewvy/HHVMCraft)
 
 A Minecraft Beta 1.7.3 Server implemented in PHP, based off of 
-[Truecraft's implementation](https://github.com/SirCmpwn/TrueCraft).
+[Truecraft's implementation](https://github.com/SirCmpwn/TrueCraft). Powered by [ReactPHP](http://reactphp.org/) (with some parts patched).
 
 ![demo](https://github.com/andrewvy/HHVMCraft/raw/master/docs/demo.png)
 
