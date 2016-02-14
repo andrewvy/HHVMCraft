@@ -54,7 +54,39 @@ class PlayerHandler {
 	}
 
 	public static function HandleBlockPlacement($Packet, $Client, $Server) {
-		$broadcastPacket = new BlockChangePacket($Packet->x, $Packet->y, $Packet->z, $Packet->blockid, 0x00);
+		// DIRECTION
+		//  0    1   2   3   4   5
+		//  -Y	+Y	-Z	+Z	-X	+X
+
+		$direction = $Packet->direction;
+		$x = $Packet->x;
+		$y = $Packet->y;
+		$z = $Packet->z;
+
+		switch ($direction) {
+			case 0:
+				$y--;
+				break;
+			case 1:
+				$y++;
+				break;
+			case 2:
+				$z--;
+				break;
+			case 3:
+				$z++;
+				break;
+			case 4:
+				$x--;
+				break;
+			case 5:
+				$x++;
+				break;
+			default:
+				return 0;
+		}
+
+		$broadcastPacket = new BlockChangePacket($x, $y, $z, $Packet->blockid, 0x00);
 
 		$Server->broadcastPacket($broadcastPacket);
 	}
