@@ -1,4 +1,4 @@
-# HHVMCraft
+![logo](https://github.com/andrewvy/HHVMCraft/raw/master/docs/hhvmcraft.png)
 
 Works on PHP 7.0.0 RC6 and HHVM 3.10.1!
 
