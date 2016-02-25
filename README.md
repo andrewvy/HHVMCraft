@@ -34,9 +34,9 @@ application. :)
 As you can tell, this is not the most performant implementation. It's being
 developed in a way that's fast to code, and readable.
 
-I am also not a PHP programmer, nor do I know much about socket programming! ;)
+I am also not a PHP programmer, or an advanced-level programmer, nor do I know much about socket programming! ;)
 
-So if you have any comments, please feel free to create an issue.
+So if you have any comments or if you have any crazy fun/interesting ideas for me to consider, please feel free to create an Github issue!
 
 ## Current Progress
 
