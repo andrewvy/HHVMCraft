@@ -117,6 +117,9 @@ class MultiplayerServer extends EventEmitter {
 			$Client->disconnect();
 		}
 
+		$Client->connection->handleClose();
+		$Client->connection->close();
+
 		unset($this->Clients[$Client->uuid]);
 
 		$this->sendMessage($Client->username." has disconnected from the server.");
