@@ -65,9 +65,9 @@ class MultiplayerServer extends EventEmitter {
 
 		$this->socket->listen($port);
 
-//		$this->loop->addPeriodicTimer($this->tickRate, function () {
-//			$this->EntityManager->update();
-//		});
+		$this->loop->addPeriodicTimer($this->tickRate, function () {
+			$this->EntityManager->update();
+		});
 
 		$this->loop->addPeriodicTimer(1, function () {
 			$this->emitKeepAlive();

@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\Entities;
 
 use Evenement\EventEmitter;
+use HHVMCraft\API\Coordinates3D;
 use HHVMCraft\Core\Networking\Packets\DestroyEntityPacket;
 use HHVMCraft\Core\Networking\Packets\EntityMetadataPacket;
 use HHVMCraft\Core\Networking\Packets\EntityTeleportPacket;
@@ -204,5 +205,25 @@ class EntityManager {
 		$PlayerEntity = new PlayerEntity($client, $this->Event);
 		array_push($this->entities, $PlayerEntity);
 		return $PlayerEntity;
+	}
+
+	public function checkForBlockingEntities($Coordinates3D) {
+		$roundedCoordinates = Coordinates3D::rounded($Coordinates3D);
+		$result = false;
+
+
+		// TODO(vy): Ensure we check for the entity height for the 3D bounding box.
+
+		foreach ($this->entities as $entity) {
+			$entityCoordinates = Coordinates3D::rounded($entity->Position);
+
+			if ($roundedCoordinates->equalsCoordinates($entityCoordinates->x, $entityCoordinates->y, $entityCoordinates->z) ||
+				$roundedCoordinates->equalsCoordinates($entityCoordinates->x, $entityCoordinates->y + 1, $entityCoordinates->z)) {
+				$result = true;
+				break;
+			}
+		}
+
+		return $result;
 	}
 }

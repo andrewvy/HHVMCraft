@@ -113,7 +113,7 @@ class StreamWrapper {
 	}
 
 	public function readDouble() {
-		return unpack("d", $this->read(8))[1];
+		return unpack("d", strrev($this->read(8)))[1];
 	}
 
 	public function writeDouble($data) {

@@ -156,4 +156,16 @@ class Coordinates3D {
 			return false;
 		}
 	}
+
+	public function equalsCoordinates($x, $y, $z) {
+		if ($this->x == $x && $this->y == $y && $this->z == $z) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static function rounded($Coordinates3D) {
+		return new self((int) $Coordinates3D->x, (int) $Coordinates3D->y, (int) $Coordinates3D->z);
+	}
 }

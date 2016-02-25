@@ -87,9 +87,12 @@ class PlayerHandler {
 				return 0;
 		}
 
-		$broadcastPacket = new BlockChangePacket($x, $y, $z, $Packet->blockid, 0x00);
+		$Coordinates3D = new Coordinates3D($x, $y, $z);
 
-		$Server->broadcastPacket($broadcastPacket);
+		if (!$Server->EntityManager->checkForBlockingEntities($Coordinates3D)) {
+			$broadcastPacket = new BlockChangePacket($x, $y, $z, $Packet->blockid, 0x00);
+			$Server->broadcastPacket($broadcastPacket);
+		}
 	}
 
 	public static function HandleDigging($Packet, $Client, $Server) {

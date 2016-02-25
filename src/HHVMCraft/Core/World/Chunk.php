@@ -139,8 +139,6 @@ class Chunk {
 				$deserialized .= chr(0xFF);
 			}
 			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= chr(0xFF);
-				$deserialized .= chr(0xFF);
 			}
 		} catch (Exception $e) {
    			echo 'Caught exception: ',  $e->getMessage(), "\n";
