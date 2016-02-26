@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\World;
 
 use HHVMCraft\API\Coordinates2D;
+use HHVMCraft\API\Coordinates3D;
 use HHVMCraft\Core\TerrainGen\FlatlandGenerator;
 
 class World {
@@ -78,10 +79,11 @@ class World {
 		$chunkX = $Coordinates3D->x >> 4;
 		$chunkZ = $Coordinates3D->z >> 4;
 
+		$normalizedBlockCoordinates = new Coordinates3D($Coordinates3D->x % 16, $Coordinates3D->y % 128, $Coordinates3D->z % 16);
 		$coordinates = new Coordinates2D($chunkX, $chunkZ);
-		$chunk = $this->generateChunk($coordinates);
 
-		$chunk->setBlockID($Coordinates3D, $id);
+		$chunk = $this->generateChunk($coordinates);
+		$chunk->setBlockID($normalizedBlockCoordinates, $id);
 	}
 
 }
