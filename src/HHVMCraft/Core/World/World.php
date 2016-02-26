@@ -44,7 +44,6 @@ class World {
 
 	public function getChunk($Coordinates2D) {
 		if (array_key_exists($Coordinates2D->toString(), $this->Chunks)) {
-			print "chunk found!".PHP_EOL;
 			return $this->Chunks[$Coordinates2D->toString()];
 		} else {
 			return null;

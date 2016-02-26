@@ -84,6 +84,14 @@ class ChatHandler {
 			case "/heart":
 				return $Client->sendMessage("<3");
 				break;
+			case "/rename":
+				if ($args_count != 2) { return; }
+
+				$Server->sendMessage($Client->username . " has changed their name to: " . $args[1]);
+
+				$Client->username = $args[1];
+				$Client->PlayerEntity->username = $args[1];
+				break;
 			default:
 				$Client->sendMessage("Command not recognized!");
 		}
