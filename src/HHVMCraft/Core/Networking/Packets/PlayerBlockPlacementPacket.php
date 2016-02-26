@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class PlayerBlockPlacementPacket {
 	const id = 0x0F;
 
@@ -18,7 +20,7 @@ class PlayerBlockPlacementPacket {
 	public $amount;
 	public $damage;
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->x = $StreamWrapper->readInt();
 		$this->y = $StreamWrapper->readInt8();
 		$this->z = $StreamWrapper->readInt();

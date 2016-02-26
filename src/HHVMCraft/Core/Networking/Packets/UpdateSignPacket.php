@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class UpdateSignPacket {
 	const id = 0x82;
 	public $x;
@@ -27,7 +29,7 @@ class UpdateSignPacket {
 		$this->text4 = $text4;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt($this->x) .
 			$StreamWrapper->writeInt16($this->y) .

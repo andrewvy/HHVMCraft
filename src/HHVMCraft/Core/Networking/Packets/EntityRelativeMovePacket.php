@@ -7,6 +7,8 @@
 */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class EntityRelativeMovePacket {
 	const id = 0x1F;
 
@@ -22,7 +24,7 @@ class EntityRelativeMovePacket {
 		$this->dZ = $dZ;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt($this->eid) .
 			$StreamWrapper->writeInt8($this->dX) .

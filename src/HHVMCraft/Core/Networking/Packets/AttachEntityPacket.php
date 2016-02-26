@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class AttachEntityPacket {
 	const id = 0x27;
 	public $entity_id;
@@ -17,7 +19,7 @@ class AttachEntityPacket {
 		$this->vehicle_id = $vehicle_id;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$p = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->entity_id) .
 		$StreamWrapper->writeInt($this->vehicle_id);

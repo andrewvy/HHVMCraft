@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class UpdateProgressBarPacket {
 	const id = 0x69;
 	public $window_id;
@@ -19,7 +21,7 @@ class UpdateProgressBarPacket {
 		$this->progress_value = $progress_value;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$p = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt8($this->window_id) .
 		$StreamWrapper->writeInt16($this->progress_bar) .

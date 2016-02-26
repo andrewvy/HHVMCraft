@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 use HHVMCraft\Core\Helpers\Hex;
+use HHVMCraft\Core\Networking\StreamWrapper;
 use HHVMCraft\Core\World\Chunk;
 
 class ChunkDataPacket {
@@ -32,7 +33,7 @@ class ChunkDataPacket {
 		$this->BlockData = $BlockData;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt16($this->y) .

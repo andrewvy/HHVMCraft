@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class EntityVelocityPacket {
 	const id = 0x1c;
 	public $entityId;
@@ -21,7 +23,7 @@ class EntityVelocityPacket {
 		$this->zVel = $zVel;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->entityId) .
 		$StreamWrapper->writeInt16($this->xVel) .

@@ -7,6 +7,8 @@
 */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class ChatMessagePacket {
 	const id = 0x03;
 	public $message;
@@ -15,7 +17,7 @@ class ChatMessagePacket {
 		$this->message = $message;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt16(strlen($this->message)) .
 		$StreamWrapper->writeString16($this->message);
@@ -23,7 +25,7 @@ class ChatMessagePacket {
 		return $StreamWrapper->writePacket($str);
 	}
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->message = $StreamWrapper->readString16();
 	}
 }

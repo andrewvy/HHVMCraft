@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class EntityTeleportPacket {
 	const id = 0x22;
 	public $entityId;
@@ -25,7 +27,7 @@ class EntityTeleportPacket {
 		$this->pitch = $pitch;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt($this->y) .

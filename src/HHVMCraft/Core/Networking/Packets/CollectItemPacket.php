@@ -8,6 +8,8 @@
 
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class CollectItemPacket {
 	const id = 0x16;
 
@@ -19,12 +21,12 @@ class CollectItemPacket {
 		$this->collector_eid = $collector_eid;
 	}
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->collected_eid = $StreamWrapper->readInt();
 		$this->collector_eid = $StreamWrapper->readInt();
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 
 	}
 }
