@@ -8,6 +8,7 @@
 namespace HHVMCraft\Core\Networking\Packets;
 
 use HHVMCraft\Core\Helpers\Hex;
+use HHVMCraft\Core\World\Chunk;
 
 class ChunkDataPacket {
 	const id = 0x33;
@@ -24,7 +25,7 @@ class ChunkDataPacket {
 	public function __construct($x, $y, $z, $Width, $Height, $Depth, $BlockData) {
 		$this->x = $x;
 		$this->y = $y;
-		$this->z = $y;
+		$this->z = $z;
 		$this->Width = $Width - 1;
 		$this->Height = $Height - 1;
 		$this->Depth = $Depth - 1;

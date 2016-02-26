@@ -69,7 +69,7 @@ class Chunk {
 		return $this->getBlockLight[$index];
 	}
 
-	public function setBlockId($Coordinates3D, $val) {
+	public function setBlockID($Coordinates3D, $val) {
 		$this->lastAccessed = new \DateTime(null, new \DateTimeZone('Pacific/Nauru'));
 		$this->isModified = true;
 		$index = $Coordinates3D->y + ($Coordinates3D->z * self::Height) + ($Coordinates3D->x * self::Height * self::Width);
@@ -80,7 +80,7 @@ class Chunk {
 			if ($oldHeight < $Coordinates3D->y) {
 				while ($Coordinates3D->y > 0) {
 					$Coordinates3D->y--;
-					if ($this->getBlockId($Coordinates3D) != 0x00) {
+					if ($this->getBlockID($Coordinates3D) != 0x00) {
 						$this->setHeight($Coordinates3D->x, $Coordinates3D->z, $Coordinates3D->y);
 					}
 				}

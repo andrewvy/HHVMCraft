@@ -70,7 +70,13 @@ class World {
 	}
 
 	public function setBlockId($Coordinates3D, $id) {
+		$chunkX = $Coordinates3D->x >> 4;
+		$chunkZ = $Coordinates3D->z >> 4;
 
+		$coordinates = new Coordinates2D($chunkX, $chunkZ);
+		$chunk = $this->generateChunk($coordinates);
+
+		$chunk->setBlockID($Coordinates3D, $id);
 	}
 
 }

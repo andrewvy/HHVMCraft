@@ -89,7 +89,12 @@ class PlayerHandler {
 
 		$Coordinates3D = new Coordinates3D($x, $y, $z);
 
+		if ($Packet->blockid == 0xFFFF) {
+			return $Server->sendMessage("Use item not implemented yet!");
+		}
+
 		if (!$Server->EntityManager->checkForBlockingEntities($Coordinates3D)) {
+			$Server->World->setBlockID($Coordinates3D, $Packet->blockid);
 			$broadcastPacket = new BlockChangePacket($x, $y, $z, $Packet->blockid, 0x00);
 			$Server->broadcastPacket($broadcastPacket);
 		}
@@ -121,6 +126,7 @@ class PlayerHandler {
 				if ($slot_index > -1) {
 				}
 
+				$Server->World->setBlockID($coords, 0x00);
 				$broadcastPacket = new BlockChangePacket($x, $y, $z, 0x00, 0x00);
 				$Server->broadcastPacket($broadcastPacket);
 				break;
