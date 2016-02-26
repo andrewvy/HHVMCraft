@@ -7,6 +7,8 @@
 */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class WindowItemsPacket {
 	const id = 0x68;
 	public $windowId;
@@ -17,7 +19,7 @@ class WindowItemsPacket {
 		$this->items = $items;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt8($this->windowId) .
 		$StreamWrapper->writeInt16(count($this->items));

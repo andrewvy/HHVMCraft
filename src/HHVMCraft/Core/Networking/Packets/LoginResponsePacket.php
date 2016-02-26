@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class LoginResponsePacket {
 	const id = 0x01;
 	public $Dimension;
@@ -19,7 +21,7 @@ class LoginResponsePacket {
 		$this->Dimension = $dimension;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$p = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->EntityID) .
 		$StreamWrapper->writeInt16(0) .

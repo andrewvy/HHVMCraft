@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class PlayerPositionAndLookPacket {
 	const id = 0x0D;
 
@@ -18,7 +20,7 @@ class PlayerPositionAndLookPacket {
 	public $pitch;
 	public $onGround;
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->x = $StreamWrapper->readDouble();
 		$this->y = $StreamWrapper->readDouble();
 		$this->stance = $StreamWrapper->readDouble();

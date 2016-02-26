@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class SetSlotPacket {
 	const id = 0x67;
 	public $window_id;
@@ -23,7 +25,7 @@ class SetSlotPacket {
 		$this->item_uses = $item_uses;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt8($this->window_id) .
 			$StreamWrapper->writeInt16($this->slot) .

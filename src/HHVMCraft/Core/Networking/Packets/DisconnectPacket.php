@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class DisconnectPacket {
 	const id = 0xFF;
 	public $reason;
@@ -15,7 +17,7 @@ class DisconnectPacket {
 		$this->reason = $reason;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt16(strlen($this->reason)) .
 		$StreamWrapper->writeString16($this->reason);
@@ -23,7 +25,7 @@ class DisconnectPacket {
 		return $StreamWrapper->writePacket($str);
 	}
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->reason = $StreamWrapper->readString16();
 	}
 }

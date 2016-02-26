@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class UpdateHealthPacket {
 	const id = 0x08;
 	public $health;
@@ -15,7 +17,7 @@ class UpdateHealthPacket {
 		$this->health = $health;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$p = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt16($this->health);
 

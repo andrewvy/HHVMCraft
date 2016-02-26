@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class SoundEffectPacket {
 	const id = 0x3D;
 	public $effectId;
@@ -23,7 +25,7 @@ class SoundEffectPacket {
 		$this->soundData = $soundData;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt($this->effectId) .
 			$StreamWrapper->writeInt($this->x) .

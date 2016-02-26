@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class PlayerDiggingPacket {
 	const id = 0x0E;
 
@@ -21,7 +23,7 @@ class PlayerDiggingPacket {
 	public $z;
 	public $face;
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->status = $StreamWrapper->readInt8();
 		$this->x = $StreamWrapper->readInt();
 		$this->y = $StreamWrapper->readInt8();

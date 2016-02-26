@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class OpenWindowPacket {
 	const id = 0x64;
 	public $windowId;
@@ -21,7 +23,7 @@ class OpenWindowPacket {
 		$this->numberOfSlots = $numberOfSlots;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 			$StreamWrapper->writeInt8($this->windowId) .
 			$StreamWrapper->writeInt8($this->inventoryType) .

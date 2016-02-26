@@ -8,6 +8,8 @@
 
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class PickupSpawnPacket {
 	const id = 0x15;
 
@@ -22,7 +24,7 @@ class PickupSpawnPacket {
 	public $pitch;
 	public $roll;
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->eid = $StreamWrapper->readInt();
 		$this->item = $StreamWrapper->readInt16();
 		$this->itemcount = $StreamWrapper->readInt8();

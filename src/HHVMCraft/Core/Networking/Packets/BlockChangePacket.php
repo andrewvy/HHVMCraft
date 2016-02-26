@@ -7,6 +7,7 @@
 */
 namespace HHVMCraft\Core\Networking\Packets;
 use HHVMCraft\Core\Helpers\Hex;
+use HHVMCraft\Core\Networking\StreamWrapper;
 
 class BlockChangePacket {
 	const id = 0x35;
@@ -24,7 +25,7 @@ class BlockChangePacket {
 		$this->blockMetadata = $blockMetadata;
 	}
 
-	public function writePacket($StreamWrapper) {
+	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt8($this->y) .

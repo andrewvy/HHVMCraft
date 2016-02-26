@@ -7,6 +7,8 @@
  */
 namespace HHVMCraft\Core\Networking\Packets;
 
+use HHVMCraft\Core\Networking\StreamWrapper;
+
 class PlayerPositionPacket {
 	const id = 0x0B;
 
@@ -16,7 +18,7 @@ class PlayerPositionPacket {
 	public $z;
 	public $onGround;
 
-	public function readPacket($StreamWrapper) {
+	public function readPacket(StreamWrapper $StreamWrapper) {
 		$this->x = $StreamWrapper->readDouble();
 		$this->y = $StreamWrapper->readDouble();
 		$this->stance = $StreamWrapper->readDouble();
