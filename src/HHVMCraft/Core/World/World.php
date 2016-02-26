@@ -43,11 +43,17 @@ class World {
 	}
 
 	public function getChunk($Coordinates2D) {
-		return $this->Chunks[$Coordinates2D->toString()];
+		if (array_key_exists($Coordinates2D->toString(), $this->Chunks)) {
+			print "chunk found!".PHP_EOL;
+			return $this->Chunks[$Coordinates2D->toString()];
+		} else {
+			return null;
+		}
 	}
 
 	public function setChunk($Coordinates2D, $Chunk) {
 		$this->Chunks[$Coordinates2D->toString()] = $Chunk;
+
 		return $Chunk;
 	}
 
