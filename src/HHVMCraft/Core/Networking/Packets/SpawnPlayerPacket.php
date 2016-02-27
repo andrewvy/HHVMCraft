@@ -15,7 +15,7 @@ class SpawnPlayerPacket {
 	public $pitch;
 	public $currentItem;
 
-	public function __construct($entityId, $playerName, $x, $y, $z, $yaw, $pitch, $currentItem) {
+	public function __construct($entityId, $playerName, $x, $y, $z, $yaw, $pitch, $currentItem=0x00) {
 		$this->entityId = $entityId;
 		$this->playerName = $playerName;
 		$this->x = $x;

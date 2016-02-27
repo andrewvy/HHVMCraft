@@ -16,14 +16,18 @@ class PlayerEntity extends LivingEntity {
 	public $isSprinting = false;
 
 	public function __construct($Client, $Event) {
+		parent::__construct($Event);
+
 		$this->username = $Client->username;
 	}
 
 	public function spawnPacket() {
-		return new SpawnPlayerPacket($this->entityId,
-			$this->Position->x,
-			$this->Position->y,
-			$this->Position->z,
+		return new SpawnPlayerPacket(
+			$this->entityId,
+			$this->username,
+			(int) $this->Position->x,
+			(int) $this->Position->y,
+			(int) $this->Position->z,
 			((($this->Yaw % 360) / 360) * 256),
 			((($this->Pitch % 360) / 360) * 256),
 			0);

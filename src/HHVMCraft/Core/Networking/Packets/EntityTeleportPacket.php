@@ -24,6 +24,7 @@ class EntityTeleportPacket {
 
 	public function writePacket(StreamWrapper $StreamWrapper) {
 		$str = $StreamWrapper->writeInt8(self::id) .
+		$StreamWrapper->writeInt($this->entityId) .
 		$StreamWrapper->writeInt($this->x) .
 		$StreamWrapper->writeInt($this->y) .
 		$StreamWrapper->writeInt($this->z) .

@@ -33,6 +33,10 @@ class Entity {
 	}
 
 	public function setPosition($x=0, $y=0, $z=0) {
+		$this->OldPosition->x = $this->Position->x;
+		$this->OldPosition->y = $this->Position->y;
+		$this->OldPosition->z = $this->Position->z;
+
 		$this->Position->x = $x;
 		$this->Position->y = $y;
 		$this->Position->z = $z;
