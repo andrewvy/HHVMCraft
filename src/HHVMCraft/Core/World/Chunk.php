@@ -123,21 +123,8 @@ class Chunk {
 		# TODO (vy): the zlib turns these hex into ascii form of hex
 		# so you will probably have to do decbin or some crazy stuff
 
-		try {
-			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= chr($this->Blocks[$i]);
-			}
-			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= chr(0x00);
-			}
-			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= chr(0xFF);
-			}
-			for ($i = 0; $i < self::Size; $i++) {
-				$deserialized .= chr(0xFF);
-			}
-		} catch (Exception $e) {
-   			echo 'Caught exception: ',  $e->getMessage(), "\n";
+		for ($i = 0; $i < self::Size; $i++) {
+			$deserialized .= chr($this->Blocks[$i]) . chr(0x00) . chr(0xFF) . chr(0xFF);
 		}
 
 		return $deserialized;

@@ -224,7 +224,7 @@ class EntityManager {
 		}
 
 		for ($i = 0; $i < count($this->Server->Clients); $i++) {
-			$client = $this->Server->Clients[$i];
+			$client = array_values($this->Server->Clients)[$i];
 
 			if (in_array($entity->uuid, $client->knownEntities) && $client->Disconnected == false) {
 				$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
@@ -235,7 +235,8 @@ class EntityManager {
 				}
 			}
 
-			unset($this->entities[$entity]);
+			// TODO(vy): Index entities using UUID key->value
+			// unset($this->entities[$entity]);
 		}
 	}
 
