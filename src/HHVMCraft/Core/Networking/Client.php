@@ -28,7 +28,7 @@ class Client {
 	public $knownEntities = [];
 
 	public $loadedChunks = [];
-	public $chunkRadius = 5;
+	public $chunkRadius = 1;
 	public $Inventory;
 
 	public $pktCount = 0;
@@ -57,56 +57,65 @@ class Client {
 		});
 	}
 
-	public function updateChunks() {
-		for ($i = 0; $i < 2; $i++) {
-			for ($j = 0; $j < 2; $j++) {
-				$Coordinates2D = new Coordinates2D($i, $j);
+	//    1     2      3
+	//
+	//
+	//    4   player   5
+	//
+	//
+	//    6     7      8
 
-				$chunk = $this->World->generateChunk($Coordinates2D);
-				$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
-				$data = $this->createChunkPacket($chunk);
-				$this->enqueuePacket($preamble);
-				$this->enqueuePacket($data);
+	public function updateChunks() {
+		$offsetX = $this->PlayerEntity->Position->x >> 4;
+		$offsetZ = $this->PlayerEntity->Position->z >> 4;
+		$startX = $offsetX - $this->chunkRadius;
+		$startZ = $offsetZ - $this->chunkRadius;
+
+		for ($x = $startX; $x < ($offsetX + $this->chunkRadius * 2); $x++) {
+			for ($z = $startZ; $z < ($offsetZ + $this->chunkRadius * 2); $z++) {
+				$Coordinates2D = new Coordinates2D($x, $z);
+				$this->loadChunk($Coordinates2D);
 			}
 		}
 	}
 
 	public function createChunkPacket($chunk) {
-		$x = $chunk->x;
-		$z = $chunk->z;
-
-		$blockdata = $chunk->deserialize();
-		$compress = gzcompress($blockdata);
-
 		return new ChunkDataPacket(
-			$x,
+			$chunk->x,
 			0,
-			$z,
+			$chunk->z,
 			$chunk::Width,
 			$chunk::Height,
 			$chunk::Depth,
-			$compress);
+			gzcompress($chunk->deserialize())
+		);
 	}
 
 	public function enqueuePacket($packet) {
 		$this->Server->writePacket($packet, $this);
 	}
 
-	public function loadChunk($Coordinates2D) {
-		$chunk = $this->World->generateChunk($Coordinates2D);
-		$this->enqueuePacket(new ChunkPreamblePacket($chunk->x, $chunk->z));
-		$this->enqueuePacket($this->createChunkPacket($chunk));
+	public function loadChunk(Coordinates2D $Coordinates2D) {
+		$serialized = $Coordinates2D->toString();
 
-		$serialized = $chunk->x . ":" . $chunk->z;
+		$chunk = $this->World->generateChunk($Coordinates2D);
+		$preamble = new ChunkPreamblePacket($Coordinates2D->x, $Coordinates2D->z);
+		$data = $this->createChunkPacket($chunk);
+		$this->enqueuePacket($preamble);
+		$this->enqueuePacket($data);
 
 		$this->loadedChunks[$serialized] = true;
 	}
 
-	public function unloadChunk($Coordinates2D) {
-		$this->enqueuePacket(new ChunkPreamablePacket($Coordinates2D->x, $Coordiantes2D->z, false));
-		$serialized = $chunk->x . ":" . $chunk->z;
-		unset($this->loadedChunks[$serialized]);
-		$this->loadedChunks = array_values($array);
+	public function unloadChunk(Coordinates2D $Coordinates2D) {
+		$serialized = $Coordinates2D->toString();
+
+		if (in_array($serialized, $this->loadedChunks)) {
+			$this->enqueuePacket(new ChunkPreamablePacket($Coordinates2D->x, $Coordiantes2D->z, false));
+			$serialized = $chunk->x . ":" . $chunk->z;
+			unset($this->loadedChunks[$serialized]);
+			$this->loadedChunks = array_values($array);
+		}
 	}
 
 	public function disconnect() {

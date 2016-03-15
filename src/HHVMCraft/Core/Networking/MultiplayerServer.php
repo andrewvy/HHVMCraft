@@ -81,6 +81,10 @@ class MultiplayerServer extends EventEmitter {
 	public function acceptClient($connection) {
 		$client = new Client($connection, $this);
 		$this->Clients[$client->uuid] = $client;
+
+		$client->connection->on("drain", function() use ($client) {
+			$client->streamWrapper->canWrite = true;
+		});
 	}
 
 	public function handlePacket($client) {
@@ -99,9 +103,11 @@ class MultiplayerServer extends EventEmitter {
 	public function writePacket($packet, $client) {
 		$self = $this;
 
-		$this->loop->nextTick(function() use ($self, $packet, $client) {
-			$self->PacketReader->writePacket($packet, $client);
-		});
+		if ($client->streamWrapper->canWrite) {
+			$this->loop->nextTick(function() use ($self, $packet, $client) {
+				$self->PacketReader->writePacket($packet, $client);
+			});
+		}
 	}
 
 	public function broadcastPacket($packet) {

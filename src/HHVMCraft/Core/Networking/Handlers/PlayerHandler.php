@@ -15,9 +15,7 @@ class PlayerHandler {
 
 	public static function HandlePosition($packet, $client, $server) {
 		// TODO (vy): Actually do server-side checking for position
-		$client->PlayerEntity->Position->x = $packet->x;
-		$client->PlayerEntity->Position->y = $packet->y;
-		$client->PlayerEntity->Position->z = $packet->z;
+		$client->PlayerEntity->setPosition($packet->x, $packet->y, $packet->z);
 	}
 
 	public static function HandleLook($Packet, $Client, $Server) {

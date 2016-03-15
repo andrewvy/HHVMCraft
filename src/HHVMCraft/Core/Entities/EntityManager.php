@@ -31,8 +31,12 @@ class EntityManager {
 	}
 
 	public function handlePropertyChanged($entity, $propertyName) {
-		if (get_class($entity) == "PlayerEntity") {
-			$this->handlePlayerPropertyChanged($propertyName, $entity);
+		if (get_class($entity) == "HHVMCraft\Core\Entities\PlayerEntity") {
+			$client = $this->getClientFromEntity($entity);
+
+			if ($client) {
+				$this->handlePlayerPropertyChanged($propertyName, $entity, $client);
+			}
 		}
 
 		switch ($propertyName) {
@@ -47,33 +51,37 @@ class EntityManager {
 		}
 	}
 
-	public function handlePlayerPropertyChanged($propertyName, $PlayerEntity) {
+	public function handlePlayerPropertyChanged($propertyName, $PlayerEntity, $Client) {
 		switch ($propertyName) {
 			case "Position":
-				if ($playerEntity->Position->x >> 4 != $playerEntity->OldPosition->x >> 4 ||
-					$playerEntitiy->Position->z >> 4 != $playerEntity->OldPosition->z >> 4) {
-					$this->Server->loop->nextTick($client->updateChunks);
-					$this->updateClientEntities($entity->client);
+				if ($PlayerEntity->Position->x >> 4 != $PlayerEntity->OldPosition->x >> 4 ||
+					$PlayerEntity->Position->z >> 4 != $PlayerEntity->OldPosition->z >> 4) {
+
+					$this->Server->loop->nextTick(function() use ($Client) {
+						$Client->updateChunks();
+					});
+
+					$this->updateClientEntities($Client);
 				}
 				break;
 		}
 	}
 
 	public function updateClientEntities($client) {
-		$entity = $client->Entity;
+		$entity = $client->PlayerEntity;
 
 		// Remove entities from the client that have moved out of range of the client.
-		for ($i = 0; $i < count($client->KnownEntities); $i++) {
-			$knownEntity = $client->knownEntities[$i];
+		for ($i = 0; $i < count($client->knownEntities); $i++) {
+			$knownEntity = $this->getEntityFromUUID($client->knownEntities[$i]);
 
 			if ($knownEntity->Position->distanceTo($entity->Position) > $client->chunkRadius * Chunk::Depth) {
 				$client->enqueuePacket(new DestroyEntityPacket($knownEntity->entityId));
 				unset($client->knownEntities[$i]);
 
-				if (get_class($knownEntity) == "PlayerEntity") {
-					$c = $knownEntity->Client;
+				if (get_class($knownEntity) == "HHVMCraft\Core\Entities\PlayerEntity") {
+					$c = $this->getClientFromEntity($knownEntity);
 
-					if (in_array($entity, $c->knownEntities)) {
+					if (in_array($entity->uuid, $c->knownEntities)) {
 						unset($c->knownEntities[$entity]);
 						array_values($c->knownEntities);
 
@@ -88,15 +96,16 @@ class EntityManager {
 
 		// Now get entities that the client should know about
 		$entitiesToSpawn = $this->getEntitiesInRange($entity, $client->chunkRadius);
+
 		foreach ($entitiesToSpawn as $e) {
-			if ($e != $entity && !in_array($e, $client->knownEntities)) {
+			if ($e != $entity && !in_array($e->uuid, $client->knownEntities)) {
 				$this->sendEntityToClient($client, $e);
 
 				// If it's a player, make sure that client knows about this entity.
-				if (get_class($e == "PlayerEntity")) {
-					$c = $e->Client;
+				if (get_class($e) == "HHVMCraft\Core\Entities\PlayerEntity") {
+					$c = $this->getClientFromEntity($e);
 
-					if (!in_array($entity, $c->knownEntities)) {
+					if (!in_array($entity->uuid, $c->knownEntities)) {
 						$this->sendEntityToClient($c, $entity);
 					}
 				}
@@ -104,10 +113,22 @@ class EntityManager {
 		}
 	}
 
+	public function getEntitiesInRange($entity, $chunkRadius) {
+		$entitiesInRange = [];
+
+		foreach ($this->entities as $entityCandidate) {
+			if ($entityCandidate->Position->distanceTo($entity->Position) <= $chunkRadius * Chunk::Depth) {
+				array_push($entitiesInRange, $entityCandidate);
+			}
+		}
+
+		return $entitiesInRange;
+	}
+
 	public function sendEntityToClient($client, $entity) {
 		array_push($client->knownEntities, $entity->uuid);
 
-		$client->enqueuePacket($entity->spawnPacket);
+		$client->enqueuePacket($entity->spawnPacket());
 
 		if (get_class($entity) == "PhysicsEntity") {
 			$client->enqueuePacket(new EntityVelocityPacket(
@@ -117,15 +138,37 @@ class EntityManager {
 		}
 	}
 
-	public function propagateEntityPositionUpdates($sender) {
-		for ($i = 0; $i < count($this->Server->Clients); $i++) {
-			$client = $this->Server->Clients[$i];
+	public function getClientFromEntity($entity) {
+		$match = null;
 
+		foreach ($this->Server->Clients as $client) {
+			if ($client->PlayerEntity == $entity) {
+				$match = $client;
+			}
+		}
+
+		return $match;
+	}
+
+	public function getEntityFromUUID($uuid) {
+		$match = null;
+
+		foreach ($this->entities as $entity) {
+			if ($entity->uuid == $uuid) {
+				$match = $entity;
+			}
+		}
+
+		return $match;
+	}
+
+	public function propagateEntityPositionUpdates($sender) {
+		foreach ($this->Server->Clients as $client) {
 			if ($client->PlayerEntity == $sender) {
 				continue;
 			}
 
-			if (in_array($sender, $client->knownEntities)) {
+			if (in_array($sender->uuid, $client->knownEntities)) {
 				$client->enqueuePacket(new EntityTeleportPacket(
 				$sender->entityId,
 				$sender->Position->x,
@@ -149,7 +192,7 @@ class EntityManager {
 				continue;
 			}
 
-			if (in_array($sender, $client->knownEntities)) {
+			if (in_array($sender->uuid, $client->knownEntities)) {
 				$client->enqueuePacket(new EntityMetadataPacket($entity->entityId, $entity->metadata()));
 			}
 		}
@@ -181,9 +224,9 @@ class EntityManager {
 		}
 
 		for ($i = 0; $i < count($this->Server->Clients); $i++) {
-			$client = $this->Server->Clients[$i];
+			$client = array_values($this->Server->Clients)[$i];
 
-			if (in_array($entity, $client->knownEntities) && $client->Disconnected == false) {
+			if (in_array($entity->uuid, $client->knownEntities) && $client->Disconnected == false) {
 				$client->enqueuePacket(new DestroyEntityPacket($entity->entityId));
 
 				unset($client->knownEntities[$entity]);
@@ -192,7 +235,8 @@ class EntityManager {
 				}
 			}
 
-			unset($this->entities[$entity]);
+			// TODO(vy): Index entities using UUID key->value
+			// unset($this->entities[$entity]);
 		}
 	}
 

@@ -18,6 +18,7 @@ define('BIG_ENDIAN', pack('L', 1) === pack('N', 1));
 class StreamWrapper {
 	public $stream;
 	public $streamBuffer;
+	public $canWrite = true;
 
 	public function __construct($stream) {
 		$this->stream = $stream;
@@ -125,12 +126,16 @@ class StreamWrapper {
 	}
 
 	public function writePacket($data) {
-		$res = $this->stream->write($data);
-		if ($res != false) {
-			return true;
+		$result = false;
+
+		if ($this->stream->isWritable() && $this->stream->write($data)) {
+			$result = true;
 		} else {
-			return false;
+			$this->canWrite = false;
+			$result = false;
 		}
+
+		return $result;
 	}
 
 }
